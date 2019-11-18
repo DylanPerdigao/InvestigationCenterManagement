@@ -11,7 +11,6 @@ public class Main {
         @Deprecated
         Date begin = new Date(100,0,5,10,10);
         @Deprecated
-        //BRUNO COME-ME
         Date end = new Date(100,1,8,10,10);
         ArrayList<Person> pess = new ArrayList<Person>();
 
