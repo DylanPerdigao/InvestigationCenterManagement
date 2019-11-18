@@ -73,6 +73,13 @@ public class Project {
         this.tasks = tasks;
     }
 
+    public Teacher getPrincipalInvestigator() {
+        return principalInvestigator;
+    }
+    public void setPrincipalInvestigator(Teacher principalInvestigator) {
+        this.principalInvestigator = principalInvestigator;
+    }
+
     //Other Functions
     public void addMember(Person person){
         members.add(person);
@@ -107,7 +114,21 @@ public class Project {
         //TODO: Function
     }
 
+    public double projectCost(){
+        double cost=0;
+        //TODO: Function- iterar pelos members e ver o custo de cada um e somar ao cost.
+        return cost;
+    }
 
+    public void endProject(){
+        //TODO: Function
+    }
 
+    //toString
+    @Override
+    public String toString() {
+        String out = "";
+        //TODO: funçao
+        return out;
+    }
 }
-

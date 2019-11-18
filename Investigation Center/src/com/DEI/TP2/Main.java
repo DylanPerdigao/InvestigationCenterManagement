@@ -6,7 +6,7 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
         InvestigationCenter cisuc = new InvestigationCenter( "CISUC");
         @Deprecated
         Date begin = new Date(100,0,5,10,10);
