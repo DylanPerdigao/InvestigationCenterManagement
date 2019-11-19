@@ -15,12 +15,12 @@ public class Project {
 
     //Constructor
     Project(String name, String acronym, Date beginDate, Date endDate, int duration, ArrayList<Person> members){
-        this.name=name;
-        this.acronym=acronym;
-        this.beginDate=beginDate;
-        this.endDate=endDate;
-        this.duration=duration;
-        this.members=members;
+        setName(name);
+        setAcronym(acronym);
+        setBeginDate(beginDate);
+        setEndDate(endDate);
+        setDuration(duration);
+        setMembers(members);
     }
 
     //Getter - Setter

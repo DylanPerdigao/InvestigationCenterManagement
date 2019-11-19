@@ -8,9 +8,10 @@ public class Person {
     private ArrayList<Task> tasks;
 
     //Constructor
-    Person(String name, String email){
-        this.name=name;
-        this.email=email;
+    Person(String name, String email, ArrayList<Task> tasks){
+        setName(name);
+        setEmail(email);
+        setTasks(tasks);
     }
     //Getter - Setter
     public String getName() {

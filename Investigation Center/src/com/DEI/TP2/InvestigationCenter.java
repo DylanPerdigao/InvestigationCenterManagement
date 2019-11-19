@@ -10,9 +10,16 @@ public class InvestigationCenter {
 
 	//Constructor
 	InvestigationCenter(String name){
-		this.name=name;
+		setName(name);
 	}
 	//Getter - Setter
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public ArrayList<Person> getPeople() {
 		return people;
 	}
