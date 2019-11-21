@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class Documentation extends Task {
     //Constructor
-    public Documentation(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible) {
-        super(name, effortRate, beginDate, endDate, duration, responsible);
+    public Documentation(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, boolean status) {
+        super(name, effortRate, beginDate, endDate, duration, responsible, status);
     }
     //Other Functions
 

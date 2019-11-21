@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class InvestigationCenter {
 	//constants
-	public final boolean COMPLETED = true;
-	public final boolean INCOMPLETED = false;
+	public static final boolean COMPLETED = true;
+	public static final boolean UNCOMPLETED = false;
+	
 	//Variables
 	private String name;
 	private ArrayList<Person> people;
@@ -54,13 +55,13 @@ public class InvestigationCenter {
 	}
 
 	public ArrayList<Project> showIncompleted(){
-		ArrayList<Project> incompleted = new ArrayList<Project>();
+		ArrayList<Project> uncompleted = new ArrayList<Project>();
 		for(Project project:projects) {
-			if(project.getStatus()==INCOMPLETED) {
-				incompleted.add(project);
+			if(project.getStatus()==UNCOMPLETED) {
+				uncompleted.add(project);
 			}
 		}
-		return incompleted;
+		return uncompleted;
 	}
 
 	//toString

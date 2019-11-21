@@ -3,12 +3,12 @@ package com.DEI.TP2;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Doctorate extends Grantee {
+public class PhD extends Grantee {
     //Variables
     private final double COST = 1200;
 
     //Constructor
-    public Doctorate(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project) {
+    public PhD(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project) {
         super(name, email, tasks, grantBegin, grantEnd, project);
     }
     //Getters and Setters

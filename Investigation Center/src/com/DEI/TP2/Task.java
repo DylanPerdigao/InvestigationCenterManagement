@@ -9,15 +9,17 @@ public class Task {
     private int duration;
     private LocalDate beginDate, endDate;
     private Person responsible;
+    private boolean status;
 
     //Constructor
-    Task( String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible){
+    Task( String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, boolean status){
         setName(name);
         setBeginDate(beginDate);
         setEndDate(endDate);
         setDuration(duration);
         setEffortRate(effortRate);
         setResponsible(responsible);
+        setStatus(status);
     }
 
     //Getter and Setters
@@ -27,41 +29,42 @@ public class Task {
     public void setEffortRate(double effortRate) {
         this.effortRate = effortRate;
     }
-
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
     }
-
     public LocalDate getBeginDate() {
         return beginDate;
     }
     public void setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
     }
-
     public void setDuration(int duration) {
         this.duration = duration;
     }
     public int getDuration() {
         return duration;
     }
-
     public LocalDate getEndDate() {
         return endDate;
     }
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-
     public void setResponsible(Person responsible) {
         this.responsible = responsible;
     }
     public Person getResponsible() {
         return responsible;
     }
+	public boolean getStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 
     //Other Functions
 
@@ -76,4 +79,6 @@ public class Task {
         		"\nEnd Date: "+this.getEndDate();
         return out;
     }
+
+
 }

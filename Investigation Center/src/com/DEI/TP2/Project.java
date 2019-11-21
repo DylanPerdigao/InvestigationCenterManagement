@@ -4,7 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Project {
-    //Variables
+	//constants
+	public static final boolean COMPLETED = true;
+	public static final boolean UNCOMPLETED = false;
+	
+	//Variables
     private String name, acronym;
     private LocalDate beginDate;
 	private LocalDate endDate;
@@ -89,8 +93,8 @@ public class Project {
         members.add(person);
     }
 
-    public void showTask(){
-        //TODO: printa tasks
+    public ArrayList<Task> showTask(){
+        return this.getTasks();
     }
 
     public Task createTask(Task task){
@@ -102,30 +106,65 @@ public class Project {
         tasks.remove(task);
     }
 
-    public void refreshCompletedTasks(){
-        //TODO: Function
+    public ArrayList<Task> showCompletedTasks(){
+    	ArrayList<Task> completed = new ArrayList<Task>();
+		for(Task task:tasks) {
+			if(task.getStatus()==COMPLETED) {
+				completed.add(task);
+			}
+		}
+		return completed;
     }
 
-    public void showUnstartedTasks(){
-        //TODO: Function
+    public ArrayList<Task> showUnstartedTasks(){
+    	ArrayList<Task> unstarted = new ArrayList<Task>();
+		for(Task task:tasks) {
+			if(LocalDate.now().isBefore(task.getBeginDate())) {
+				unstarted.add(task);
+			}
+		}
+		return unstarted;
     }
 
-    public void showUncompletedTasks(){
-        //TODO: Function
+    public ArrayList<Task> showUncompletedTasks(){
+    	ArrayList<Task> uncompleted = new ArrayList<Task>();
+		for(Task task:tasks) {
+			if(task.getStatus()==UNCOMPLETED) {
+				uncompleted.add(task);
+			}
+		}
+		return uncompleted;
     }
 
-    public void showUncompletedTasksIET(){
-        //TODO: Function
+    public ArrayList<Task> showUncompletedTasksIET(){
+    	ArrayList<Task> uncompleted = new ArrayList<Task>();
+		for(Task task:tasks) {
+			if(task.getStatus()==UNCOMPLETED && LocalDate.now().isAfter(task.getEndDate())) {
+				uncompleted.add(task);
+			}
+		}
+		return uncompleted;
     }
 
     public double projectCost(){
         double cost=0;
-        //TODO: Function- iterar pelos members e ver o custo de cada um e somar ao cost.
+		for(Person member:members) {
+			if(member instanceof Bachelor) {
+				Bachelor bachelorStudent = (Bachelor) member;
+				cost += bachelorStudent.getCost();
+			}if(member instanceof Master) {
+				Master master = (Master) member;
+				cost += master.getCost();
+			}if(member instanceof PhD) {
+				PhD PhDStudent = (PhD) member;
+				cost += PhDStudent.getCost();
+			}
+		}
         return cost;
     }
 
     public void endProject(){
-        //TODO: Function
+        this.status=COMPLETED;
     }
 
     //toString
