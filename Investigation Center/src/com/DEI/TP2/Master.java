@@ -1,15 +1,14 @@
 package com.DEI.TP2;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Master extends OrientedStudent {
     //Variables
-    private ArrayList<Teacher> advisors;
     private final double COST = 1000;
 
     //Constructor
-    public Master(String name, String email, ArrayList<Task> tasks, Date grantBegin, Date grantEnd, Project project, ArrayList<Teacher> advisors) {
+    public Master(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project, ArrayList<Teacher> advisors) {
         super(name, email, tasks, grantBegin, grantEnd, project, advisors);
     }
 
@@ -23,8 +22,14 @@ public class Master extends OrientedStudent {
     //toString
     @Override
     public String toString() {
-        String out = "";
-        //TODO: Function
+        String out = "Name: "+this.getName()+
+    			"\nEmail: "+this.getEmail()+
+        		"\nGrant Begin: "+this.getGrantBegin()+
+        		"\nGrant End: "+this.getGrantEnd()+
+        		"\nTasks: "+this.getTasks()+
+    			"\nProject: "+this.getProject()+
+    			"\nAdvisors: "+this.getAdvisors()+
+    			"\nCost: "+this.getCost();
         return out;
     }
 }

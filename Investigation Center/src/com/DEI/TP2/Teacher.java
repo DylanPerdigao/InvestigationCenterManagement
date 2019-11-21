@@ -45,8 +45,12 @@ public class Teacher extends Person {
 
     @Override
     public String toString() {
-        String out = "";
-        //TODO: Function
+        String out = "Name: "+this.getName()+
+        		"\nMecanographic Number: "+this.getMecanographicNumber()+
+    			"\nEmail: "+this.getEmail()+
+        		"\nInvestigation Area: "+this.getInvestigationArea()+
+        		"\nTasks: "+this.getTasks()+
+    			"\nProjects: "+this.getProjects();
         return out;
     }
 }

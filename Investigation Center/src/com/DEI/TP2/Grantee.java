@@ -1,15 +1,15 @@
 package com.DEI.TP2;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Grantee extends Person{
     //Variables
-    private Date grantBegin, grantEnd;
+    private LocalDate grantBegin, grantEnd;
     private Project project;
 
     //Constructor
-    Grantee(String name, String email, ArrayList<Task> tasks, Date grantBegin, Date grantEnd, Project project){
+    Grantee(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin,LocalDate grantEnd, Project project){
         super(name, email, tasks);
         setGrantBegin(grantBegin);
         setGrantEnd(grantEnd);
@@ -18,17 +18,17 @@ public class Grantee extends Person{
 
     //Getter and Setters
 
-    public Date getGrantBegin() {
+    public LocalDate getGrantBegin() {
         return grantBegin;
     }
-    public void setGrantBegin(Date grantBegin) {
+    public void setGrantBegin(LocalDate grantBegin) {
         this.grantBegin = grantBegin;
     }
 
-    public Date getGrantEnd() {
+    public LocalDate getGrantEnd() {
         return grantEnd;
     }
-    public void setGrantEnd(Date grantEnd) {
+    public void setGrantEnd(LocalDate grantEnd) {
         this.grantEnd = grantEnd;
     }
 
@@ -45,8 +45,12 @@ public class Grantee extends Person{
     //toString
     @Override
     public String toString() {
-        String out = "";
-        //TODO: Function
+        String out = "Name: "+this.getName()+
+    			"\nEmail: "+this.getEmail()+
+        		"\nGrant Begin: "+this.getGrantBegin()+
+        		"\nGrant End: "+this.getGrantEnd()+
+        		"\nTasks: "+this.getTasks()+
+    			"\nProject: "+this.getProject();
         return out;
     }
 }

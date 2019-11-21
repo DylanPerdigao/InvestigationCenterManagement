@@ -1,10 +1,10 @@
 package com.DEI.TP2;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Design extends Task {
     //Constructor
-    public Design(String name, double effortRate, Date beginDate, Date endDate, int duration, Person responsible) {
+    public Design(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible) {
         super(name, effortRate, beginDate, endDate, duration, responsible);
     }
     //Other Functions
@@ -12,8 +12,12 @@ public class Design extends Task {
     //toString
     @Override
     public String toString() {
-        String out = "";
-        //TODO: Function
+        String out = "Name: "+this.getName()+
+        		"\nEffort: "+this.getEffortRate()+
+        		"\nResponsible: "+this.getResponsible()+
+        		"\nDuration (month): "+this.getDuration()+
+        		"\nBegin Date: "+this.getBeginDate()+
+        		"\nEnd Date: "+this.getEndDate();
         return out;
     }
 }

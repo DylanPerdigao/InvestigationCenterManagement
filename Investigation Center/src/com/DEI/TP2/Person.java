@@ -41,8 +41,9 @@ public class Person {
     //toString
     @Override
     public String toString() {
-        String out = "";
-        //TODO: funçao
+        String out = "Name: "+this.getName()+
+        			"\nEmail: "+this.getEmail()+
+        			"\nTasks: "+this.getTasks();
         return out;
     }
 }

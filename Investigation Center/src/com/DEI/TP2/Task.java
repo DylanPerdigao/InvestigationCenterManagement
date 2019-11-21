@@ -1,17 +1,17 @@
 package com.DEI.TP2;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Task {
     //Variables
     private String name;
     private double effortRate;
     private int duration;
-    private Date beginDate, endDate;
+    private LocalDate beginDate, endDate;
     private Person responsible;
 
     //Constructor
-    Task( String name, double effortRate, Date beginDate, Date endDate, int duration, Person responsible){
+    Task( String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible){
         setName(name);
         setBeginDate(beginDate);
         setEndDate(endDate);
@@ -35,10 +35,10 @@ public class Task {
         this.name = name;
     }
 
-    public Date getBeginDate() {
+    public LocalDate getBeginDate() {
         return beginDate;
     }
-    public void setBeginDate(Date beginDate) {
+    public void setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
     }
 
@@ -49,10 +49,10 @@ public class Task {
         return duration;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -68,8 +68,12 @@ public class Task {
     //toString
     @Override
     public String toString() {
-        String out = "";
-        //TODO: Function
+        String out = "Name: "+this.getName()+
+        		"\nEffort: "+this.getEffortRate()+
+        		"\nResponsible: "+this.getResponsible()+
+        		"\nDuration (month): "+this.getDuration()+
+        		"\nBegin Date: "+this.getBeginDate()+
+        		"\nEnd Date: "+this.getEndDate();
         return out;
     }
 }

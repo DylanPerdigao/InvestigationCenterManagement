@@ -1,12 +1,13 @@
 package com.DEI.TP2;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Project {
     //Variables
     private String name, acronym;
-    private Date beginDate, endDate;
+    private LocalDate beginDate;
+	private LocalDate endDate;
     private int duration;               //months
     private ArrayList<Person> members;
     private Teacher principalInvestigator;
@@ -14,11 +15,11 @@ public class Project {
 
 
     //Constructor
-    Project(String name, String acronym, Date beginDate, Date endDate, int duration, ArrayList<Person> members){
+    Project(String name, String acronym, LocalDate begin, LocalDate end, int duration, ArrayList<Person> members){
         setName(name);
         setAcronym(acronym);
-        setBeginDate(beginDate);
-        setEndDate(endDate);
+        setBeginDate(begin);
+        setEndDate(end);
         setDuration(duration);
         setMembers(members);
     }
@@ -38,18 +39,18 @@ public class Project {
         this.acronym = acronym;
     }
 
-    public Date getBeginDate() {
+    public LocalDate getBeginDate() {
         return beginDate;
     }
-    public void setBeginDate(Date beginDate) {
-        this.beginDate = beginDate;
+    public void setBeginDate(LocalDate begin) {
+        this.beginDate = begin;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndDate(LocalDate end) {
+        this.endDate = end;
     }
 
     public int getDuration() {
@@ -127,8 +128,14 @@ public class Project {
     //toString
     @Override
     public String toString() {
-        String out = "";
-        //TODO: funçao
-        return out;
+        String out = "Name: "+this.getName()+
+        		"\nEffort: "+this.getAcronym()+
+        		"\nPr. Investigator: "+this.getPrincipalInvestigator()+
+        		"\nMembers: "+this.getMembers()+
+        		"\nTasks: "+this.getTasks()+
+        		"\nDuration: "+this.getDuration()+
+        		"\nBegin Date: "+this.getBeginDate()+
+        		"\nEnd Date: "+this.getEndDate();
+		return out;
     }
 }

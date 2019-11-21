@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class InvestigationCenter {
 	//Variables
 	private String name;
-	private ArrayList<Person> people = new ArrayList<>();
-	private ArrayList<Project> projects  = new ArrayList<>();
+	private ArrayList<Person> people = new ArrayList<Person>();
+	private ArrayList<Project> projects  = new ArrayList<Project>();
 
 	//Constructor
 	InvestigationCenter(String name){
@@ -55,8 +55,10 @@ public class InvestigationCenter {
 	//toString
 	@Override
 	public String toString() {
-		String out = "";
-		//TODO: funçao
+        String out = "Name: "+this.getName()+
+        		"\nPeople: "+this.getPeople()+
+        		"\nProjects: "+this.getProjects();
+
 		return out;
 	}
 }
