@@ -3,7 +3,7 @@ package com.DEI.TP2;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Bachelor extends OrientedStudent {
+public class Bachelor extends AdvisedStudent {
     //Variables
     private final double COST = 800;
 

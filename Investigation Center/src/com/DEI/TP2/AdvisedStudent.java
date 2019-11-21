@@ -3,12 +3,12 @@ package com.DEI.TP2;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class OrientedStudent extends  Grantee {
+public class AdvisedStudent extends  Grantee {
     //Variables
     private ArrayList<Teacher> advisors;
 
     //Constructor
-    public OrientedStudent(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project, ArrayList<Teacher> advisors) {
+    public AdvisedStudent(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project, ArrayList<Teacher> advisors) {
         super(name, email, tasks, grantBegin, grantEnd, project);
         this.advisors = advisors;
     }
