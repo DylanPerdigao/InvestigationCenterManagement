@@ -20,14 +20,12 @@ public class Person {
     public void setName(String name) {
         this.name = name;
     }
-
     public String getEmail() {
         return email;
     }
     public void setEmail(String email) {
         this.email = email;
     }
-
     public ArrayList<Task> getTasks() {
         return tasks;
     }
@@ -36,7 +34,17 @@ public class Person {
     }
 
     //Other Functions
-
+    public boolean isSurcharged(Task newTask) {
+    	double effort = newTask.getEffortRate();
+    	for(Task task: tasks) {
+    		effort+=task.getEffortRate();
+    	}
+    	if(effort>1) {
+    		return true;
+    	}else {
+    		return false;
+    	}
+    }
 
     //toString
     @Override
