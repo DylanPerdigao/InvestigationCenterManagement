@@ -3,14 +3,19 @@ package com.DEI.TP2;
 import java.util.ArrayList;
 
 public class InvestigationCenter {
+	//constants
+	public final boolean COMPLETED = true;
+	public final boolean INCOMPLETED = false;
 	//Variables
 	private String name;
-	private ArrayList<Person> people = new ArrayList<Person>();
-	private ArrayList<Project> projects  = new ArrayList<Project>();
+	private ArrayList<Person> people;
+	private ArrayList<Project> projects;
 
 	//Constructor
-	InvestigationCenter(String name){
+	InvestigationCenter(String name,ArrayList<Person> people,ArrayList<Project> projects){
 		setName(name);
+		setPeople(people);
+		setProjects(projects);
 	}
 	//Getter - Setter
 	public String getName() {
@@ -19,14 +24,12 @@ public class InvestigationCenter {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public ArrayList<Person> getPeople() {
 		return people;
 	}
 	public void setPeople(ArrayList<Person> people) {
 		this.people = people;
 	}
-
 	public ArrayList<Project> getProjects() {
 		return projects;
 	}
@@ -41,14 +44,22 @@ public class InvestigationCenter {
 	}
 
 	public ArrayList<Project> showCompleted(){
-		ArrayList<Project> completed = new ArrayList<>();
-		//TODO: funçao
+		ArrayList<Project> completed = new ArrayList<Project>();
+		for(Project project:projects) {
+			if(project.getStatus()==COMPLETED) {
+				completed.add(project);
+			}
+		}
 		return completed;
 	}
 
 	public ArrayList<Project> showIncompleted(){
-		ArrayList<Project> incompleted = new ArrayList<>();
-		//TODO: funçao
+		ArrayList<Project> incompleted = new ArrayList<Project>();
+		for(Project project:projects) {
+			if(project.getStatus()==INCOMPLETED) {
+				incompleted.add(project);
+			}
+		}
 		return incompleted;
 	}
 
