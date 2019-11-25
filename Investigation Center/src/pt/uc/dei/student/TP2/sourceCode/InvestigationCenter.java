@@ -67,10 +67,6 @@ public class InvestigationCenter {
 	//toString
 	@Override
 	public String toString() {
-        String out = "Name: "+this.getName()+
-        		"\nPeople: "+this.getPeople()+
-        		"\nProjects: "+this.getProjects();
-
-		return out;
+		return this.getName();
 	}
 }

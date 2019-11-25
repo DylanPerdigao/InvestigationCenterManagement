@@ -1,29 +1,42 @@
 package pt.uc.dei.student.TP2.sourceCode;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		JFrame frame = new JFrame();
 		frame.setTitle("Investigation Center"); 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	    frame.setSize(screenSize.width, screenSize.height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+
+		frame.add(mainGUI(frame.getWidth(),frame.getHeight()));
 		
+		//frame.pack();
+		frame.setVisible(true);
 		/*File peopleFile = new File("people.txt");
 		for(String line:read(peopleFile)) {
 			
@@ -61,4 +74,50 @@ public class Main {
 		}
 		return lines;
 	}*/
+
+	private static JPanel mainGUI(int x, int y) {	
+		// Buttons
+		JButton buttonCREATE = new JButton("Create new Investigation Center"); 
+		JButton buttonENTER = new JButton("Enter in selected Investigation Center"); 
+		// Label
+		DefaultListModel<InvestigationCenter> listValues = new DefaultListModel<InvestigationCenter>();
+		listValues.add(0, new InvestigationCenter("CISUC", null, null));
+		listValues.add(0, new InvestigationCenter("EPFL", null, null));
+		listValues.add(0, new InvestigationCenter("ERSUC", null, null));
+		JList<InvestigationCenter> list = new JList<InvestigationCenter>(listValues);
+		JScrollPane listScroller = new JScrollPane(list); 
+		// Buttons grid
+		JPanel panelButtons = new JPanel();
+		GridLayout gridButton = new GridLayout(3, 1);
+		panelButtons.setLayout(gridButton);
+		panelButtons.add(buttonCREATE); 
+		panelButtons.add(new JLabel(""));
+		panelButtons.add(buttonENTER); 
+		panelButtons.setOpaque(false);
+		// Main panel
+		JPanel panel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+		    super.paintComponent(g);
+		    Image backgroundImage=null;
+			try {
+				backgroundImage = ImageIO.read(new File("ressources/dei.jpg"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		    g.drawImage(backgroundImage, 0, 0,x,y,this);
+		    
+			}
+		};
+
+		
+		GridLayout grid = new GridLayout(3, 3);
+		
+		panel.setLayout(grid);
+		panel.add(new JLabel(""));panel.add(new JLabel(""));panel.add(new JLabel(""));panel.add(new JLabel(""));
+		panel.add(listScroller);
+		panel.add(panelButtons);
+		panel.add(new JLabel(""));panel.add(new JLabel(""));panel.add(new JLabel(""));
+		return panel;
+	}
 }
