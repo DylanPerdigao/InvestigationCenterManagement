@@ -1,4 +1,4 @@
-package com.DEI.TP2;
+package pt.uc.dei.student.TP2.sourceCode;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

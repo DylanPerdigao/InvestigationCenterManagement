@@ -1,20 +1,22 @@
-package com.DEI.TP2;
+package pt.uc.dei.student.TP2.sourceCode;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class PhD extends Grantee {
+public class Bachelor extends AdvisedStudent {
     //Variables
-    private final double COST = 1200;
+    private final double COST = 800;
 
     //Constructor
-    public PhD(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project) {
-        super(name, email, tasks, grantBegin, grantEnd, project);
+    public Bachelor(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project, ArrayList<Teacher> advisors) {
+        super(name, email, tasks, grantBegin, grantEnd, project,advisors);
     }
+
     //Getters and Setters
-	public double getCost() {
-		return COST;
-	}
+    public double getCost() {
+        return COST;
+    }
+
     //Other Functions
 
     //toString
@@ -26,8 +28,8 @@ public class PhD extends Grantee {
         		"\nGrant End: "+this.getGrantEnd()+
         		"\nTasks: "+this.getTasks()+
     			"\nProject: "+this.getProject()+
+    			"\nAdvisors: "+this.getAdvisors()+
     			"\nCost: "+this.getCost();
         return out;
     }
-
 }

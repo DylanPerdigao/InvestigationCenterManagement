@@ -1,5 +1,7 @@
-package com.DEI.TP2;
+package pt.uc.dei.student.TP2.sourceCode;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,9 +12,18 @@ import java.io.ObjectInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 public class Main {
 
 	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		frame.setTitle("Investigation Center"); 
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	    frame.setSize(screenSize.width, screenSize.height);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
 		/*File peopleFile = new File("people.txt");
 		for(String line:read(peopleFile)) {
 			

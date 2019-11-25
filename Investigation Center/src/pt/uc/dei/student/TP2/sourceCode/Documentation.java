@@ -1,10 +1,10 @@
-package com.DEI.TP2;
+package pt.uc.dei.student.TP2.sourceCode;
 
 import java.time.LocalDate;
 
-public class Design extends Task {
+public class Documentation extends Task {
     //Constructor
-    public Design(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, boolean status) {
+    public Documentation(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, boolean status) {
         super(name, effortRate, beginDate, endDate, duration, responsible, status);
     }
     //Other Functions
