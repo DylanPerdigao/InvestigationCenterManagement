@@ -13,7 +13,7 @@ public class InvestigationCenter {
 	private ArrayList<Project> projects;
 
 	//Constructor
-	InvestigationCenter(String name,ArrayList<Person> people,ArrayList<Project> projects){
+	public InvestigationCenter(String name,ArrayList<Person> people,ArrayList<Project> projects){
 		setName(name);
 		setPeople(people);
 		setProjects(projects);
