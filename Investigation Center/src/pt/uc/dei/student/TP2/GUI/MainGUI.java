@@ -1,11 +1,17 @@
 package pt.uc.dei.student.TP2.GUI;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -47,14 +53,17 @@ public class MainGUI extends JPanel implements ActionListener{
 		list = new JList<InvestigationCenter>(listValues);
 		listScroller = new JScrollPane(list); 
 		// Buttons	
+		/*
 		buttonCREATE.addActionListener(this);
 		buttonREMOVE.addActionListener(this);
 		buttonENTER.addActionListener(this);
+		*/
+		
 		
 		this.setLayout(new GridBagLayout());
-	
-		title = new JLabel("INVESTIGATIONS CENTER");
-		Font font = new Font("impact", 0, 100);
+		
+		title = new JLabel("Investigations Centers Manager");
+		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
 		c.weightx = 0.5;

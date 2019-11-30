@@ -1,34 +1,27 @@
 package pt.uc.dei.student.TP2.sourceCode;
 
-import java.awt.BorderLayout;
-
+import pt.uc.dei.student.TP2.GUI.AdvisedStudentGUI;
+import pt.uc.dei.student.TP2.GUI.InvestigationCenterGUI;
 import pt.uc.dei.student.TP2.GUI.MainGUI;
+import pt.uc.dei.student.TP2.GUI.PhDGUI;
+import pt.uc.dei.student.TP2.GUI.TeacherGUI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
+
 
 public class Main {
 
@@ -55,10 +48,17 @@ public class Main {
 		frame.add(label);
 		//frame.setIconImage(image);*/
 		
-		MainGUI m = new MainGUI(x, y);
-	
-		frame.add(m);
-
+		MainGUI mainGUI = new MainGUI(x, y);
+		InvestigationCenterGUI icGUI = new InvestigationCenterGUI(x,y,"<insert IC name>");
+		AdvisedStudentGUI bachelorGUI = new AdvisedStudentGUI(x,y, "Bachelor Student");
+		AdvisedStudentGUI masterGUI = new AdvisedStudentGUI(x,y, "Master Student");
+		//PhDGUI phdGUI = new PhDGUI(x,y);
+		//TeacherGUI teacherGUI = new TeacherGUI(x,y);
+		frame.add(mainGUI);
+		frame.remove(mainGUI);
+		frame.add(icGUI);
+		frame.remove(icGUI);
+		frame.add(bachelorGUI);
 		frame.setVisible(true);
 		/*File peopleFile = new File("people.txt");
 		for(String line:read(peopleFile)) {
