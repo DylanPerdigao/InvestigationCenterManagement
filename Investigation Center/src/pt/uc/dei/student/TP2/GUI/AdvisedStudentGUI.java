@@ -77,7 +77,7 @@ public class AdvisedStudentGUI extends JPanel{
 
 		emptyLabel1 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
+		c.weightx = 10;
 		c.weighty = 10;
 		c.gridx = 0;
 		c.gridy = 9;
@@ -87,7 +87,7 @@ public class AdvisedStudentGUI extends JPanel{
 
 		emptyLabel2 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
+		c.weightx = 10;
 		c.weighty = 10;
 		c.gridx = 8;
 		c.gridy = 9;
@@ -157,7 +157,7 @@ public class AdvisedStudentGUI extends JPanel{
 		
 		textGrantBeginDay = new JTextField(10); 
 		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
+		c.weightx = 0;
 		c.weighty = 0.5;
 		c.gridx = 2;       
 		c.gridy = 3;
@@ -167,7 +167,7 @@ public class AdvisedStudentGUI extends JPanel{
 		
 		textGrantBeginMonth = new JTextField(10); 
 		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
+		c.weightx = 0;
 		c.weighty = 0.5;
 		c.gridx = 3;       
 		c.gridy = 3;
@@ -177,7 +177,7 @@ public class AdvisedStudentGUI extends JPanel{
 		
 		textGrantBeginYear = new JTextField(10); 
 		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
+		c.weightx = 0;
 		c.weighty = 0.5;
 		c.gridx = 4;       
 		c.gridy = 3;
