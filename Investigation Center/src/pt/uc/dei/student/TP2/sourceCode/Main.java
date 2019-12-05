@@ -22,9 +22,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Main class of the program
+ * 
+ * @author	Dylan Gonçalves Perdigão
+ * @author	Bruno Leitão Faria
+ * @version	1.0
+ * @since	05-12-2019
+ */
 
 public class Main {
-
 	public static void main(String[] args){
 		JFrame frame = new JFrame();
 		frame.setTitle("Investigation Center"); 
