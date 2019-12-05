@@ -22,19 +22,25 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Main class of the program
+ *
+ * @author	Dylan Gonçalves Perdigão
+ * @author	Bruno Leitão Faria
+ * @version	1.0
+ * @since	05-12-2019
+ */
+
 public class Main {
 
 	public static void main(String[] args){
-
-		//TODO: Ler settings do ficheiro
-
-		/*JFrame frame = new JFrame();
-		frame.setTitle("Investigation Center");
+		JFrame frame = new JFrame();
+		frame.setTitle("Investigation Center"); 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	    frame.setSize(screenSize.width, screenSize.height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int x=frame.getWidth();
-		int y=frame.getHeight();*/
+		int y=frame.getHeight();
 
 		/*
 		Image image=null;
@@ -50,28 +56,22 @@ public class Main {
 		frame.add(label);
 		//frame.setIconImage(image);*/
 		
-		MainGUI mainGUI = new MainGUI(/*x, y*/);
-		mainGUI.initialize();
-
-		/*InvestigationCenterGUI icGUI = new InvestigationCenterGUI(x,y,"<insert IC name>");
+		MainGUI mainGUI = new MainGUI(x, y);
+		InvestigationCenterGUI icGUI = new InvestigationCenterGUI(x,y,"<insert IC name>");
 		AdvisedStudentGUI bachelorGUI = new AdvisedStudentGUI(x,y, "Bachelor Student");
 		AdvisedStudentGUI masterGUI = new AdvisedStudentGUI(x,y, "Master Student");
 		PhDGUI phdGUI = new PhDGUI(x,y);
-		TeacherGUI teacherGUI = new TeacherGUI(x,y);*/
-
-		//frame.add(mainGUI);
-		//frame.setVisible(true);
-
-
-		/*frame.remove(mainGUI);
+		TeacherGUI teacherGUI = new TeacherGUI(x,y);
+		frame.add(mainGUI);
+		frame.remove(mainGUI);
 		frame.add(icGUI);
 		frame.remove(icGUI);
 		frame.add(bachelorGUI);
 		frame.remove(bachelorGUI);
 		frame.add(phdGUI);
 		frame.remove(phdGUI);
-		frame.add(teacherGUI);*/
-
+		frame.add(teacherGUI);
+		frame.setVisible(true);
 		/*File peopleFile = new File("people.txt");
 		for(String line:read(peopleFile)) {
 			
