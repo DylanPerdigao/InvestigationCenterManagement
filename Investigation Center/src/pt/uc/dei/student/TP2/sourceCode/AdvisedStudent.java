@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * 
  * @author	Dylan Gonçalves Perdigão
  * @author	Bruno Leitão Faria
- * @version	1.0
  * @since	05-12-2019
+ * @version	1.0
  */
 
 public class AdvisedStudent extends  Grantee {
@@ -19,29 +19,42 @@ public class AdvisedStudent extends  Grantee {
     /**
      * This is the constructor of the advised students object.
      * 
-     * @param name: This is the name of the student.
-     * @param email: This is the email of the student.
-     * @param tasks: This is an ArrayList of Tasks of the student.
-     * @param grantBegin: This is the date when begins the Grant of the student.
-     * @param grantEnd: This is the date when ends the Grant of the student.
-     * @param project: This is the project which the student is assigned to.
-     * @param advisors: This is an ArrayList of the Advisors of the student.
-     *  
+     * @param name	This is the name of the student.
+     * @param email	This is the email of the student.
+     * @param tasks	This is an ArrayList of Tasks of the student.
+     * @param grantBegin	This is the date when begins the Grant of the student.
+     * @param grantEnd	This is the date when ends the Grant of the student.
+     * @param project	This is the project which the student is assigned to.
+     * @param advisors	This is an ArrayList of the Advisors of the student.
+     * @since 05-12-2019
      */
     public AdvisedStudent(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project, ArrayList<Teacher> advisors) {
         super(name, email, tasks, grantBegin, grantEnd, project);
         this.advisors = advisors;
     }
 
-    //Getters and Setters
+    /**
+     * This method gets the ArrayList of advisors of the advised student.
+     * @return ArrayList of advisors of the advised student.
+     * @since 05-12-2019
+     */
     public ArrayList<Teacher> getAdvisors() {
         return advisors;
     }
+    /**
+     * This method sets the ArrayList of advisors of the advised student.
+     * @param advisors	ArrayList of advisors of the student
+     * @since 05-12-2019
+     */
     public void setAdvisors(ArrayList<Teacher> advisors) {
         this.advisors = advisors;
     }
 
-    //Other Functions
+    /**
+     * This method returns a string with informations about the advised student.
+     * @return String with informations about the advised student.
+     * @since 05-12-2019
+     */
     @Override
     public String toString() {
         String out = "Name: "+this.getName()+

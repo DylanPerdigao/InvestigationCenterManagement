@@ -3,6 +3,14 @@ package pt.uc.dei.student.TP2.sourceCode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * This class represent the Bachelor student
+ * 
+ * @author	Dylan Gonçalves Perdigão
+ * @author	Bruno Leitão Faria
+ * @since	05-12-2019
+ * @version	1.0
+ */
 public class Bachelor extends AdvisedStudent {
     //Variables
     private final double COST = 800;
