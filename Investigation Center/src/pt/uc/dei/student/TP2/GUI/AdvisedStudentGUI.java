@@ -4,14 +4,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 
+import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
 import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
 public class AdvisedStudentGUI extends JPanel{
@@ -49,9 +44,16 @@ public class AdvisedStudentGUI extends JPanel{
 
 	private int x;
 	private int y;
+	private JFrame frame;
+	InvestigationCenter investigationCenter;
+	String type;
 
-	public AdvisedStudentGUI(int x, int y, String type) {
+	public AdvisedStudentGUI(JFrame frame, InvestigationCenter investigationCenter, String type) {
 		super();
+		this.frame=frame;
+		this.investigationCenter=investigationCenter;
+		this.type=type;
+
 		// List
 		listValues = new DefaultListModel<Teacher>();
 		list = new JList<Teacher>(listValues);
@@ -61,9 +63,11 @@ public class AdvisedStudentGUI extends JPanel{
 		 * buttonCREATE.addActionListener(this); buttonREMOVE.addActionListener(this);
 		 * buttonENTER.addActionListener(this);
 		 */
+		 
+	}
+	public void initialize(){
+		frame.setLayout(new GridBagLayout());
 
-		this.setLayout(new GridBagLayout());
-		
 		title = new JLabel("Add a new "+type);
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -73,7 +77,7 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 9;
-		this.add(title, c);
+		frame.add(title, c);
 
 		emptyLabel1 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
@@ -83,7 +87,7 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 9;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(emptyLabel1, c);
+		frame.add(emptyLabel1, c);
 
 		emptyLabel2 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
@@ -93,8 +97,8 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 9;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(emptyLabel2, c);
-		
+		frame.add(emptyLabel2, c);
+
 		emptyLabel3 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -103,8 +107,8 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 7;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(emptyLabel3, c);
-		
+		frame.add(emptyLabel3, c);
+
 		labelName = new JLabel("Name");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -113,18 +117,18 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 1;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(labelName, c);
-		
-		textName = new JTextField(10); 
+		frame.add(labelName, c);
+
+		textName = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 2;       
+		c.gridx = 2;
 		c.gridy = 1;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 6;
-		this.add(getTextName(), c);
-		
+		frame.add(getTextName(), c);
+
 		labelEmail = new JLabel("Email");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -133,18 +137,18 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 2;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(labelEmail, c);
-		
-		textEmail = new JTextField(10); 
+		frame.add(labelEmail, c);
+
+		textEmail = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 2;       
+		c.gridx = 2;
 		c.gridy = 2;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 6;
-		this.add(getTextEmail(), c);
-		
+		frame.add(getTextEmail(), c);
+
 		labelGrantBegin = new JLabel("Grant Begin");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -153,38 +157,38 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 3;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(labelGrantBegin, c);
-		
-		textGrantBeginDay = new JTextField(10); 
+		frame.add(labelGrantBegin, c);
+
+		textGrantBeginDay = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
-		c.gridx = 2;       
+		c.gridx = 2;
 		c.gridy = 3;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantBeginDay(), c);
-		
-		textGrantBeginMonth = new JTextField(10); 
+		frame.add(getTextGrantBeginDay(), c);
+
+		textGrantBeginMonth = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
-		c.gridx = 3;       
+		c.gridx = 3;
 		c.gridy = 3;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantBeginMonth(), c);
-		
-		textGrantBeginYear = new JTextField(10); 
+		frame.add(getTextGrantBeginMonth(), c);
+
+		textGrantBeginYear = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
-		c.gridx = 4;       
+		c.gridx = 4;
 		c.gridy = 3;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantBeginYear(), c);
-		
+		frame.add(getTextGrantBeginYear(), c);
+
 		labelGrantEnd = new JLabel("Grant End");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -193,38 +197,38 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 4;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(labelGrantEnd, c);
-		
-		textGrantEndDay = new JTextField(10); 
+		frame.add(labelGrantEnd, c);
+
+		textGrantEndDay = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 2;       
+		c.gridx = 2;
 		c.gridy = 4;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantEndDay(), c);
-		
-		textGrantEndMonth = new JTextField(10); 
+		frame.add(getTextGrantEndDay(), c);
+
+		textGrantEndMonth = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 3;       
+		c.gridx = 3;
 		c.gridy = 4;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantEndMonth(), c);
-		
-		textGrantEndYear = new JTextField(10); 
+		frame.add(getTextGrantEndMonth(), c);
+
+		textGrantEndYear = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 4;       
+		c.gridx = 4;
 		c.gridy = 4;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantEndYear(), c);
-		
+		frame.add(getTextGrantEndYear(), c);
+
 		labelAdvisors = new JLabel("Select Advisors");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -233,18 +237,18 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 5;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(labelAdvisors, c);
-		
-		 listScroller = new JScrollPane(list); 
-		 c.fill = GridBagConstraints.BOTH;
-		 c.weightx = 0.5; 
-		 c.weighty = 0.5; 
-		 c.gridx = 2;
-		 c.gridy = 5; 
-		 c.gridheight = 2; 
-		 c.gridwidth = 3; 
-		 this.add(listScroller, c);
-		 
+		frame.add(labelAdvisors, c);
+
+		listScroller = new JScrollPane(list);
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		c.gridx = 2;
+		c.gridy = 5;
+		c.gridheight = 2;
+		c.gridwidth = 3;
+		frame.add(listScroller, c);
+
 		buttonCREATE = new JButton("Add Person");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5; // percentagem de largura celula em relacao as outras
@@ -254,8 +258,8 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 8; // posiçao celula y
 		c.gridheight = 1; // quantos celulas de altura
 		c.gridwidth = 4; // quantos celulas de largura
-		this.add(buttonCREATE, c);
-		
+		frame.add(buttonCREATE, c);
+
 		buttonCANCEL = new JButton("Cancel");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5; // percentagem de largura celula em relacao as outras
@@ -265,10 +269,11 @@ public class AdvisedStudentGUI extends JPanel{
 		c.gridy = 8; // posiçao celula y
 		c.gridheight = 1; // quantos celulas de altura
 		c.gridwidth = 1; // quantos celulas de largura
-		this.add(buttonCANCEL, c);
+		frame.add(buttonCANCEL, c);
 
 
-		 
+
+		frame.setVisible(true);
 	}
 
 	public JTextField getTextName() {

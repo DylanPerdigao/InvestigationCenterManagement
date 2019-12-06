@@ -32,10 +32,11 @@ public class MainGUI extends JPanel{
 
 	private int x;
 	private int y;
+	private JFrame frame;
 	
-	public MainGUI(/*int x, int y*/) {
+	public MainGUI(JFrame frame) {
 		super();
-
+		this.frame=frame;
 		//TODO: read config
 
 		// List
@@ -53,14 +54,6 @@ public class MainGUI extends JPanel{
 	}
 
 	public void initialize(){
-		JFrame frame = new JFrame();
-		frame.setTitle("Investigation Center");
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setSize(screenSize.width, screenSize.height);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		int x=frame.getWidth();
-		int y=frame.getHeight();
-
 
 		frame.setLayout(new GridBagLayout());
 
@@ -162,6 +155,11 @@ public class MainGUI extends JPanel{
 		frame.setVisible(true);
 	}
 
+	private void close(){
+		frame.getContentPane().removeAll();
+		frame.repaint();
+	}
+
 	public JScrollPane getListScroller() {
 		return listScroller;
 	}
@@ -238,8 +236,15 @@ public class MainGUI extends JPanel{
 				}
 			}
 			else if(e.getSource() == buttonENTER) {
-				InvestigationCenterGUI investigationCenterGUI= new InvestigationCenterGUI(list.getSelectedValue().getName());
-				investigationCenterGUI.initialize(list.getSelectedValue().getName());
+				try {
+					if (list.getSelectedValue() != null) {
+						InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, list.getSelectedValue());
+						close();
+						investigationCenterGUI.initialize();
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 		

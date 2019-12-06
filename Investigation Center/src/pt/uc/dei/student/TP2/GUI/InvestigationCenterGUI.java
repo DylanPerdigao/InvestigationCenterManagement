@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import pt.uc.dei.student.TP2.sourceCode.AdvisedStudent;
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
 import pt.uc.dei.student.TP2.sourceCode.Person;
 import pt.uc.dei.student.TP2.sourceCode.Project;
@@ -41,9 +42,14 @@ public class InvestigationCenterGUI extends JPanel{
 
 	private int x;
 	private int y;
+	private JFrame frame;
+	InvestigationCenter investigationCenter;
 
-	public InvestigationCenterGUI(/*int x, int y,*/ String name) {
+	public InvestigationCenterGUI(JFrame frame,InvestigationCenter investigationCenter) {
 		super();
+		this.frame=frame;
+		this.investigationCenter=investigationCenter;
+
 		// List
 		listValuesPeople = new DefaultListModel<Person>();
 		listValuesProjects = new DefaultListModel<Project>();
@@ -60,18 +66,11 @@ public class InvestigationCenterGUI extends JPanel{
 	}
 
 
-	public void initialize(String name){
-		JFrame frame = new JFrame();
-		frame.setTitle("Investigation Center");
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setSize(screenSize.width, screenSize.height);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		int x=frame.getWidth();
-		int y=frame.getHeight();
+	public void initialize(){
 
 		frame.setLayout(new GridBagLayout());
 
-		title = new JLabel(name);
+		title = new JLabel(investigationCenter.getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -246,34 +245,87 @@ public class InvestigationCenterGUI extends JPanel{
 
 		//Listeners
 		InvestigationCenterGUI.ButtonListener buttonActionListener = new InvestigationCenterGUI.ButtonListener();
-		//buttonCREATE.addActionListener(buttonActionListener);
+
 		buttonENTER.addActionListener(buttonActionListener);
-		//buttonREMOVE.addActionListener(buttonActionListener);
+		buttonPersonTeacherCREATE.addActionListener(buttonActionListener);
+		buttonPersonBachelorCREATE.addActionListener(buttonActionListener);
+		buttonPersonMasterCREATE.addActionListener(buttonActionListener);
+		buttonPersonPhDCREATE.addActionListener(buttonActionListener);
+		buttonPersonREMOVE.addActionListener(buttonActionListener);
+		buttonProjectCREATE.addActionListener(buttonActionListener);
+		buttonProjectREMOVE.addActionListener(buttonActionListener);
 
 		frame.setVisible(true);
+	}
+
+	private void close(){
+		frame.getContentPane().removeAll();
+		frame.repaint();
 	}
 
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e){
-			/*if(e.getSource()== buttonCREATE){
+			if(e.getSource()== buttonPersonTeacherCREATE){
 				try{
-					//
-					listValues.add(0, new InvestigationCenter(text.getText(), null, null));
-					text.setText("");
+					//não é importante para ja
+					System.out.println("não é importante para ja\n");
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}*/
-			/*else if(e.getSource() == buttonREMOVE) {
+			}
+			else if(e.getSource() == buttonPersonBachelorCREATE) {
 				try {
-					listValues.removeElement(list.getSelectedValue());
+					AdvisedStudentGUI advisedStudentGUI = new AdvisedStudentGUI(frame,investigationCenter,"Bachelor");
+					close();
+					advisedStudentGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}*/
-			/*else*/ if(e.getSource() == buttonENTER) {
-				//nada yeeet
+			}
+			else if(e.getSource() == buttonPersonMasterCREATE) {
+				try {
+					AdvisedStudentGUI advisedStudentGUI = new AdvisedStudentGUI(frame,investigationCenter,"Master");
+					close();
+					advisedStudentGUI.initialize();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonPersonPhDCREATE) {
+				try {
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonPersonREMOVE) {
+				try {
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonProjectCREATE) {
+				try {
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonProjectREMOVE) {
+				try {
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonENTER) {
+				try {
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 
