@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * This class represent a bachelor student.
+ * This class represents a bachelor student.
  * 
  * @author	Dylan Gonçalves Perdigão
  * @author	Bruno Leitão Faria

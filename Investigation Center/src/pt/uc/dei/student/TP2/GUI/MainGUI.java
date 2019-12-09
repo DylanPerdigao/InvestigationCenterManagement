@@ -54,7 +54,6 @@ public class MainGUI extends JPanel{
 	}
 
 	public void initialize(){
-
 		frame.setLayout(new GridBagLayout());
 
 		title = new JLabel("Investigations Centers Manager");
