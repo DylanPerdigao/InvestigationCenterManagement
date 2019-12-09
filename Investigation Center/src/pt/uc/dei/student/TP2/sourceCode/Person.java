@@ -39,7 +39,7 @@ public class Person {
     }
     /**
      * This method sets the name of the person.
-     * @param Name of the person.
+     * @param name	This is the name of the person.
      * @since 05-12-2019
      */
     public void setName(String name) {
@@ -55,7 +55,7 @@ public class Person {
     }
     /**
      * This method sets the email of the person.
-     * @param Email of the person.
+     * @param email	This is the email of the person.
      * @since 05-12-2019
      */
     public void setEmail(String email) {
@@ -71,7 +71,7 @@ public class Person {
     }
     /**
      * This method sets the ArrayList of tasks of the person.
-     * @param ArrayList of tasks of the person.
+     * @param tasks	This is the ArrayList of tasks of the person.
      * @since 05-12-2019
      */
     public void setTasks(ArrayList<Task> tasks) {
@@ -80,7 +80,7 @@ public class Person {
 
     /**
      * This method verify if the person is surcharged with his task and if he can have another one.
-     * @param A potential task that can be added (or not) to the person.
+     * @param newTask This is a potential task that can be added (or not) to the person.
      * @return boolean Says if the task can be added.
      * @since 05-12-2019
      */

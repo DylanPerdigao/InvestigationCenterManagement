@@ -36,7 +36,7 @@ public class Grantee extends Person{
     }
 
     /**
-     * This method gets the the begin of the grant.
+     * This method gets the begin of the grant.
      * @return Date of the begin of the grant.
      * @since 09-12-2019
      */
