@@ -26,7 +26,7 @@ public class PhD extends Grantee {
      * @param project	This is the project which the PhD is assigned to.
      * @since 05-12-2019
      */
-    public PhD(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project) {
+    PhD(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project) {
         super(name, email, tasks, grantBegin, grantEnd, project);
     }
     /**

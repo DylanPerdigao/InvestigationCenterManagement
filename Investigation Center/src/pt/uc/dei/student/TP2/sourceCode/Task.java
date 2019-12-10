@@ -2,8 +2,15 @@ package pt.uc.dei.student.TP2.sourceCode;
 
 import java.time.LocalDate;
 
+/**
+ * This class represent the task.
+ * 
+ * @author	Dylan Gonçalves Perdigão
+ * @author	Bruno Leitão Faria
+ * @since	09-12-2019
+ * @version	1.0
+ */
 public class Task {
-    //Variables
     private String name;
     private double effortRate;
     private int duration;
@@ -11,8 +18,19 @@ public class Task {
     private Person responsible;
     private boolean status;
 
-    //Constructor
-    Task( String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, boolean status){
+    /**
+     * This is the constructor of the task object.
+     * 
+     * @param name	This is the name of the task.
+     * @param effortRate	This is the effort rate of the task.
+     * @param beginDate	This is date when begins the task.
+     * @param endDate	This is date when ends the task.
+     * @param duration	This is the duration of the task.
+     * @param responsible	This is the person who is responsible for the task.
+     * @param status	This is the status of the task.
+     * @since 09-12-2019 
+     */
+    Task(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, boolean status){
         setName(name);
         setBeginDate(beginDate);
         setEndDate(endDate);
@@ -21,62 +39,153 @@ public class Task {
         setResponsible(responsible);
         setStatus(status);
     }
+    /**
+     * This is the constructor of the task object with the responsible person initialized to null;
+     * 
+     * @param name	This is the name of the task.
+     * @param effortRate	This is the effort rate of the task.
+     * @param beginDate	This is date when begins the task.
+     * @param endDate	This is date when ends the task.
+     * @param duration	This is the duration of the task.
+     * @param status	This is the status of the task.
+     * @since 09-12-2019 
+     */
+    Task(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, boolean status) {
+        setName(name);
+        setBeginDate(beginDate);
+        setEndDate(endDate);
+        setDuration(duration);
+        setEffortRate(effortRate);
+        setResponsible(new Person());
+        setStatus(status);
+	}
 
-    //Getter and Setters
-    public double getEffortRate() {
-        return effortRate;
-    }
-    public void setEffortRate(double effortRate) {
-        this.effortRate = effortRate;
-    }
+	/**
+     * This method gets the name of the task.
+     * @return Name of the task.
+     * @since 09-12-2019
+     */
     public String getName() {
         return name;
     }
+    /**
+     * This method sets the name of the task.
+     * @param name	This is the name of the task.
+     * @since 09-12-2019
+     */
     public void setName(String name) {
         this.name = name;
     }
+    /**
+     * This method gets the effort rate of the task.
+     * @return Effort rate of the task.
+     * @since 09-12-2019
+     */
+    public double getEffortRate() {
+        return effortRate;
+    }
+    /**
+     * This method sets the effort rate of the task.
+     * @param effortRate	This is the effort rate of the task.
+     * @since 09-12-2019
+     */
+    public void setEffortRate(double effortRate) {
+        this.effortRate = effortRate;
+    }
+    /**
+     * This method gets the date where the task begins.
+     * @return Date where the task begins.
+     * @since 09-12-2019
+     */
     public LocalDate getBeginDate() {
         return beginDate;
     }
+    /**
+     * This method sets the date where the task begins.
+     * @param beginDate	This is the date where the task begins.
+     * @since 09-12-2019
+     */
     public void setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
     }
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-    public int getDuration() {
-        return duration;
-    }
+    /**
+     * This method gets the date where the task ends.
+     * @return Date where the task ends.
+     * @since 09-12-2019
+     */
     public LocalDate getEndDate() {
         return endDate;
     }
+    /**
+     * This method sets the date where the task ends.
+     * @param endDate	This is the date where the task ends.
+     * @since 09-12-2019
+     */
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-    public void setResponsible(Person responsible) {
-        this.responsible = responsible;
+    /**
+     * This method gets the duration of the task.
+     * @return Duration of the task.
+     * @since 09-12-2019
+     */
+    public int getDuration() {
+        return duration;
     }
+    /**
+     * This method sets the duration of the task.
+     * @param duration	This is the duration of the task.
+     * @since 09-12-2019
+     */
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+    /**
+     * This method gets the person responsible for the task
+     * @return Person responsible for the task
+     * @since 09-12-2019
+     */
     public Person getResponsible() {
         return responsible;
     }
+    /**
+     * This method sets the person responsible for the task
+     * @param responsible	This is the person responsible for the task
+     * @since 09-12-2019
+     */
+    public void setResponsible(Person responsible) {
+        this.responsible = responsible;
+    }
+    /**
+     * This method gets the status of the task.
+     * @return Status of the task.
+     * @since 09-12-2019
+     */
 	public boolean getStatus() {
 		return status;
 	}
+    /**
+     * This method sets the status of the task.
+     * @param status	This is the status of the task.
+     * @since 09-12-2019
+     */
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
-    //Other Functions
-
-    //toString
+    /**
+     * This method returns a string with informations about the task.
+     * @return String with informations about the task.
+     * @since 09-12-2019
+     */
     @Override
     public String toString() {
-        String out = "Name: "+this.getName()+
+        String out = "\nName: "+this.getName()+
         		"\nEffort: "+this.getEffortRate()+
         		"\nResponsible: "+this.getResponsible()+
         		"\nDuration (month): "+this.getDuration()+
         		"\nBegin Date: "+this.getBeginDate()+
-        		"\nEnd Date: "+this.getEndDate();
+        		"\nEnd Date: "+this.getEndDate()+
+        		"\n------------------------------";
         return out;
     }
 

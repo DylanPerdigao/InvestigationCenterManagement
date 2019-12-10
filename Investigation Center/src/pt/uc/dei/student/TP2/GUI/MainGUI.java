@@ -3,6 +3,7 @@ package pt.uc.dei.student.TP2.GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonListener;
@@ -34,13 +35,12 @@ public class MainGUI extends JPanel{
 	private int y;
 	private JFrame frame;
 	
-	public MainGUI(JFrame frame) {
+	public MainGUI(JFrame frame,ArrayList<InvestigationCenter> listIC) {
 		super();
 		this.frame=frame;
-		//TODO: read config
-
 		// List
 		listValues = new DefaultListModel<InvestigationCenter>();
+		listValues.addAll(listIC);
 		list = new JList<InvestigationCenter>(listValues);
 		listScroller = new JScrollPane(list); 
 		// Buttons	
@@ -54,7 +54,7 @@ public class MainGUI extends JPanel{
 	}
 
 	public void initialize(){
-
+		
 		frame.setLayout(new GridBagLayout());
 
 		title = new JLabel("Investigations Centers Manager");
@@ -250,22 +250,5 @@ public class MainGUI extends JPanel{
 		}
 		
 	}
-
-	/*@Override
-	public void actionPerformed(ActionEvent e) {
-		InvestigationCenter IC = list.getSelectedValue();
-		String name = text.getText();
-		if(e.getSource() == buttonCREATE) {
-			System.out.println("TEST");
-			listValues.add(0, new InvestigationCenter(name, null, null));
-			emptyLabel1.setText(name);
-		}else if(e.getSource() == buttonREMOVE) {
-			listValues.removeElement(IC);
-		}else if(e.getSource() == buttonENTER) {
-
-		}
-
-
-	}*/
 }
 

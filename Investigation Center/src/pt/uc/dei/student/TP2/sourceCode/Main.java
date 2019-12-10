@@ -13,15 +13,20 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 /**
  * Main class of the program
  *
@@ -34,6 +39,132 @@ import javax.swing.JPanel;
 public class Main {
 
 	public static void main(String[] args){
+		ArrayList<InvestigationCenter> listIC = new ArrayList<InvestigationCenter>();
+		/*
+		 * READ FILE TXT
+		 */
+		File f = new File("ressources/init.txt");
+		if(f.exists() && f.isFile()) { 
+			try {
+				FileReader fr = new FileReader(f); 
+				BufferedReader br = new BufferedReader(fr);
+				String line;
+				String token = null;
+				int ICCounter=0;
+				int projectCounter=0;
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+				while((line = br.readLine()) != null) {
+					token = "INVESTIGATION CENTER:\t";
+					if(line.startsWith(token)) {
+						//SPLIT
+						String[] stringIC = line.split(token,0);
+						//ADD TO LIST
+						listIC.add(new InvestigationCenter(stringIC[1], new ArrayList<Person>(), new ArrayList<Project>()));
+					}
+					token = "PROJECT:\t";
+					if(line.startsWith(token)) {
+						//SPLIT
+						String[] stringP = line.split(token,0);
+						String[] projectInfo = stringP[1].split("/",0);
+						//PROJECT OBJECT
+						String name = projectInfo[0];
+						String acronym = projectInfo[1];
+						LocalDate begin = LocalDate.parse(projectInfo[2],formatter);
+						LocalDate end = LocalDate.parse(projectInfo[3],formatter);
+						int duration = Integer.parseInt(projectInfo[4]);
+						boolean isCompleted = Boolean.parseBoolean(projectInfo[5]);
+						Project project = new Project(name, acronym,begin,end,duration,new Teacher(),new ArrayList<Person>(), new ArrayList<Task>(),isCompleted);
+						//ADD TO LIST
+						ICCounter = listIC.size()-1;
+						listIC.get(ICCounter).addProject(project);
+					}
+					token = "\tTASK:\t";
+					if(line.startsWith(token)) {
+						//SPLIT
+						String[] stringT = line.split(token,0);
+						String[] taskInfo = stringT[1].split("/",0);
+						//TASK OBJECT
+					    String name = taskInfo[0];
+					    double effortRate = Double.parseDouble(taskInfo[1]);
+					    LocalDate begin = LocalDate.parse(taskInfo[2],formatter);
+					    LocalDate end = LocalDate.parse(taskInfo[3],formatter);
+					    int duration = Integer.parseInt(taskInfo[4]);
+					    boolean isCompleted = Boolean.parseBoolean(taskInfo[5]);
+					    Task task = new Task(name, effortRate,begin, end, duration,new Person(),isCompleted);
+					    //ADD TO LIST
+					    projectCounter = listIC.get(ICCounter).getProjects().size()-1;
+					    listIC.get(ICCounter).getProjects().get(projectCounter).createTask(task);
+					}
+					token = "\tTEACHER:\t";
+					if(line.startsWith(token)) {
+						//SPLIT
+						String[] stringTeacher = line.split(token,0);
+						String[] teacherInfo = stringTeacher[1].split("/",0);
+						//TEACHER OBJECT
+						String name = teacherInfo[0];
+						String email = teacherInfo[1];
+						int mecanographicNumber = Integer.parseInt(teacherInfo[2]);
+						String investigationArea = teacherInfo[3];
+						Teacher teacher = new Teacher(name,email,mecanographicNumber,investigationArea,new ArrayList<Task>(), new ArrayList<Project>());
+						//ADD TO LIST
+					    projectCounter = listIC.get(ICCounter).getPeople().size()-1;
+					    listIC.get(ICCounter).getPeople().add(teacher);
+					}
+					token = "\tBACHELOR:\t";
+					if(line.startsWith(token)) {
+						String[] stringBachelor = line.split(token,0);
+						String[] bachelorInfo = stringBachelor[1].split("/",0);
+						//BACHELOR OBJECT
+						String name = bachelorInfo[0];
+						String email = bachelorInfo[1];
+					    LocalDate begin = LocalDate.parse(bachelorInfo[2],formatter);
+					    LocalDate end = LocalDate.parse(bachelorInfo[3],formatter);
+						Bachelor bachelor = new Bachelor(name, email, new ArrayList<Task>(),begin,end, new Project(), new ArrayList<Teacher>());
+						//ADD TO LIST
+					    projectCounter = listIC.get(ICCounter).getPeople().size()-1;
+					    listIC.get(ICCounter).getPeople().add(bachelor);
+					}
+					token = "\tMASTER:\t";
+					if(line.startsWith(token)) {
+						String[] stringMaster = line.split(token,0);
+						String[] masterInfo = stringMaster[1].split("/",0);
+						//MASTER OBJECT
+						String name = masterInfo[0];
+						String email = masterInfo[1];
+					    LocalDate begin = LocalDate.parse(masterInfo[2],formatter);
+					    LocalDate end = LocalDate.parse(masterInfo[3],formatter);
+					    Master master = new Master(name, email, new ArrayList<Task>(),begin,end, new Project(), new ArrayList<Teacher>());
+						//ADD TO LIST
+					    projectCounter = listIC.get(ICCounter).getPeople().size()-1;
+					    listIC.get(ICCounter).getPeople().add(master);
+					}
+					token = "\tPhD:\t";
+					if(line.startsWith(token)) {
+						String[] stringPhD = line.split(token,0);
+						String[] phdInfo = stringPhD[1].split("/",0);
+						//MASTER OBJECT
+						String name = phdInfo[0];
+						String email = phdInfo[1];
+					    LocalDate begin = LocalDate.parse(phdInfo[2],formatter);
+					    LocalDate end = LocalDate.parse(phdInfo[3],formatter);
+					    PhD phd = new PhD(name, email, new ArrayList<Task>(),begin,end, new Project());
+						//ADD TO LIST
+					    projectCounter = listIC.get(ICCounter).getPeople().size()-1;
+					    listIC.get(ICCounter).getPeople().add(phd);
+					}
+				}
+				br.close();
+			} catch (FileNotFoundException ex) {
+				System.out.println("Error opening text file"); 
+			} catch (IOException ex) {
+				System.out.println("Error reading text file"); 
+			}
+		} else {
+			System.out.println("File does not exist");
+		}
+		/*
+		 * GRAPHICAL USER INTERFACE
+		 */
 		JFrame frame = new JFrame();
 		frame.setTitle("Investigation Center"); 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -56,7 +187,7 @@ public class Main {
 		frame.add(label);
 		//frame.setIconImage(image);*/
 		
-		MainGUI mainGUI = new MainGUI(frame);
+		MainGUI mainGUI = new MainGUI(frame,listIC);
 		mainGUI.initialize();
 
 		/*File peopleFile = new File("people.txt");
@@ -97,123 +228,4 @@ public class Main {
 		return lines;
 	}*/
 
-	/*
-	private static JPanel projectGUI(int x, int y) {	
-		// Buttons
-		JButton buttonADDPROJECT = new JButton("Add Project"); 
-		JButton buttonADDPERSON = new JButton("Add Person"); 
-		// Lists
-			//People
-			DefaultListModel<InvestigationCenter> listValues = new DefaultListModel<InvestigationCenter>();
-			listValues.add(0, new InvestigationCenter("CISUC", null, null));
-			listValues.add(0, new InvestigationCenter("EPFL", null, null));
-			listValues.add(0, new InvestigationCenter("ERSUC", null, null));
-			JList<InvestigationCenter> list = new JList<InvestigationCenter>(listValues);
-			JScrollPane listScroller = new JScrollPane(list); 
-			//Projects
-			DefaultListModel<InvestigationCenter> listValues = new DefaultListModel<InvestigationCenter>();
-			listValues.add(0, new InvestigationCenter("CISUC", null, null));
-			listValues.add(0, new InvestigationCenter("EPFL", null, null));
-			listValues.add(0, new InvestigationCenter("ERSUC", null, null));
-			JList<InvestigationCenter> list = new JList<InvestigationCenter>(listValues);
-			JScrollPane listScroller = new JScrollPane(list); 
-		// Buttons grid
-		JPanel panelButtons = new JPanel();
-		GridLayout gridButton = new GridLayout(3, 1);
-		panelButtons.setLayout(gridButton);
-		panelButtons.add(buttonCREATE); 
-		panelButtons.add(new JLabel(""));
-		panelButtons.add(buttonENTER); 
-		panelButtons.setOpaque(false);
-		// Main panel
-		JPanel panel = new JPanel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-		    super.paintComponent(g);
-		    Image backgroundImage=null;
-			try {
-				backgroundImage = ImageIO.read(new File("ressources/dei.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		    g.drawImage(backgroundImage, 0, 0,x,y,this);
-		    
-			}
-		};
-
-		
-		GridLayout grid = new GridLayout(3, 3);
-		
-		panel.setLayout(grid);
-		panel.add(new JLabel(""));panel.add(new JLabel(""));panel.add(new JLabel(""));panel.add(new JLabel(""));
-		panel.add(listScroller);
-		panel.add(panelButtons);
-		panel.add(new JLabel(""));panel.add(new JLabel(""));panel.add(new JLabel(""));
-		return panel;
-	}
-	*/
-	private static JPanel test(int x, int y) {
-		JButton button;
-		// Main panel
-		JPanel panel = new JPanel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-		    super.paintComponent(g);
-		    Image backgroundImage=null;
-			try {
-				backgroundImage = ImageIO.read(new File("ressources/dei.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		    g.drawImage(backgroundImage, 0, 0,x,y,this);
-		    
-			}
-		};
-		panel.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-
-		button = new JButton("Add Project");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 10;
-		c.gridx = 0;
-		c.gridy = 10;
-		c.fill = GridBagConstraints.VERTICAL;
-		c.weighty = 5;
-		panel.add(button, c);
-
-		button = new JButton("Button 2");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.5;
-		c.gridx = 1;
-		c.gridy = 0;
-		panel.add(button, c);
-
-		button = new JButton("Button 3");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.5;
-		c.gridx = 2;
-		c.gridy = 0;
-		panel.add(button, c);
-
-		button = new JButton("Long-Named Button 4");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 40;      //make this component tall
-		c.weightx = 0.0;
-		c.gridwidth = 3;
-		c.gridx = 0;
-		c.gridy = 1;
-		panel.add(button, c);
-
-		button = new JButton("5");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 0;       //reset to default
-		c.weighty = 1.0;   //request any extra vertical space
-		c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-		c.insets = new Insets(10,0,0,0);  //top padding
-		c.gridx = 1;       //aligned with button 2
-		c.gridwidth = 2;   //2 columns wide
-		c.gridy = 2;       //third row
-		panel.add(button, c);
-		return panel;
-	}
 }

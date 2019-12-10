@@ -24,7 +24,7 @@ public class Master extends AdvisedStudent {
      * @param grantBegin	This is the date when begins the Grant of the master student.
      * @param grantEnd	This is the date when ends the Grant of the master student.
      * @param project	This is the project which the master student is assigned to.
-     * @param advisors	This is an ArrayList of the Advisors of the student.
+     * @param advisors	This is an ArrayList of the Advisors of the master student.
      * @since 05-12-2019 
      */
     public Master(String name, String email, ArrayList<Task> tasks, LocalDate grantBegin, LocalDate grantEnd, Project project, ArrayList<Teacher> advisors) {
