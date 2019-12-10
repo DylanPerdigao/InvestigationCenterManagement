@@ -17,7 +17,7 @@ public class Person {
     private ArrayList<Task> tasks;
 
     /**
-     * This is the constructor of the bachelor student object.
+     * This is the constructor of the person object.
      * 
      * @param name	This is the name of the person.
      * @param email	This is the email of the person.
@@ -30,6 +30,16 @@ public class Person {
         setTasks(tasks);
     }
     /**
+     * This is the constructor of the bachelor student object, it will set all attributes of this person to null.
+     * 
+     * @since 10-12-2019 
+     */
+    Person() {
+        setName(null);
+        setEmail(null);
+        setTasks(null);
+	}
+	/**
      * This method gets the name of the person.
      * @return Name of the person.
      * @since 05-12-2019
@@ -103,9 +113,9 @@ public class Person {
      */
     @Override
     public String toString() {
-        String out = "Name: "+this.getName()+
-        			"\nEmail: "+this.getEmail()+
-        			"\nTasks: "+this.getTasks();
+        String out = "\n\tName: "+this.getName()+
+        			"\n\tEmail: "+this.getEmail()+
+        			"\n\tTasks: "+this.getTasks();
         return out;
     }
 }

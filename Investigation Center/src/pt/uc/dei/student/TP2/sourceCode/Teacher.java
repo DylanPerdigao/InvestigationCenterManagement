@@ -33,8 +33,19 @@ public class Teacher extends Person {
         setInvestigationArea(investigationArea);
         setProjects(projects);
     }
-
     /**
+     * This is the constructor of the teacher object with all atributed initilized with null
+     * 
+     * @since 10-12-2019 
+     */
+    Teacher() {
+    	super(null, null, null);
+        setMecanographicNumber(-1);
+        setInvestigationArea(null);
+        setProjects(null);
+	}
+
+	/**
      * This method gets the mecanographic number of the teacher.
      * @return Mecanographic number of the teacher.
      * @since 09-12-2019
@@ -89,12 +100,12 @@ public class Teacher extends Person {
      */
     @Override
     public String toString() {
-        String out = "Name: "+this.getName()+
-        		"\nMecanographic Number: "+this.getMecanographicNumber()+
-    			"\nEmail: "+this.getEmail()+
-        		"\nInvestigation Area: "+this.getInvestigationArea()+
-        		"\nTasks: "+this.getTasks()+
-    			"\nProjects: "+this.getProjects();
+        String out = "\n\tName: "+this.getName()+
+        		"\n\tMecanographic Number: "+this.getMecanographicNumber()+
+    			"\n\tEmail: "+this.getEmail()+
+        		"\n\tInvestigation Area: "+this.getInvestigationArea()+
+        		"\n\tTasks: "+this.getTasks()+
+    			"\n\tProjects: "+this.getProjects();
         return out;
     }
 }

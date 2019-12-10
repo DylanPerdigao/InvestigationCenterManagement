@@ -15,8 +15,7 @@ public class Project {
 	public static final boolean COMPLETED = true;
 	public static final boolean UNCOMPLETED = false;
     private String name, acronym;
-    private LocalDate beginDate;
-	private LocalDate endDate;
+    private LocalDate beginDate,endDate;
     private int duration;
     private Teacher principalInvestigator;
     private ArrayList<Person> members;
@@ -48,8 +47,24 @@ public class Project {
         setTasks(tasks);
         setStatus(status);
     }
-
     /**
+     * This is the constructor of the project object with all attributes initialized with null.
+     * 
+     * @since 10-12-2019 
+     */
+    Project() {
+        setName(null);
+        setAcronym(null);
+        setBeginDate(null);
+        setEndDate(null);
+        setDuration(-1);
+        setPrincipalInvestigator(null);
+        setMembers(null);
+        setTasks(null);
+        setStatus(false);
+	}
+
+	/**
      * This method gets the name of the project.
      * @return Name of the project.
      * @since 09-12-2019
@@ -318,8 +333,8 @@ public class Project {
      */
     @Override
     public String toString() {
-        String out = "Name: "+this.getName()+
-        		"\nEffort: "+this.getAcronym()+
+        String out = "\nName: "+this.getName()+
+        		"\nAcronym: "+this.getAcronym()+
         		"\nPr. Investigator: "+this.getPrincipalInvestigator()+
         		"\nMembers: "+this.getMembers()+
         		"\nTasks: "+this.getTasks()+
