@@ -3,6 +3,8 @@ package pt.uc.dei.student.TP2.GUI;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -45,8 +47,8 @@ public class AdvisedStudentGUI extends JPanel{
 	private int x;
 	private int y;
 	private JFrame frame;
-	InvestigationCenter investigationCenter;
-	String type;
+	private InvestigationCenter investigationCenter;
+	private String type;
 
 	public AdvisedStudentGUI(JFrame frame, InvestigationCenter investigationCenter, String type) {
 		super();
@@ -273,7 +275,40 @@ public class AdvisedStudentGUI extends JPanel{
 
 
 
+		//Listeners
+		AdvisedStudentGUI.ButtonListener buttonActionListener = new AdvisedStudentGUI.ButtonListener();
+
+		buttonCREATE.addActionListener(buttonActionListener);
+		buttonCANCEL.addActionListener(buttonActionListener);
+
 		frame.setVisible(true);
+	}
+
+	private void close(){
+		frame.getContentPane().removeAll();
+		frame.repaint();
+	}
+
+	private class ButtonListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource()== buttonCREATE){
+				try{
+					//não é importante para ja
+					System.out.println("não é importante para ja\n");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonCANCEL) {
+				try {
+					close();
+					//frame.dispose();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public JTextField getTextName() {

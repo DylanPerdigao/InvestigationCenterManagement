@@ -1,13 +1,14 @@
 package pt.uc.dei.student.TP2.GUI;
 
+import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
+
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 
 public class PhDGUI extends JPanel{
@@ -40,9 +41,14 @@ public class PhDGUI extends JPanel{
 
 	private int x;
 	private int y;
+	private JFrame frame;
+	private InvestigationCenter investigationCenter;
 
-	public PhDGUI(int x, int y) {
+	public PhDGUI(JFrame frame, InvestigationCenter investigationCenter) {
 		super();
+
+		this.frame=frame;
+		this.investigationCenter=investigationCenter;
 
 		// Buttons
 		/*
@@ -50,8 +56,12 @@ public class PhDGUI extends JPanel{
 		 * buttonENTER.addActionListener(this);
 		 */
 
-		this.setLayout(new GridBagLayout());
-		
+
+	}
+
+	public void initialize(){
+		frame.setLayout(new GridBagLayout());
+
 		title = new JLabel("Add a new PhD Student");
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -61,7 +71,7 @@ public class PhDGUI extends JPanel{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 9;
-		this.add(title, c);
+		frame.add(title, c);
 
 		emptyLabel1 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
@@ -71,7 +81,7 @@ public class PhDGUI extends JPanel{
 		c.gridy = 9;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(emptyLabel1, c);
+		frame.add(emptyLabel1, c);
 
 		emptyLabel2 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
@@ -81,8 +91,8 @@ public class PhDGUI extends JPanel{
 		c.gridy = 9;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(emptyLabel2, c);
-		
+		frame.add(emptyLabel2, c);
+
 		emptyLabel3 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -91,8 +101,8 @@ public class PhDGUI extends JPanel{
 		c.gridy = 7;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(emptyLabel3, c);
-		
+		frame.add(emptyLabel3, c);
+
 		labelName = new JLabel("Name");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -101,18 +111,18 @@ public class PhDGUI extends JPanel{
 		c.gridy = 1;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(labelName, c);
-		
-		textName = new JTextField(10); 
+		frame.add(labelName, c);
+
+		textName = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 2;       
+		c.gridx = 2;
 		c.gridy = 1;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 6;
-		this.add(getTextName(), c);
-		
+		frame.add(getTextName(), c);
+
 		labelEmail = new JLabel("Email");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -121,18 +131,18 @@ public class PhDGUI extends JPanel{
 		c.gridy = 2;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(labelEmail, c);
-		
-		textEmail = new JTextField(10); 
+		frame.add(labelEmail, c);
+
+		textEmail = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 2;       
+		c.gridx = 2;
 		c.gridy = 2;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 6;
-		this.add(getTextEmail(), c);
-		
+		frame.add(getTextEmail(), c);
+
 		labelGrantBegin = new JLabel("Grant Begin");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -141,38 +151,38 @@ public class PhDGUI extends JPanel{
 		c.gridy = 3;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(labelGrantBegin, c);
-		
-		textGrantBeginDay = new JTextField(10); 
+		frame.add(labelGrantBegin, c);
+
+		textGrantBeginDay = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
-		c.gridx = 2;       
+		c.gridx = 2;
 		c.gridy = 3;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantBeginDay(), c);
-		
-		textGrantBeginMonth = new JTextField(10); 
+		frame.add(getTextGrantBeginDay(), c);
+
+		textGrantBeginMonth = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
-		c.gridx = 3;       
+		c.gridx = 3;
 		c.gridy = 3;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantBeginMonth(), c);
-		
-		textGrantBeginYear = new JTextField(10); 
+		frame.add(getTextGrantBeginMonth(), c);
+
+		textGrantBeginYear = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
-		c.gridx = 4;       
+		c.gridx = 4;
 		c.gridy = 3;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantBeginYear(), c);
-		
+		frame.add(getTextGrantBeginYear(), c);
+
 		labelGrantEnd = new JLabel("Grant End");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -181,38 +191,38 @@ public class PhDGUI extends JPanel{
 		c.gridy = 4;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		this.add(labelGrantEnd, c);
-		
-		textGrantEndDay = new JTextField(10); 
+		frame.add(labelGrantEnd, c);
+
+		textGrantEndDay = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 2;       
+		c.gridx = 2;
 		c.gridy = 4;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantEndDay(), c);
-		
-		textGrantEndMonth = new JTextField(10); 
+		frame.add(getTextGrantEndDay(), c);
+
+		textGrantEndMonth = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 3;       
+		c.gridx = 3;
 		c.gridy = 4;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantEndMonth(), c);
-		
-		textGrantEndYear = new JTextField(10); 
+		frame.add(getTextGrantEndMonth(), c);
+
+		textGrantEndYear = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		c.gridx = 4;       
+		c.gridx = 4;
 		c.gridy = 4;
-		c.gridheight = 1;  
+		c.gridheight = 1;
 		c.gridwidth = 1;
-		this.add(getTextGrantEndYear(), c);
-		 
+		frame.add(getTextGrantEndYear(), c);
+
 		buttonCREATE = new JButton("Add Person");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5; // percentagem de largura celula em relacao as outras
@@ -222,8 +232,8 @@ public class PhDGUI extends JPanel{
 		c.gridy = 8; // posiçao celula y
 		c.gridheight = 1; // quantos celulas de altura
 		c.gridwidth = 4; // quantos celulas de largura
-		this.add(buttonCREATE, c);
-		
+		frame.add(buttonCREATE, c);
+
 		buttonCANCEL = new JButton("Cancel");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5; // percentagem de largura celula em relacao as outras
@@ -233,10 +243,42 @@ public class PhDGUI extends JPanel{
 		c.gridy = 8; // posiçao celula y
 		c.gridheight = 1; // quantos celulas de altura
 		c.gridwidth = 1; // quantos celulas de largura
-		this.add(buttonCANCEL, c);
+		frame.add(buttonCANCEL, c);
 
+		//Listeners
+		PhDGUI.ButtonListener buttonActionListener = new PhDGUI.ButtonListener();
 
-		 
+		buttonCREATE.addActionListener(buttonActionListener);
+		buttonCANCEL.addActionListener(buttonActionListener);
+
+		frame.setVisible(true);
+	}
+
+	private void close(){
+		frame.getContentPane().removeAll();
+		frame.repaint();
+	}
+
+	private class ButtonListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource()== buttonCREATE){
+				try{
+					//não é importante para ja
+					System.out.println("não é importante para ja\n");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonCANCEL) {
+				try {
+					close();
+					//frame.dispose();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public JTextField getTextName() {
