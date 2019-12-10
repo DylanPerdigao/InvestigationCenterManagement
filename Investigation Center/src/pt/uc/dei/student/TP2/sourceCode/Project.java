@@ -333,14 +333,7 @@ public class Project {
      */
     @Override
     public String toString() {
-        String out = "\nName: "+this.getName()+
-        		"\nAcronym: "+this.getAcronym()+
-        		"\nPr. Investigator: "+this.getPrincipalInvestigator()+
-        		"\nMembers: "+this.getMembers()+
-        		"\nTasks: "+this.getTasks()+
-        		"\nDuration: "+this.getDuration()+
-        		"\nBegin Date: "+this.getBeginDate()+
-        		"\nEnd Date: "+this.getEndDate();
+        String out = this.getName()+"\t("+this.getAcronym()+")";
 		return out;
     }
 

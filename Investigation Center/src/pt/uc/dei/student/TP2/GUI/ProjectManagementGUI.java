@@ -1,20 +1,24 @@
 package pt.uc.dei.student.TP2.GUI;
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
-import pt.uc.dei.student.TP2.sourceCode.AdvisedStudent;
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
 import pt.uc.dei.student.TP2.sourceCode.Person;
 import pt.uc.dei.student.TP2.sourceCode.Project;
 
-public class InvestigationCenterGUI extends JPanel{
-
-	private static final long serialVersionUID = 1L;
-	
+public class ProjectManagementGUI extends JPanel{
 	//Constraints
 	GridBagConstraints c = new GridBagConstraints();
 	// Buttons
@@ -47,7 +51,7 @@ public class InvestigationCenterGUI extends JPanel{
 	private JFrame frame;
 	InvestigationCenter investigationCenter;
 
-	public InvestigationCenterGUI(JFrame frame,InvestigationCenter investigationCenter) {
+	public ProjectManagementGUI(JFrame frame,InvestigationCenter investigationCenter) {
 		super();
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
@@ -68,7 +72,7 @@ public class InvestigationCenterGUI extends JPanel{
 
 		frame.setLayout(new GridBagLayout());
 
-		title = new JLabel(investigationCenter.getName());
+		title = new JLabel("PROJECT NAME HERE PLZ");
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -112,10 +116,10 @@ public class InvestigationCenterGUI extends JPanel{
 		frame.add(getButtonRETURN(), c);
 		
 		/*
-		 * PEOPLE
+		 * TASKS
 		 */
 
-		setButtonPersonBachelorCREATE(new JButton("Add Bachelor"));
+		setButtonTaskCREATE(new JButton("Add Task"));
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -124,9 +128,9 @@ public class InvestigationCenterGUI extends JPanel{
 		c.gridy = 2; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonPersonBachelorCREATE(), c);
+		frame.add(getButtonTaskCREATE(), c);
 
-		setButtonPersonMasterCREATE(new JButton("Add Master Student"));
+		setButtonTaskREMOVE(new JButton("Remove Task"));
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -135,7 +139,7 @@ public class InvestigationCenterGUI extends JPanel{
 		c.gridy = 3; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonPersonMasterCREATE(), c);
+		frame.add(getButtonTaskREMOVE(), c);
 
 		setButtonPersonPhDCREATE(new JButton("Add PhD Student"));
 		c.fill = GridBagConstraints.BOTH;
@@ -264,7 +268,7 @@ public class InvestigationCenterGUI extends JPanel{
 
 
 		//Listeners
-		InvestigationCenterGUI.ButtonListener buttonActionListener = new InvestigationCenterGUI.ButtonListener();
+		/*InvestigationCenterGUI.ButtonListener buttonActionListener = new InvestigationCenterGUI.ButtonListener();
 
 		buttonENTER.addActionListener(buttonActionListener);
 		buttonPersonTeacherCREATE.addActionListener(buttonActionListener);
@@ -273,7 +277,7 @@ public class InvestigationCenterGUI extends JPanel{
 		buttonPersonPhDCREATE.addActionListener(buttonActionListener);
 		buttonPersonREMOVE.addActionListener(buttonActionListener);
 		buttonProjectCREATE.addActionListener(buttonActionListener);
-		buttonProjectREMOVE.addActionListener(buttonActionListener);
+		buttonProjectREMOVE.addActionListener(buttonActionListener);*/
 
 		frame.setVisible(true);
 	}
@@ -457,3 +461,4 @@ public class InvestigationCenterGUI extends JPanel{
 		this.buttonRETURN = buttonRETURN;
 	}
 }
+

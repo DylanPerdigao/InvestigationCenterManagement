@@ -113,7 +113,7 @@ public class Person {
      */
     @Override
     public String toString() {
-        String out = "\n\tName: "+this.getName()+
+        String out = "Name: "+this.getName()+
         			"\n\tEmail: "+this.getEmail()+
         			"\n\tTasks: "+this.getTasks();
         return out;

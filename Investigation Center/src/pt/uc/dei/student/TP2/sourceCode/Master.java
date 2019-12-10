@@ -47,14 +47,7 @@ public class Master extends AdvisedStudent {
      */
     @Override
     public String toString() {
-        String out = "Name: "+this.getName()+
-    			"\nEmail: "+this.getEmail()+
-        		"\nGrant Begin: "+this.getGrantBegin()+
-        		"\nGrant End: "+this.getGrantEnd()+
-        		"\nTasks: "+this.getTasks()+
-    			"\nProject: "+this.getProject()+
-    			"\nAdvisors: "+this.getAdvisors()+
-    			"\nCost: "+this.getCost();
+        String out = "[Master]\t"+this.getName();
         return out;
     }
 }

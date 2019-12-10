@@ -100,12 +100,7 @@ public class Teacher extends Person {
      */
     @Override
     public String toString() {
-        String out = "\n\tName: "+this.getName()+
-        		"\n\tMecanographic Number: "+this.getMecanographicNumber()+
-    			"\n\tEmail: "+this.getEmail()+
-        		"\n\tInvestigation Area: "+this.getInvestigationArea()+
-        		"\n\tTasks: "+this.getTasks()+
-    			"\n\tProjects: "+this.getProjects();
+        String out = "[Teacher]\t"+this.getName();
         return out;
     }
 }
