@@ -250,6 +250,7 @@ public class MainGUI extends JPanel{
 						InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(getFrame(),list.getSelectedValue());
 						close();
 						investigationCenterGUI.initialize();
+						//initialize();
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();

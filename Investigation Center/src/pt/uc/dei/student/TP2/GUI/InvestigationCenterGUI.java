@@ -288,8 +288,9 @@ public class InvestigationCenterGUI extends JPanel{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonPersonTeacherCREATE){
 				try{
-					//não é importante para ja
-					System.out.println("não é importante para ja\n");
+					TeacherGUI teacherGUI = new TeacherGUI(frame,investigationCenter);
+					close();
+					teacherGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -308,13 +309,16 @@ public class InvestigationCenterGUI extends JPanel{
 					AdvisedStudentGUI advisedStudentGUI = new AdvisedStudentGUI(frame,investigationCenter,"Master");
 					close();
 					advisedStudentGUI.initialize();
+					//initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 			else if(e.getSource() == buttonPersonPhDCREATE) {
 				try {
-
+					PhDGUI phDGUI = new PhDGUI(frame,investigationCenter);
+					close();
+					phDGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -328,7 +332,9 @@ public class InvestigationCenterGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonProjectCREATE) {
 				try {
-
+					/*ProjectGUI projectGUI = new ProjectGUI(frame,investigationCenter);
+					close();
+					phDGUI.initialize();*/
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
