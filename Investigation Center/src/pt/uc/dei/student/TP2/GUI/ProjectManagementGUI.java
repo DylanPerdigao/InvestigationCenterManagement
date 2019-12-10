@@ -51,7 +51,7 @@ public class ProjectManagementGUI extends JPanel{
 	private JFrame frame;
 	InvestigationCenter investigationCenter;
 
-	public ProjectManagementGUI(JFrame frame,InvestigationCenter investigationCenter) {
+	public ProjectManagementGUI(JFrame frame,InvestigationCenter investigationCenter, Project project) {
 		super();
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
@@ -119,27 +119,6 @@ public class ProjectManagementGUI extends JPanel{
 		 * TASKS
 		 */
 
-		setButtonTaskCREATE(new JButton("Add Task"));
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 3;       	//posiçao celula x
-		c.gridy = 2; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonTaskCREATE(), c);
-
-		setButtonTaskREMOVE(new JButton("Remove Task"));
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 3;       	//posiçao celula x
-		c.gridy = 3; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonTaskREMOVE(), c);
 
 		setButtonPersonPhDCREATE(new JButton("Add PhD Student"));
 		c.fill = GridBagConstraints.BOTH;
