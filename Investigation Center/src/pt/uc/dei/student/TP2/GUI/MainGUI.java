@@ -9,7 +9,7 @@ import javax.swing.*;
 
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
 
-public class MainGUI extends JPanel{
+public class MainGUI{
 
 	private static final long serialVersionUID = 1L;
 	// Buttons
@@ -22,12 +22,9 @@ public class MainGUI extends JPanel{
 	// Text
 	private JTextField text;
 	// List
-	private DefaultListModel<InvestigationCenter> listValues;
+	DefaultListModel<InvestigationCenter> listValues;
 	private JList<InvestigationCenter> list;
 	private JScrollPane listScroller;
-
-	private int x;
-	private int y;
 	
 	private JFrame frame;
 	private ArrayList<InvestigationCenter> listIC;
@@ -236,22 +233,6 @@ public class MainGUI extends JPanel{
 		this.buttonCREATE = buttonCREATE;
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
 	private JFrame getFrame() {
 		return frame;
 	}
@@ -267,6 +248,4 @@ public class MainGUI extends JPanel{
 	private void setListIC(ArrayList<InvestigationCenter> listIC) {
 		this.listIC = listIC;
 	}
-
 }
-

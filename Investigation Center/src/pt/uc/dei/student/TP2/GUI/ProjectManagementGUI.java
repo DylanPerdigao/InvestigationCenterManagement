@@ -20,17 +20,17 @@ import pt.uc.dei.student.TP2.sourceCode.Person;
 import pt.uc.dei.student.TP2.sourceCode.Project;
 import pt.uc.dei.student.TP2.sourceCode.Task;
 
-public class ProjectManagementGUI extends JPanel{
+public class ProjectManagementGUI{
 	private static final long serialVersionUID = 1L;
 	//Constraints
-	GridBagConstraints c = new GridBagConstraints();
+	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
 	private JButton buttonTaskCREATE;
 	private JButton buttonTaskREMOVE;
 	private JButton buttonRETURN;
 	private JButton buttonProjectEND;
 	// Label
-	private JLabel title;
+	JLabel title;
 	JLabel emptyLabel1;
 	JLabel emptyLabel2;
 	JLabel emptyLabel3;
@@ -274,7 +274,7 @@ public class ProjectManagementGUI extends JPanel{
 		c.gridwidth = 2;
 		c.gridheight= 1;
 		getFrame().add(getListScrollerMembers(), c);
-		
+
 		labelTasks = new JLabel("Tasks");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -330,7 +330,7 @@ public class ProjectManagementGUI extends JPanel{
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
 		getFrame().add(getButtonTaskREMOVE(), c);
-		
+
 		labelCost = new JLabel("Project Cost");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -340,7 +340,7 @@ public class ProjectManagementGUI extends JPanel{
 		c.gridwidth = 1;
 		c.gridheight= 1;
 		getFrame().add(labelCost, c);
-		
+
 		labelCOST = new JLabel(String.valueOf(project.projectCost()));
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -410,223 +410,160 @@ public class ProjectManagementGUI extends JPanel{
 		return buttonRETURN;
 	}
 
-
 	public void setButtonRETURN(JButton buttonRETURN) {
 		this.buttonRETURN = buttonRETURN;
 	}
-
 
 	private DefaultListModel<Task> getListValuesUnstartedTasks() {
 		return listValuesUnstartedTasks;
 	}
 
-
-	private void setListValuesUnstartedTasks(DefaultListModel<Task> listValuesUnstartedTasks) {
-		this.listValuesUnstartedTasks = listValuesUnstartedTasks;
-	}
-
+	private void setListValuesUnstartedTasks(DefaultListModel<Task> listValuesUnstartedTasks) {	this.listValuesUnstartedTasks = listValuesUnstartedTasks; }
 
 	public DefaultListModel<Task> getListValuesUnstartedTasksIET() {
 		return listValuesUnstartedTasksIET;
 	}
 
-
-	public void setListValuesUnstartedTasksIET(DefaultListModel<Task> listValuesUnstartedTasksIET) {
-		this.listValuesUnstartedTasksIET = listValuesUnstartedTasksIET;
-	}
-
+	public void setListValuesUnstartedTasksIET(DefaultListModel<Task> listValuesUnstartedTasksIET) { this.listValuesUnstartedTasksIET = listValuesUnstartedTasksIET; }
 
 	public DefaultListModel<Task> getListValuesCompletedTasks() {
 		return listValuesCompletedTasks;
 	}
 
-
-	public void setListValuesCompletedTasks(DefaultListModel<Task> listValuesCompletedTasks) {
-		this.listValuesCompletedTasks = listValuesCompletedTasks;
-	}
-
+	public void setListValuesCompletedTasks(DefaultListModel<Task> listValuesCompletedTasks) { this.listValuesCompletedTasks = listValuesCompletedTasks; }
 
 	public JList<Task> getListUnstartedTasks() {
 		return listUnstartedTasks;
 	}
 
-
 	public void setListUnstartedTasks(JList<Task> listUnstartedTasks) {
 		this.listUnstartedTasks = listUnstartedTasks;
 	}
-
 
 	public JList<Task> getListUnstartedTasksIET() {
 		return listUnstartedTasksIET;
 	}
 
-
-	public void setListUnstartedTasksIET(JList<Task> listUnstartedTasksIET) {
-		this.listUnstartedTasksIET = listUnstartedTasksIET;
-	}
-
+	public void setListUnstartedTasksIET(JList<Task> listUnstartedTasksIET) { this.listUnstartedTasksIET = listUnstartedTasksIET; }
 
 	public JList<Task> getListCompletedTasks() {
 		return listCompletedTasks;
 	}
 
-
 	public void setListCompletedTasks(JList<Task> listCompletedTasks) {
 		this.listCompletedTasks = listCompletedTasks;
 	}
-
 
 	private JScrollPane getListScrollerUnstartedTasks() {
 		return listScrollerUnstartedTasks;
 	}
 
-
-	private void setListScrollerUnstartedTasks(JScrollPane listScrollerUnstartedTasks) {
-		this.listScrollerUnstartedTasks = listScrollerUnstartedTasks;
-	}
-
+	private void setListScrollerUnstartedTasks(JScrollPane listScrollerUnstartedTasks) { this.listScrollerUnstartedTasks = listScrollerUnstartedTasks; }
 
 	private JScrollPane getListScrollerUnstartedTasksIET() {
 		return listScrollerUnstartedTasksIET;
 	}
 
-
-	private void setListScrollerUnstartedTasksIET(JScrollPane listScrollerUnstartedTasksIET) {
-		this.listScrollerUnstartedTasksIET = listScrollerUnstartedTasksIET;
-	}
-
+	private void setListScrollerUnstartedTasksIET(JScrollPane listScrollerUnstartedTasksIET) { this.listScrollerUnstartedTasksIET = listScrollerUnstartedTasksIET; }
 
 	private JScrollPane getListScrollerCompletedTasks() {
 		return listScrollerCompletedTasks;
 	}
 
-
-	private void setListScrollerCompletedTasks(JScrollPane listScrollerCompletedTasks) {
-		this.listScrollerCompletedTasks = listScrollerCompletedTasks;
-	}
-
+	private void setListScrollerCompletedTasks(JScrollPane listScrollerCompletedTasks) { this.listScrollerCompletedTasks = listScrollerCompletedTasks; }
 
 	public JButton getButtonTaskCREATE() {
 		return buttonTaskCREATE;
 	}
 
-
 	public void setButtonTaskCREATE(JButton buttonTaskCREATE) {
 		this.buttonTaskCREATE = buttonTaskCREATE;
 	}
-
 
 	public JButton getButtonTaskREMOVE() {
 		return buttonTaskREMOVE;
 	}
 
-
 	public void setButtonTaskREMOVE(JButton buttonTaskREMOVE) {
 		this.buttonTaskREMOVE = buttonTaskREMOVE;
 	}
-
 
 	public DefaultListModel<Person> getListValuesMembers() {
 		return listValuesMembers;
 	}
 
-
-	public void setListValuesMembers(DefaultListModel<Person> listValuesMembers) {
-		this.listValuesMembers = listValuesMembers;
-	}
-
+	public void setListValuesMembers(DefaultListModel<Person> listValuesMembers) { this.listValuesMembers = listValuesMembers; }
 
 	private JList<Person> getListMembers() {
 		return listMembers;
 	}
 
-
 	private void setListMembers(JList<Person> listMembers) {
 		this.listMembers = listMembers;
 	}
-
 
 	public JScrollPane getListScrollerMembers() {
 		return listScrollerMembers;
 	}
 
-
 	public void setListScrollerMembers(JScrollPane listScrollerMembers) {
 		this.listScrollerMembers = listScrollerMembers;
 	}
-
 
 	public DefaultListModel<Task> getListValuesTasks() {
 		return listValuesTasks;
 	}
 
-
 	public void setListValuesTasks(DefaultListModel<Task> listValuesTasks) {
 		this.listValuesTasks = listValuesTasks;
 	}
-
 
 	public JList<Task> getListTasks() {
 		return listTasks;
 	}
 
-
 	public void setListTasks(JList<Task> listTasks) {
 		this.listTasks = listTasks;
 	}
-
 
 	public JScrollPane getListScrollerTasks() {
 		return listScrollerTasks;
 	}
 
-
 	public void setListScrollerTasks(JScrollPane listScrollerTasks) {
 		this.listScrollerTasks = listScrollerTasks;
 	}
-
 
 	public JButton getButtonProjectEND() {
 		return buttonProjectEND;
 	}
 
-
 	public void setButtonProjectEND(JButton buttonProjectEND) {
 		this.buttonProjectEND = buttonProjectEND;
 	}
-
 
 	public InvestigationCenter getInvestigationCenter() {
 		return investigationCenter;
 	}
 
-
-	public void setInvestigationCenter(InvestigationCenter investigationCenter) {
-		this.investigationCenter = investigationCenter;
-	}
-
+	public void setInvestigationCenter(InvestigationCenter investigationCenter) { this.investigationCenter = investigationCenter; }
 
 	public Project getProject() {
 		return project;
 	}
 
-
 	public void setProject(Project project) {
 		this.project = project;
 	}
-
 
 	private JFrame getFrame() {
 		return frame;
 	}
 
-
 	private void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
 }
-
-
 
 //ccvrc!
 //ccvrc#

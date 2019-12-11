@@ -11,8 +11,7 @@ import javax.swing.*;
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
 import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
-public class AdvisedStudentGUI extends JPanel{
-	private static final long serialVersionUID = 1L;
+public class AdvisedStudentGUI{
 
 	// Constraints
 	GridBagConstraints c = new GridBagConstraints();
@@ -20,7 +19,7 @@ public class AdvisedStudentGUI extends JPanel{
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
 	// Label
-	private JLabel title;
+	JLabel title;
 	JLabel emptyLabel1;
 	JLabel emptyLabel2;
 	JLabel emptyLabel3;
@@ -40,7 +39,7 @@ public class AdvisedStudentGUI extends JPanel{
 	private JTextField textGrantEndYear;
 
 	// List
-	private DefaultListModel<Teacher> listValues;
+	DefaultListModel<Teacher> listValues;
 	private JList<Teacher> list;
 	private JScrollPane listScroller;
 
@@ -398,21 +397,5 @@ public class AdvisedStudentGUI extends JPanel{
 
 	public void setListScroller(JScrollPane listScroller) {
 		this.listScroller = listScroller;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 }

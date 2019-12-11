@@ -20,7 +20,7 @@ import pt.uc.dei.student.TP2.sourceCode.Person;
 import pt.uc.dei.student.TP2.sourceCode.Project;
 import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
-public class ProjectGUI extends JPanel{
+public class ProjectGUI{
 
 	private static final long serialVersionUID = 1L;
 	// Constraints

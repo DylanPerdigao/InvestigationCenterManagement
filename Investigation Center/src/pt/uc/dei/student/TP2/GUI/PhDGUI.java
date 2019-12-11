@@ -11,23 +11,23 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public class PhDGUI extends JPanel{
+public class PhDGUI{
 	private static final long serialVersionUID = 1L;
 
 	// Constraints
-	GridBagConstraints c = new GridBagConstraints();
+	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
 	// Label
 	private JLabel title;
-	JLabel emptyLabel1;
-	JLabel emptyLabel2;
-	JLabel emptyLabel3;
-	JLabel labelName;
-	JLabel labelEmail;
-	JLabel labelGrantBegin;
-	JLabel labelGrantEnd;
+	private JLabel emptyLabel1;
+	private JLabel emptyLabel2;
+	private JLabel emptyLabel3;
+	private JLabel labelName;
+	private JLabel labelEmail;
+	private JLabel labelGrantBegin;
+	private JLabel labelGrantEnd;
 
 	// Text
 	private JTextField textName;

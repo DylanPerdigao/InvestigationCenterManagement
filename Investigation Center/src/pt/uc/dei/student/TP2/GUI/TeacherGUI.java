@@ -10,23 +10,23 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class TeacherGUI extends JPanel{
+public class TeacherGUI{
 	private static final long serialVersionUID = 1L;
 
 	// Constraints
-	GridBagConstraints c = new GridBagConstraints();
+	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
 	// Label
 	private JLabel title;
-	JLabel emptyLabel1;
-	JLabel emptyLabel2;
-	JLabel emptyLabel3;
-	JLabel labelName;
-	JLabel labelEmail;
-	JLabel labelMecanographicNumber;
-	JLabel labelInvestigationArea;
+	private JLabel emptyLabel1;
+	private JLabel emptyLabel2;
+	private JLabel emptyLabel3;
+	private JLabel labelName;
+	private JLabel labelEmail;
+	private JLabel labelMecanographicNumber;
+	private JLabel labelInvestigationArea;
 
 	// Text
 	private JTextField textName;
@@ -259,17 +259,13 @@ public class TeacherGUI extends JPanel{
 		return textMecanographicNumber;
 	}
 
-	public void setTextMecanographicNumber(JTextField textMecanographicNumber) {
-		this.textMecanographicNumber = textMecanographicNumber;
-	}
+	public void setTextMecanographicNumber(JTextField textMecanographicNumber) { this.textMecanographicNumber = textMecanographicNumber; }
 
 	public JTextField getTextInvestigationArea() {
 		return textInvestigationArea;
 	}
 
-	public void setTextInvestigationArea(JTextField textInvestigationArea) {
-		this.textInvestigationArea = textInvestigationArea;
-	}
+	public void setTextInvestigationArea(JTextField textInvestigationArea) { this.textInvestigationArea = textInvestigationArea; }
 
 	public JButton getButtonCREATE() {
 		return buttonCREATE;

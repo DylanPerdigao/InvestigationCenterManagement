@@ -19,9 +19,7 @@ import pt.uc.dei.student.TP2.sourceCode.PhD;
 import pt.uc.dei.student.TP2.sourceCode.Project;
 import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
-public class InvestigationCenterGUI extends JPanel{
-
-	private static final long serialVersionUID = 1L;
+public class InvestigationCenterGUI {
 	
 	//Constraints
 	GridBagConstraints c = new GridBagConstraints();
@@ -38,27 +36,24 @@ public class InvestigationCenterGUI extends JPanel{
 	private JButton buttonENTER;
 	private JButton buttonRETURN;
 	// Label
-	private JLabel title;
+	JLabel title;
 	JLabel emptyLabel1;
 	JLabel emptyLabel2;
 	JLabel emptyLabel3;
 	JLabel labelPeople;
 	JLabel labelProjects;
 	// List
-	private DefaultListModel<Person> listValuesPeople;
-	private DefaultListModel<Project> listValuesProjects;
+	DefaultListModel<Person> listValuesPeople;
+	DefaultListModel<Project> listValuesProjects;
 	private JList<Person> listPeople;
 	private JList<Project> listProjects;
 	private JScrollPane listScrollerPeople;
 	private JScrollPane listScrollerProjects;
 
-	private int x;
-	private int y;
 	private JFrame frame;
 	private InvestigationCenter investigationCenter;
 
 	public InvestigationCenterGUI(JFrame frame,InvestigationCenter investigationCenter) {
-		super();
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
 
@@ -485,7 +480,6 @@ public class InvestigationCenterGUI extends JPanel{
 			// TODO Auto-generated method stub
 			
 		}
-
 	}
 
 	private void update() {
@@ -544,63 +538,35 @@ public class InvestigationCenterGUI extends JPanel{
 		return listScrollerProjects;
 	}
 
-	public void setListScrollerProjects(JScrollPane listScrollerProjects) {
-		this.listScrollerProjects = listScrollerProjects;
-	}
+	public void setListScrollerProjects(JScrollPane listScrollerProjects) { this.listScrollerProjects = listScrollerProjects; }
 
 	public JButton getButtonPersonTeacherCREATE() {
 		return buttonPersonTeacherCREATE;
 	}
 
-	public void setButtonPersonTeacherCREATE(JButton buttonPersonTeacherCREATE) {
-		this.buttonPersonTeacherCREATE = buttonPersonTeacherCREATE;
-	}
+	public void setButtonPersonTeacherCREATE(JButton buttonPersonTeacherCREATE) { this.buttonPersonTeacherCREATE = buttonPersonTeacherCREATE; }
 
 	public JButton getButtonPersonBachelorCREATE() {
 		return buttonPersonBachelorCREATE;
 	}
 
-	public void setButtonPersonBachelorCREATE(JButton buttonPersonBachelorCREATE) {
-		this.buttonPersonBachelorCREATE = buttonPersonBachelorCREATE;
-	}
+	public void setButtonPersonBachelorCREATE(JButton buttonPersonBachelorCREATE) { this.buttonPersonBachelorCREATE = buttonPersonBachelorCREATE; }
 
 	public JButton getButtonPersonMasterCREATE() {
 		return buttonPersonMasterCREATE;
 	}
 
-	public void setButtonPersonMasterCREATE(JButton buttonPersonMasterCREATE) {
-		this.buttonPersonMasterCREATE = buttonPersonMasterCREATE;
-	}
+	public void setButtonPersonMasterCREATE(JButton buttonPersonMasterCREATE) { this.buttonPersonMasterCREATE = buttonPersonMasterCREATE; }
 
 	public JButton getButtonPersonPhDCREATE() {
 		return buttonPersonPhDCREATE;
 	}
 
-	public void setButtonPersonPhDCREATE(JButton buttonPersonPhDCREATE) {
-		this.buttonPersonPhDCREATE = buttonPersonPhDCREATE;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
+	public void setButtonPersonPhDCREATE(JButton buttonPersonPhDCREATE) { this.buttonPersonPhDCREATE = buttonPersonPhDCREATE; }
 
 	public JButton getButtonRETURN() {
 		return buttonRETURN;
 	}
-
 
 	public void setButtonRETURN(JButton buttonRETURN) {
 		this.buttonRETURN = buttonRETURN;
