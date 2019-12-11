@@ -57,13 +57,12 @@ public class ProjectGUI extends JPanel{
 	private int y;
 	private JFrame frame;
 	InvestigationCenter investigationCenter;
-	String type;
 
-	public ProjectGUI(JFrame frame, InvestigationCenter investigationCenter, String type) {
+
+	public ProjectGUI(JFrame frame, InvestigationCenter investigationCenter) {
 		super();
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
-		this.type=type;
 
 		// List
 		listValues = new DefaultListModel<Teacher>();
@@ -79,7 +78,7 @@ public class ProjectGUI extends JPanel{
 	public void initialize(){
 		frame.setLayout(new GridBagLayout());
 
-		title = new JLabel("Add a new "+type);
+		title = new JLabel("Add a new ");
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
