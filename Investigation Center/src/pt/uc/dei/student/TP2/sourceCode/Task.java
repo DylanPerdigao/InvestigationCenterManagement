@@ -179,7 +179,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String out = this.getName()+ " --- "+this.status;
+        String out = this.getName()+" ("+this.getStatus()+"%) ---> " + this.getResponsible();
         return out;
     }
 

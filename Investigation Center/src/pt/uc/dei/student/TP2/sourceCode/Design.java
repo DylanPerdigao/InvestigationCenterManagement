@@ -33,7 +33,7 @@ public class Design extends Task {
      */
     @Override
     public String toString() {
-        String out = "[DESIGN] "+this.getName();
+        String out = "[DESIGN] "+this.getName()+" ("+this.getStatus()+"%) ---> " + this.getResponsible();
         return out;
     }
 }

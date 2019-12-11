@@ -69,17 +69,17 @@ public class ProjectManagementGUI extends JPanel{
 		setProject(project);
 		// List UNSTARTED TASK
 		setListValuesUnstartedTasks(new DefaultListModel<Task>());
-		listValuesUnstartedTasks.addAll(project.showUnstartedTasks());
+		listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
 		setListUnstartedTasks(new JList<Task>(listValuesUnstartedTasks));
 		setListScrollerUnstartedTasks(new JScrollPane(listUnstartedTasks)); 
 		// List UNSTARTED TASK IN ESTIMATED TIME
 		setListValuesUnstartedTasksIET(new DefaultListModel<Task>());
-		listValuesUnstartedTasksIET.addAll(project.showUnstartedTasks());
+		listValuesUnstartedTasksIET.addAll(project.getUnstartedTasks());
 		setListUnstartedTasksIET(new JList<Task>(listValuesUnstartedTasksIET));
 		setListScrollerUnstartedTasksIET(new JScrollPane(listUnstartedTasksIET)); 
 		// List COMPLETED TASK
 		setListValuesCompletedTasks(new DefaultListModel<Task>());
-		listValuesCompletedTasks.addAll(project.showUnstartedTasks());
+		listValuesCompletedTasks.addAll(project.getUnstartedTasks());
 		setListCompletedTasks(new JList<Task>(listValuesCompletedTasks));
 		setListScrollerCompletedTasks(new JScrollPane(listCompletedTasks)); 
 		// List TASK
@@ -87,6 +87,11 @@ public class ProjectManagementGUI extends JPanel{
 		listValuesTasks.addAll(project.getTasks());
 		setListTasks(new JList<Task>(listValuesTasks));
 		setListScrollerTasks(new JScrollPane(listTasks)); 
+		// List Members
+		setListValuesMembers(new DefaultListModel<Person>());
+		listValuesMembers.addAll(project.getMembers());
+		setListMembers(new JList<Person>(listValuesMembers));
+		setListScrollerMembers(new JScrollPane(listMembers)); 
 	}
 
 

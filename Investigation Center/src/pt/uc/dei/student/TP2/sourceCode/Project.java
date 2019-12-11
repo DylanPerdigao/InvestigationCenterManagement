@@ -17,7 +17,7 @@ public class Project {
     private int duration;
     private Teacher principalInvestigator;
     private ArrayList<Person> members;
-    private ArrayList<Task> tasks;
+    private ArrayList<Task> tasks, unstartedTasks, unstartedTasksIET,completedTasks;
     private boolean status;
 
     /**
@@ -215,14 +215,6 @@ public class Project {
         members.add(person);
     }
     /**
-     * This method returns the tasks of the project.
-     * @return Tasks of the project.
-     * @since 09-12-2019
-     */
-    public ArrayList<Task> showTask(){
-        return this.getTasks();
-    }
-    /**
      * This method creates a task for the project.
      * @param task	This is the task who is added to the project.
      * @return Task added to the project.
@@ -245,13 +237,15 @@ public class Project {
      * @return Completed tasks of the project.
      * @since 09-12-2019
      */
-    public ArrayList<Task> showCompletedTasks(){
+    public ArrayList<Task> getCompletedTasks(){
     	ArrayList<Task> completed = new ArrayList<Task>();
 		for(Task task:tasks) {
+			System.out.println("TASK:"+task);
 			if(task.getStatus()==100.0) {
 				completed.add(task);
 			}
 		}
+		System.out.println(completed);
 		return completed;
     }
     /**
@@ -259,7 +253,7 @@ public class Project {
      * @return Unstarted tasks of the project.
      * @since 09-12-2019
      */
-    public ArrayList<Task> showUnstartedTasks(){
+    public ArrayList<Task> getUnstartedTasks(){
     	ArrayList<Task> unstarted = new ArrayList<Task>();
 		for(Task task:tasks) {
 			if(LocalDate.now().isBefore(task.getBeginDate())) {
@@ -273,7 +267,7 @@ public class Project {
      * @return Uncompleted tasks of the project.
      * @since 09-12-2019
      */
-    public ArrayList<Task> showUncompletedTasks(){
+    public ArrayList<Task> getUncompletedTasks(){
     	ArrayList<Task> uncompleted = new ArrayList<Task>();
 		for(Task task:tasks) {
 			if(task.getStatus()<100.0) {
@@ -287,7 +281,7 @@ public class Project {
      * @return Uncompleted tasks in the estimated time of the project.
      * @since 09-12-2019
      */
-    public ArrayList<Task> showUncompletedTasksIET(){
+    public ArrayList<Task> getUncompletedTasksIET(){
     	ArrayList<Task> uncompleted = new ArrayList<Task>();
 		for(Task task:tasks) {
 			if(task.getStatus()<100.0 && LocalDate.now().isAfter(task.getEndDate())) {
