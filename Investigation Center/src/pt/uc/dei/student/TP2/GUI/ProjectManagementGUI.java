@@ -350,17 +350,14 @@ public class ProjectManagementGUI extends JPanel{
 		c.gridwidth = 1;
 		c.gridheight= 1;
 		getFrame().add(labelCOST, c);
-		//Listeners
-		/*InvestigationCenterGUI.ButtonListener buttonActionListener = new InvestigationCenterGUI.ButtonListener();
 
-		buttonENTER.addActionListener(buttonActionListener);
-		buttonPersonTeacherCREATE.addActionListener(buttonActionListener);
-		buttonPersonBachelorCREATE.addActionListener(buttonActionListener);
-		buttonPersonMasterCREATE.addActionListener(buttonActionListener);
-		buttonPersonPhDCREATE.addActionListener(buttonActionListener);
-		buttonPersonREMOVE.addActionListener(buttonActionListener);
-		buttonProjectCREATE.addActionListener(buttonActionListener);
-		buttonProjectREMOVE.addActionListener(buttonActionListener);*/
+		//Listeners
+		ProjectManagementGUI.ButtonListener buttonActionListener = new ProjectManagementGUI.ButtonListener();
+
+		buttonTaskCREATE.addActionListener(buttonActionListener);
+		buttonTaskREMOVE.addActionListener(buttonActionListener);
+		buttonRETURN.addActionListener(buttonActionListener);
+		buttonProjectEND.addActionListener(buttonActionListener);
 
 		getFrame().setVisible(true);
 	}
@@ -369,11 +366,11 @@ public class ProjectManagementGUI extends JPanel{
 		getFrame().getContentPane().removeAll();
 		getFrame().repaint();
 	}
-/*
+
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e){
-			if(e.getSource()== buttonPersonTeacherCREATE){
+			if(e.getSource()== buttonTaskCREATE){
 				try{
 					//não é importante para ja
 					System.out.println("não é importante para ja\n");
@@ -381,63 +378,33 @@ public class ProjectManagementGUI extends JPanel{
 					ex.printStackTrace();
 				}
 			}
-			else if(e.getSource() == buttonPersonBachelorCREATE) {
+			else if(e.getSource() == buttonTaskREMOVE) {
 				try {
-					AdvisedStudentGUI advisedStudentGUI = new AdvisedStudentGUI(frame,investigationCenter,"Bachelor");
+
+					//frame.dispose();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonRETURN) {
+				try {
+					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(getFrame(),investigationCenter);
 					close();
-					advisedStudentGUI.initialize();
+					investigationCenterGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
-			else if(e.getSource() == buttonPersonMasterCREATE) {
-				try {
-					AdvisedStudentGUI advisedStudentGUI = new AdvisedStudentGUI(frame,investigationCenter,"Master");
-					close();
-					advisedStudentGUI.initialize();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonPersonPhDCREATE) {
+			else if(e.getSource() == buttonProjectEND) {
 				try {
 
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonPersonREMOVE) {
-				try {
-
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonProjectCREATE) {
-				try {
-
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonProjectREMOVE) {
-				try {
-
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonENTER) {
-				try {
-
+					//frame.dispose();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 		}
-
-	}*/
-
+	}
 
 	public JButton getButtonRETURN() {
 		return buttonRETURN;
@@ -659,3 +626,7 @@ public class ProjectManagementGUI extends JPanel{
 	}
 }
 
+
+
+//ccvrc!
+//ccvrc#
