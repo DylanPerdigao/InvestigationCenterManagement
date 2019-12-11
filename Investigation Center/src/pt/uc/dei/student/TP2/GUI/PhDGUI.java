@@ -273,6 +273,7 @@ public class PhDGUI extends JPanel{
 			else if(e.getSource() == buttonCANCEL) {
 				try {
 					close();
+
 					//frame.dispose();
 				} catch (Exception ex) {
 					ex.printStackTrace();

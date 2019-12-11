@@ -302,8 +302,9 @@ public class AdvisedStudentGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonCANCEL) {
 				try {
+					AdvisedStudentGUI advisedStudentGUI = new AdvisedStudentGUI(frame,investigationCenter,"Bachelor");
 					close();
-					//frame.dispose();
+					advisedStudentGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
