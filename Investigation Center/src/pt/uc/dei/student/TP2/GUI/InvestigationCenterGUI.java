@@ -424,7 +424,7 @@ public class InvestigationCenterGUI {
 						project.addMember(listPeople.getSelectedValue());
 						projects.add(project);
 						investigationCenter.setProjects(projects);
-
+						listValuesProjectMembers.addAll(project.getMembers());
 						update();
 					}
 				} catch (Exception ex) {
@@ -454,16 +454,10 @@ public class InvestigationCenterGUI {
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void mouseClicked(MouseEvent e) {}
 
 		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void mousePressed(MouseEvent e) {}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
@@ -496,35 +490,34 @@ public class InvestigationCenterGUI {
 					message += "\nInvestigation Area:\t"+teacher.getInvestigationArea();
 				}
 				JOptionPane.showMessageDialog(null, message,"People Description", JOptionPane.PLAIN_MESSAGE);
+			}else if(e.getSource() == listProjects) {
+				listProjectMembers.removeAll();
+				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
+				//TODO TIPO APAGAR E ATUALIZAR ESSA LISTA CADA VEZ QUE SE MUDA DE SELECAO NO PROJETO
 			}
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
+		public void mouseEntered(MouseEvent e) {}
 		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void mouseExited(MouseEvent e) {}
 	}
 
 	private void update() {
-		// List
+		// Lists
 		listValuesPeople = new DefaultListModel<Person>();
 		listValuesPeople.addAll(investigationCenter.getPeople());
-		setListValuesProjectMembers(new DefaultListModel<Person>());
+		listPeople = new JList<Person>(listValuesPeople);
+		setListScrollerPeople(new JScrollPane(listPeople));
+		
+		listValuesProjectMembers = new DefaultListModel<Person>();
+		listProjectMembers = new JList<Person>(getListValuesProjectMembers());
+		setListScrollerProjectMembers(new JScrollPane(getListProjectMembers()));
+
 		listValuesProjects = new DefaultListModel<Project>();
 		listValuesProjects.addAll(investigationCenter.getProjects());
-		listPeople = new JList<Person>(listValuesPeople);
-		setListProjectMembers(new JList<Person>(getListValuesProjectMembers()));
 		listProjects = new JList<Project>(listValuesProjects);
-		setListScrollerPeople(new JScrollPane(listPeople));
 		setListScrollerProjects(new JScrollPane(listProjects));
-		setListScrollerProjectMembers(new JScrollPane(getListProjectMembers()));
 	}
 
 	public JButton getButtonPersonREMOVE() {
