@@ -415,9 +415,9 @@ public class InvestigationCenterGUI {
 			}
 			else if(e.getSource() == buttonRETURN) {
 				try {
-					MainGUI mainGUI = new MainGUI(frame, listaIC);
+					/*MainGUI mainGUI = new MainGUI(frame, listaIC);
 					close();
-					mainGUI.initialize();
+					mainGUI.initialize();*/
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
