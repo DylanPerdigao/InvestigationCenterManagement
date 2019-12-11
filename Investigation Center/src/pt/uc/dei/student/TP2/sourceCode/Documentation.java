@@ -33,7 +33,7 @@ public class Documentation extends Task {
      */
     @Override
     public String toString() {
-        String out = "[DOC] "+this.getName()+" ("+this.getStatus()+"%) ---> " + this.getResponsible();
+        String out = "[DOC] "+this.getName()+" ("+this.getStatus()+"%)";
         return out;
     }
 }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import pt.uc.dei.student.TP2.sourceCode.AdvisedStudent;
 import pt.uc.dei.student.TP2.sourceCode.Bachelor;
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
 import pt.uc.dei.student.TP2.sourceCode.Master;
@@ -34,6 +33,8 @@ public class InvestigationCenterGUI extends JPanel{
 	private JButton buttonPersonREMOVE;
 	private JButton buttonProjectCREATE;
 	private JButton buttonProjectREMOVE;
+	private JButton buttonADDPeopleToProject;
+	private JButton buttonREMOVEPeopleFromProject;
 	private JButton buttonENTER;
 	private JButton buttonRETURN;
 	// Label
@@ -68,7 +69,9 @@ public class InvestigationCenterGUI extends JPanel{
 	public void initialize(){
 
 		frame.setLayout(new GridBagLayout());
-
+		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		title = new JLabel(investigationCenter.getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -229,6 +232,28 @@ public class InvestigationCenterGUI extends JPanel{
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(getButtonProjectREMOVE(), c);
+		
+		setButtonADDPeopleToProject(new JButton("Add selected person to selected project"));
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
+		c.weighty = 0;		//percentagem de altura celula em relacao as outras
+		c.ipady = 10;		//altura celula
+		c.gridx = 5;       	//posiçao celula x
+		c.gridy = 4; 		//posiçao celula y
+		c.gridheight = 1;   //quantos celulas de altura
+		c.gridwidth = 1;	//quantos celulas de largura
+		frame.add(getButtonADDPeopleToProject(), c);
+
+		setButtonREMOVEPeopleFromProject(new JButton("Remove selected person to selected project"));
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.5;
+		c.weighty = 0;
+		c.ipady = 10;
+		c.gridx = 5;
+		c.gridy = 5;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		frame.add(getButtonREMOVEPeopleFromProject(), c);
 
 		setButtonENTER(new JButton("Enter in Project"));
 		c.fill = GridBagConstraints.BOTH;
@@ -263,18 +288,20 @@ public class InvestigationCenterGUI extends JPanel{
 		c.gridwidth = 1;
 		frame.add(listScrollerProjects, c);
 
-
 		//Listeners
-		InvestigationCenterGUI.ButtonListener buttonActionListener = new InvestigationCenterGUI.ButtonListener();
-		buttonENTER.addActionListener(buttonActionListener);
-		buttonPersonTeacherCREATE.addActionListener(buttonActionListener);
-		buttonPersonBachelorCREATE.addActionListener(buttonActionListener);
-		buttonPersonMasterCREATE.addActionListener(buttonActionListener);
-		buttonPersonPhDCREATE.addActionListener(buttonActionListener);
-		buttonPersonREMOVE.addActionListener(buttonActionListener);
-		buttonProjectCREATE.addActionListener(buttonActionListener);
-		buttonProjectREMOVE.addActionListener(buttonActionListener);
-		listPeople.addMouseListener(buttonActionListener);
+		InvestigationCenterGUI.Listener actionListener = new InvestigationCenterGUI.Listener();
+		buttonENTER.addActionListener(actionListener);
+		buttonPersonTeacherCREATE.addActionListener(actionListener);
+		buttonPersonBachelorCREATE.addActionListener(actionListener);
+		buttonPersonMasterCREATE.addActionListener(actionListener);
+		buttonPersonPhDCREATE.addActionListener(actionListener);
+		buttonPersonREMOVE.addActionListener(actionListener);
+		buttonProjectCREATE.addActionListener(actionListener);
+		buttonProjectREMOVE.addActionListener(actionListener);
+		buttonADDPeopleToProject.addActionListener(actionListener);
+		buttonREMOVEPeopleFromProject.addActionListener(actionListener);
+		listPeople.addMouseListener(actionListener);
+		listProjects.addMouseListener(actionListener);
 		frame.setVisible(true);
 	}
 
@@ -283,7 +310,7 @@ public class InvestigationCenterGUI extends JPanel{
 		frame.repaint();
 	}
 
-	private class ButtonListener implements ActionListener, MouseListener {
+	private class Listener implements ActionListener, MouseListener {
 
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonPersonTeacherCREATE){
@@ -356,13 +383,34 @@ public class InvestigationCenterGUI extends JPanel{
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonENTER) {
+			}else if(e.getSource() == buttonENTER) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
 						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, investigationCenter, listProjects.getSelectedValue());
 						close();
 						projectManagementGUI.initialize();
+					}
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}else if(e.getSource() == buttonADDPeopleToProject) {
+				try {
+					if (listPeople.getSelectedValue() != null && listProjects.getSelectedValue() != null) {
+						//investigationCenter.getProjects().remove(listProjects.getSelectedValue());
+						//listProjects.getSelectedValue().addMember(listPeople.getSelectedValue());
+						//investigationCenter.getProjects().add(listProjects.getSelectedValue());
+						update();
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}else if(e.getSource() == buttonREMOVEPeopleFromProject) {
+				try {
+					if (listProjects.getSelectedValue() != null) {
+						//ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, investigationCenter, listProjects.getSelectedValue());
+						//close();
+						//projectManagementGUI.initialize();
 					}
 
 				} catch (Exception ex) {
@@ -387,6 +435,7 @@ public class InvestigationCenterGUI extends JPanel{
 		public void mouseReleased(MouseEvent e) {
 			if(e.getSource() == listPeople) {
 				Person p = listPeople.getSelectedValue();
+				//listPeople.clearSelection();
 				String message = "Name:\t"+p.getName()+"\nE-mail:\t"+p.getEmail();
 				if(p instanceof Bachelor) {
 					Bachelor bachelorStudent = (Bachelor) p;
@@ -413,7 +462,15 @@ public class InvestigationCenterGUI extends JPanel{
 					message += "\nInvestigation Area:\t"+teacher.getInvestigationArea();
 				}
 				JOptionPane.showMessageDialog(null, message,"People Description", JOptionPane.PLAIN_MESSAGE);
-				
+			}else if(e.getSource() == listProjects) {
+				String message = "";
+				for(Person p : listProjects.getSelectedValue().getMembers()) {
+					message += p.getName()+"\n";
+				}
+				if(message=="") {
+					message="There is no member in project";
+				}
+				JOptionPane.showMessageDialog(null, message,"People in Project", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 
@@ -547,5 +604,25 @@ public class InvestigationCenterGUI extends JPanel{
 
 	public void setButtonRETURN(JButton buttonRETURN) {
 		this.buttonRETURN = buttonRETURN;
+	}
+
+
+	public JButton getButtonADDPeopleToProject() {
+		return buttonADDPeopleToProject;
+	}
+
+
+	public void setButtonADDPeopleToProject(JButton buttonADDPeopleToProject) {
+		this.buttonADDPeopleToProject = buttonADDPeopleToProject;
+	}
+
+
+	public JButton getButtonREMOVEPeopleFromProject() {
+		return buttonREMOVEPeopleFromProject;
+	}
+
+
+	public void setButtonREMOVEPeopleFromProject(JButton buttonREMOVEPeopleFromProject) {
+		this.buttonREMOVEPeopleFromProject = buttonREMOVEPeopleFromProject;
 	}
 }
