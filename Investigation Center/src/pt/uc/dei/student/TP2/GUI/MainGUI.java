@@ -36,11 +36,8 @@ public class MainGUI extends JPanel{
 		super();
 		setFrame(frame);
 		setListIC(listIC);
-		// List
-		listValues = new DefaultListModel<InvestigationCenter>();
-		listValues.addAll(listIC);
-		list = new JList<InvestigationCenter>(listValues);
-		listScroller = new JScrollPane(list); 
+
+		update();
 	}
 
 	public void initialize(){
@@ -182,7 +179,6 @@ public class MainGUI extends JPanel{
 						InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(getFrame(),list.getSelectedValue());
 						close();
 						investigationCenterGUI.initialize();
-						//initialize();
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -193,6 +189,7 @@ public class MainGUI extends JPanel{
 	}
 
 	private void update() {
+		// List
 		listValues = new DefaultListModel<InvestigationCenter>();
 		listValues.addAll(listIC);
 		list = new JList<InvestigationCenter>(listValues);

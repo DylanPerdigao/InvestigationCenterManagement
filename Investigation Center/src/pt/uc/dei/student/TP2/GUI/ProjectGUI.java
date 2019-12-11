@@ -63,10 +63,8 @@ public class ProjectGUI extends JPanel{
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
 
-		// List
-		listValues = new DefaultListModel<Teacher>();
-		list = new JList<Teacher>(listValues);
-		setListScroller(new JScrollPane(list));
+		update();
+
 		// Buttons
 		/*
 		 * buttonCREATE.addActionListener(this); buttonREMOVE.addActionListener(this);
@@ -280,9 +278,49 @@ public class ProjectGUI extends JPanel{
 		c.gridwidth = 1; // quantos celulas de largura
 		frame.add(buttonCANCEL, c);
 
+		//Listeners
+		ProjectGUI.ButtonListener buttonActionListener = new ProjectGUI.ButtonListener();
+
+		buttonCREATE.addActionListener(buttonActionListener);
+		buttonCANCEL.addActionListener(buttonActionListener);
 
 
 		frame.setVisible(true);
+	}
+
+	private void close(){
+		frame.getContentPane().removeAll();
+		frame.repaint();
+	}
+
+	private class ButtonListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource()== buttonCREATE){
+				try{
+					//não é importante para ja
+					System.out.println("não é importante para ja\n");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonCANCEL) {
+				try {
+					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,investigationCenter);
+					close();
+					investigationCenterGUI.initialize();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private void update(){
+		// List
+		listValues = new DefaultListModel<Teacher>();
+		list = new JList<Teacher>(listValues);
+		setListScroller(new JScrollPane(list));
 	}
 
 	public JTextField getTextName() {

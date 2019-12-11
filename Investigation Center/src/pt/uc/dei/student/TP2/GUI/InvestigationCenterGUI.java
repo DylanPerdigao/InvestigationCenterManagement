@@ -3,8 +3,11 @@ package pt.uc.dei.student.TP2.GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
 
 import javax.swing.*;
 
@@ -58,15 +61,7 @@ public class InvestigationCenterGUI extends JPanel{
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
 
-		// List
-		listValuesPeople = new DefaultListModel<Person>();
-		listValuesPeople.addAll(investigationCenter.getPeople());
-		listValuesProjects = new DefaultListModel<Project>();
-		listValuesProjects.addAll(investigationCenter.getProjects());
-		listPeople = new JList<Person>(listValuesPeople);
-		listProjects = new JList<Project>(listValuesProjects);
-		setListScrollerPeople(new JScrollPane(listPeople)); 
-		setListScrollerProjects(new JScrollPane(listProjects));
+		update();
 	}
 
 
@@ -330,7 +325,12 @@ public class InvestigationCenterGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonPersonREMOVE) {
 				try {
-
+					if (listPeople.getSelectedValue() != null) {
+						ArrayList<Person> persons = investigationCenter.getPeople();
+						persons.remove(listPeople.getSelectedValue());
+						investigationCenter.setPeople(persons);;
+						update();
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -346,6 +346,12 @@ public class InvestigationCenterGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonProjectREMOVE) {
 				try {
+					if (listProjects.getSelectedValue() != null) {
+						ArrayList<Project> projects= investigationCenter.getProjects();
+						projects.remove(listProjects.getSelectedValue());
+						investigationCenter.setProjects(projects);;
+						update();
+					}
 
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -423,6 +429,18 @@ public class InvestigationCenterGUI extends JPanel{
 			
 		}
 
+	}
+
+	private void update() {
+		// List
+		listValuesPeople = new DefaultListModel<Person>();
+		listValuesPeople.addAll(investigationCenter.getPeople());
+		listValuesProjects = new DefaultListModel<Project>();
+		listValuesProjects.addAll(investigationCenter.getProjects());
+		listPeople = new JList<Person>(listValuesPeople);
+		listProjects = new JList<Project>(listValuesProjects);
+		setListScrollerPeople(new JScrollPane(listPeople));
+		setListScrollerProjects(new JScrollPane(listProjects));
 	}
 
 	public JButton getButtonPersonREMOVE() {

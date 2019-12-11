@@ -229,8 +229,9 @@ public class TeacherGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonCANCEL) {
 				try {
+					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,investigationCenter);
 					close();
-					//frame.dispose();
+					investigationCenterGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
