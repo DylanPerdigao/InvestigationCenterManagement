@@ -12,8 +12,6 @@ import java.util.ArrayList;
  * @version	1.0
  */
 public class Project {
-	public static final boolean COMPLETED = true;
-	public static final boolean UNCOMPLETED = false;
     private String name, acronym;
     private LocalDate beginDate,endDate;
     private int duration;
@@ -250,7 +248,7 @@ public class Project {
     public ArrayList<Task> showCompletedTasks(){
     	ArrayList<Task> completed = new ArrayList<Task>();
 		for(Task task:tasks) {
-			if(task.getStatus()==COMPLETED) {
+			if(task.getStatus()==100.0) {
 				completed.add(task);
 			}
 		}
@@ -278,7 +276,7 @@ public class Project {
     public ArrayList<Task> showUncompletedTasks(){
     	ArrayList<Task> uncompleted = new ArrayList<Task>();
 		for(Task task:tasks) {
-			if(task.getStatus()==UNCOMPLETED) {
+			if(task.getStatus()<100.0) {
 				uncompleted.add(task);
 			}
 		}
@@ -292,7 +290,7 @@ public class Project {
     public ArrayList<Task> showUncompletedTasksIET(){
     	ArrayList<Task> uncompleted = new ArrayList<Task>();
 		for(Task task:tasks) {
-			if(task.getStatus()==UNCOMPLETED && LocalDate.now().isAfter(task.getEndDate())) {
+			if(task.getStatus()<100.0 && LocalDate.now().isAfter(task.getEndDate())) {
 				uncompleted.add(task);
 			}
 		}
@@ -324,7 +322,7 @@ public class Project {
      * @since 09-12-2019
      */
     public void endProject(){
-        this.status=COMPLETED;
+        this.status=true;
     }
     /**
      * This method returns a string with informations about the project.

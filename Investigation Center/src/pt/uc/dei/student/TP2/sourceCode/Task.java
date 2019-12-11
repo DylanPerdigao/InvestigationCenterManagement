@@ -16,7 +16,7 @@ public class Task {
     private int duration;
     private LocalDate beginDate, endDate;
     private Person responsible;
-    private boolean status;
+    private double status;
 
     /**
      * This is the constructor of the task object.
@@ -30,7 +30,7 @@ public class Task {
      * @param status	This is the status of the task.
      * @since 09-12-2019 
      */
-    Task(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, boolean status){
+    Task(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, double status){
         setName(name);
         setBeginDate(beginDate);
         setEndDate(endDate);
@@ -50,7 +50,7 @@ public class Task {
      * @param status	This is the status of the task.
      * @since 09-12-2019 
      */
-    Task(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, boolean status) {
+    Task(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, double status) {
         setName(name);
         setBeginDate(beginDate);
         setEndDate(endDate);
@@ -161,7 +161,7 @@ public class Task {
      * @return Status of the task.
      * @since 09-12-2019
      */
-	public boolean getStatus() {
+	public double getStatus() {
 		return status;
 	}
     /**
@@ -169,7 +169,7 @@ public class Task {
      * @param status	This is the status of the task.
      * @since 09-12-2019
      */
-	public void setStatus(boolean status) {
+	public void setStatus(double status) {
 		this.status = status;
 	}
     /**
@@ -179,13 +179,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String out = "\nName: "+this.getName()+
-        		"\nEffort: "+this.getEffortRate()+
-        		"\nResponsible: "+this.getResponsible()+
-        		"\nDuration (month): "+this.getDuration()+
-        		"\nBegin Date: "+this.getBeginDate()+
-        		"\nEnd Date: "+this.getEndDate()+
-        		"\n------------------------------";
+        String out = this.getName()+ " --- "+this.status;
         return out;
     }
 

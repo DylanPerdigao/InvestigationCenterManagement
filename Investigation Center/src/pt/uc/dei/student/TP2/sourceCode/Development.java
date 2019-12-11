@@ -23,7 +23,7 @@ public class Development extends Task {
      * @param status	This is the status of the development task.
      * @since 09-12-2019 
      */
-    public Development(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, boolean status) {
+    public Development(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, double status) {
         super(name, effortRate, beginDate, endDate, duration, responsible, status);
     }
     /**
@@ -33,12 +33,7 @@ public class Development extends Task {
      */
     @Override
     public String toString() {
-        String out = "Name: "+this.getName()+
-        		"\nEffort: "+this.getEffortRate()+
-        		"\nResponsible: "+this.getResponsible()+
-        		"\nDuration (month): "+this.getDuration()+
-        		"\nBegin Date: "+this.getBeginDate()+
-        		"\nEnd Date: "+this.getEndDate();
+        String out = "[DEV] "+this.getName();
         return out;
     }
 }

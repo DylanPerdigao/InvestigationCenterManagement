@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import pt.uc.dei.student.TP2.GUI.MainGUI;
+import pt.uc.dei.student.TP2.GUI.ProjectManagementGUI;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -76,11 +77,21 @@ public class Main {
 					    LocalDate begin = LocalDate.parse(taskInfo[2],formatter);
 					    LocalDate end = LocalDate.parse(taskInfo[3],formatter);
 					    int duration = Integer.parseInt(taskInfo[4]);
-					    boolean isCompleted = Boolean.parseBoolean(taskInfo[5]);
-					    Task task = new Task(name, effortRate,begin, end, duration,new Person(),isCompleted);
+					    double completion = Double.parseDouble(taskInfo[5]);
 					    //ADD TO LIST
 					    projectCounter = listIC.get(ICCounter).getProjects().size()-1;
-					    listIC.get(ICCounter).getProjects().get(projectCounter).createTask(task);
+					    if(effortRate==0.25) {		
+					    	Documentation task = new Documentation(name, effortRate,begin, end, duration,new Person(),completion);
+					    	listIC.get(ICCounter).getProjects().get(projectCounter).createTask(task);
+					    }else if(effortRate==0.5) {
+					    	Design task = new Design(name, effortRate,begin, end, duration,new Person(),completion);
+					    	listIC.get(ICCounter).getProjects().get(projectCounter).createTask(task);
+					    }else if(effortRate==1) {
+					    	Development task = new Development(name, effortRate,begin, end, duration,new Person(),completion);
+					    	listIC.get(ICCounter).getProjects().get(projectCounter).createTask(task);
+					    }else{
+					    	System.out.printf("Error with effort rate");
+					    }
 					}
 					token = "\tTEACHER:\t";
 					if(line.startsWith(token)) {
@@ -159,7 +170,9 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//int x=frame.getWidth();
 		//int y=frame.getHeight();
-		MainGUI mainGUI = new MainGUI(frame,listIC);
-		mainGUI.initialize();
+		//MainGUI mainGUI = new MainGUI(frame,listIC);
+		//mainGUI.initialize();
+		ProjectManagementGUI p = new ProjectManagementGUI(frame,listIC.get(0),listIC.get(0).getProjects().get(0));
+		p.initialize();
 	}
 }
