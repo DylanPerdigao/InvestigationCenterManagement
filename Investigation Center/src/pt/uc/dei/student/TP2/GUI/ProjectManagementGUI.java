@@ -61,6 +61,7 @@ public class ProjectManagementGUI extends JPanel{
 	private JFrame frame;
 	private InvestigationCenter investigationCenter;
 	private Project project;
+
 	public ProjectManagementGUI(JFrame frame,InvestigationCenter investigationCenter,Project project) {
 		super();
 		setFrame(frame);

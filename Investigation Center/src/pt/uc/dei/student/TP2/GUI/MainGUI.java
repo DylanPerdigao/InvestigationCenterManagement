@@ -19,10 +19,6 @@ public class MainGUI extends JPanel{
 
 	//Constraints
 	private GridBagConstraints c = new GridBagConstraints();
-	// Label
-	private JLabel title;
-	private JLabel emptyLabel1;
-	private JLabel emptyLabel2;
 	// Text
 	private JTextField text;
 	// List
@@ -51,7 +47,8 @@ public class MainGUI extends JPanel{
 		
 		getFrame().setLayout(new GridBagLayout());
 
-		title = new JLabel("Investigations Centers Manager");
+		// Label
+		JLabel title = new JLabel("Investigations Centers Manager");
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -63,7 +60,7 @@ public class MainGUI extends JPanel{
 		getFrame().add(title, c);
 
 
-		emptyLabel1 = new JLabel("");
+		JLabel emptyLabel1 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -73,7 +70,7 @@ public class MainGUI extends JPanel{
 		c.gridheight= 1;
 		getFrame().add(emptyLabel1, c);
 
-		emptyLabel2 = new JLabel("");
+		JLabel emptyLabel2 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -154,6 +151,54 @@ public class MainGUI extends JPanel{
 		getFrame().repaint();
 	}
 
+	private class ButtonListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource()== buttonCREATE){
+				try{
+					if (!text.getText().equals("")) {
+						InvestigationCenter investigationCenter= new InvestigationCenter(text.getText(), null, null);
+						listIC.add(investigationCenter);
+						update();
+						text.setText("");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonREMOVE) {
+				try {
+					if (list.getSelectedValue() != null) {
+						listIC.remove(list.getSelectedValue());
+						update();
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonENTER) {
+				try {
+					if (list.getSelectedValue() != null) {
+						InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(getFrame(),list.getSelectedValue());
+						close();
+						investigationCenterGUI.initialize();
+						//initialize();
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+
+	}
+
+	private void update() {
+		listValues = new DefaultListModel<InvestigationCenter>();
+		listValues.addAll(listIC);
+		list = new JList<InvestigationCenter>(listValues);
+		listScroller = new JScrollPane(list);
+	}
+
 	public JScrollPane getListScroller() {
 		return listScroller;
 	}
@@ -218,46 +263,13 @@ public class MainGUI extends JPanel{
 		this.frame = frame;
 	}
 
-	ArrayList<InvestigationCenter> getListIC() {
+	private ArrayList<InvestigationCenter> getListIC() {
 		return listIC;
 	}
 
-	void setListIC(ArrayList<InvestigationCenter> listIC) {
+	private void setListIC(ArrayList<InvestigationCenter> listIC) {
 		this.listIC = listIC;
 	}
 
-	private class ButtonListener implements ActionListener{
-
-		public void actionPerformed(ActionEvent e){
-			if(e.getSource()== buttonCREATE){
-				try{
-					listValues.add(0, new InvestigationCenter(text.getText(), null, null));
-					text.setText("");
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonREMOVE) {
-				try {
-					listValues.removeElement(list.getSelectedValue());
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonENTER) {
-				try {
-					if (list.getSelectedValue() != null) {
-						InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(getFrame(),list.getSelectedValue());
-						close();
-						investigationCenterGUI.initialize();
-						//initialize();
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-		}
-		
-	}
 }
 

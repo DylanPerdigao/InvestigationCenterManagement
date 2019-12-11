@@ -45,7 +45,7 @@ public class InvestigationCenterGUI extends JPanel{
 	private int x;
 	private int y;
 	private JFrame frame;
-	InvestigationCenter investigationCenter;
+	private InvestigationCenter investigationCenter;
 
 	public InvestigationCenterGUI(JFrame frame,InvestigationCenter investigationCenter) {
 		super();
@@ -60,7 +60,7 @@ public class InvestigationCenterGUI extends JPanel{
 		listPeople = new JList<Person>(listValuesPeople);
 		listProjects = new JList<Project>(listValuesProjects);
 		setListScrollerPeople(new JScrollPane(listPeople)); 
-		setListScrollerProjects(new JScrollPane(listProjects)); 
+		setListScrollerProjects(new JScrollPane(listProjects));
 	}
 
 
@@ -332,9 +332,9 @@ public class InvestigationCenterGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonProjectCREATE) {
 				try {
-					/*ProjectGUI projectGUI = new ProjectGUI(frame,investigationCenter);
+					ProjectGUI projectGUI = new ProjectGUI(frame,investigationCenter);
 					close();
-					phDGUI.initialize();*/
+					projectGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -348,6 +348,11 @@ public class InvestigationCenterGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonENTER) {
 				try {
+					if (listProjects.getSelectedValue() != null) {
+						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, investigationCenter, listProjects.getSelectedValue());
+						close();
+						projectManagementGUI.initialize();
+					}
 
 				} catch (Exception ex) {
 					ex.printStackTrace();
