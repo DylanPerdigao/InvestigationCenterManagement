@@ -44,7 +44,7 @@ public class Main {
 		} catch (FileNotFoundException ex) {
 			System.out.println("Object File not found, it will read init.txt file"); 
 			/*
-			 * READ FILE TXT
+			 * READ FILE TXT IF OBJECT FILE DOES NOT EXIST
 			 */
 			File f = new File("ressources/init.txt");
 			if(f.exists() && f.isFile()) { 
