@@ -231,9 +231,7 @@ public class MainGUI extends JPanel{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonCREATE){
 				try{
-					InvestigationCenter investigationCenter = new  InvestigationCenter(text.getText(), null, null);
-					listValues.add(0, investigationCenter);
-					listIC.add(investigationCenter);
+					listValues.add(0, new InvestigationCenter(text.getText(), null, null));
 					text.setText("");
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -241,7 +239,6 @@ public class MainGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonREMOVE) {
 				try {
-					listIC.remove(list.getSelectedValue());
 					listValues.removeElement(list.getSelectedValue());
 				} catch (Exception ex) {
 					ex.printStackTrace();

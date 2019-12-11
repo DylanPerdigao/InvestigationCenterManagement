@@ -332,9 +332,9 @@ public class InvestigationCenterGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonProjectCREATE) {
 				try {
-					ProjectGUI projectGUI = new ProjectGUI(frame,investigationCenter);
+					/*ProjectGUI projectGUI = new ProjectGUI(frame,investigationCenter);
 					close();
-					projectGUI.initialize();
+					phDGUI.initialize();*/
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -348,11 +348,7 @@ public class InvestigationCenterGUI extends JPanel{
 			}
 			else if(e.getSource() == buttonENTER) {
 				try {
-					if (listProjects.getSelectedValue()!=null) {
-						ProjectManagementGUI projectGUI = new ProjectManagementGUI(frame, investigationCenter, listProjects.getSelectedValue());
-						close();
-						projectGUI.initialize();
-					}
+
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
