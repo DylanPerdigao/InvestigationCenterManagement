@@ -42,12 +42,16 @@ public class InvestigationCenterGUI {
 	JLabel emptyLabel3;
 	JLabel labelPeople;
 	JLabel labelProjects;
+	JLabel labelProjectMembers;
 	// List
 	DefaultListModel<Person> listValuesPeople;
+	private DefaultListModel<Person> listValuesProjectMembers;
 	DefaultListModel<Project> listValuesProjects;
 	private JList<Person> listPeople;
+	private JList<Person> listProjectMembers;
 	private JList<Project> listProjects;
 	private JScrollPane listScrollerPeople;
+	private JScrollPane listScrollerProjectMembers;
 	private JScrollPane listScrollerProjects;
 
 	private JFrame frame;
@@ -65,6 +69,7 @@ public class InvestigationCenterGUI {
 
 		frame.setLayout(new GridBagLayout());
 		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		getListProjectMembers().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		title = new JLabel(investigationCenter.getName());
@@ -249,7 +254,30 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(getButtonREMOVEPeopleFromProject(), c);
+		
+		labelProjects = new JLabel("Project Members");
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		c.gridx = 5;
+		c.gridy = 6;
+		c.gridwidth = 1;
+		c.gridheight= 1;
+		frame.add(labelProjects, c);
 
+
+		setListScrollerProjectMembers(new JScrollPane(getListProjectMembers()));
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.5;
+		c.weighty = 10;
+		c.ipady = 10;
+		c.ipadx = 100;
+		c.gridx = 5;
+		c.gridy = 7;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		frame.add(getListScrollerProjectMembers(), c);
+		
 		setButtonENTER(new JButton("Enter in Project"));
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -392,6 +420,9 @@ public class InvestigationCenterGUI {
 			}else if(e.getSource() == buttonADDPeopleToProject) {
 				try {
 					if (listPeople.getSelectedValue() != null && listProjects.getSelectedValue() != null) {
+						for(Person p : listProjects.getSelectedValue().getMembers()) {
+							getListValuesProjectMembers().add(0, p);
+						}
 						//investigationCenter.getProjects().remove(listProjects.getSelectedValue());
 						//listProjects.getSelectedValue().addMember(listPeople.getSelectedValue());
 						//investigationCenter.getProjects().add(listProjects.getSelectedValue());
@@ -457,15 +488,6 @@ public class InvestigationCenterGUI {
 					message += "\nInvestigation Area:\t"+teacher.getInvestigationArea();
 				}
 				JOptionPane.showMessageDialog(null, message,"People Description", JOptionPane.PLAIN_MESSAGE);
-			}else if(e.getSource() == listProjects) {
-				String message = "";
-				for(Person p : listProjects.getSelectedValue().getMembers()) {
-					message += p.getName()+"\n";
-				}
-				if(message=="") {
-					message="There is no member in project";
-				}
-				JOptionPane.showMessageDialog(null, message,"People in Project", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 
@@ -486,12 +508,15 @@ public class InvestigationCenterGUI {
 		// List
 		listValuesPeople = new DefaultListModel<Person>();
 		listValuesPeople.addAll(investigationCenter.getPeople());
+		setListValuesProjectMembers(new DefaultListModel<Person>());
 		listValuesProjects = new DefaultListModel<Project>();
 		listValuesProjects.addAll(investigationCenter.getProjects());
 		listPeople = new JList<Person>(listValuesPeople);
+		setListProjectMembers(new JList<Person>(getListValuesProjectMembers()));
 		listProjects = new JList<Project>(listValuesProjects);
 		setListScrollerPeople(new JScrollPane(listPeople));
 		setListScrollerProjects(new JScrollPane(listProjects));
+		setListScrollerProjectMembers(new JScrollPane(getListProjectMembers()));
 	}
 
 	public JButton getButtonPersonREMOVE() {
@@ -590,5 +615,35 @@ public class InvestigationCenterGUI {
 
 	public void setButtonREMOVEPeopleFromProject(JButton buttonREMOVEPeopleFromProject) {
 		this.buttonREMOVEPeopleFromProject = buttonREMOVEPeopleFromProject;
+	}
+
+
+	DefaultListModel<Person> getListValuesProjectMembers() {
+		return listValuesProjectMembers;
+	}
+
+
+	void setListValuesProjectMembers(DefaultListModel<Person> listValuesProjectMembers) {
+		this.listValuesProjectMembers = listValuesProjectMembers;
+	}
+
+
+	private JList<Person> getListProjectMembers() {
+		return listProjectMembers;
+	}
+
+
+	private void setListProjectMembers(JList<Person> listProjectMembers) {
+		this.listProjectMembers = listProjectMembers;
+	}
+
+
+	private JScrollPane getListScrollerProjectMembers() {
+		return listScrollerProjectMembers;
+	}
+
+
+	private void setListScrollerProjectMembers(JScrollPane listScrollerProjectMembers) {
+		this.listScrollerProjectMembers = listScrollerProjectMembers;
 	}
 }
