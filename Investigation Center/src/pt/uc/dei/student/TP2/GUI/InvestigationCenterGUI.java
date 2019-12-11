@@ -11,13 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import pt.uc.dei.student.TP2.sourceCode.Bachelor;
-import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
-import pt.uc.dei.student.TP2.sourceCode.Master;
-import pt.uc.dei.student.TP2.sourceCode.Person;
-import pt.uc.dei.student.TP2.sourceCode.PhD;
-import pt.uc.dei.student.TP2.sourceCode.Project;
-import pt.uc.dei.student.TP2.sourceCode.Teacher;
+import pt.uc.dei.student.TP2.sourceCode.*;
 
 public class InvestigationCenterGUI {
 	
@@ -295,8 +289,12 @@ public class InvestigationCenterGUI {
 		buttonProjectREMOVE.addActionListener(actionListener);
 		buttonADDPeopleToProject.addActionListener(actionListener);
 		buttonREMOVEPeopleFromProject.addActionListener(actionListener);
+		buttonRETURN.addActionListener(actionListener);
+
 		listPeople.addMouseListener(actionListener);
 		listProjects.addMouseListener(actionListener);
+
+
 		frame.setVisible(true);
 	}
 
@@ -331,7 +329,6 @@ public class InvestigationCenterGUI {
 					AdvisedStudentGUI advisedStudentGUI = new AdvisedStudentGUI(frame,investigationCenter,"Master");
 					close();
 					advisedStudentGUI.initialize();
-					//initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -371,14 +368,14 @@ public class InvestigationCenterGUI {
 					if (listProjects.getSelectedValue() != null) {
 						ArrayList<Project> projects= investigationCenter.getProjects();
 						projects.remove(listProjects.getSelectedValue());
-						investigationCenter.setProjects(projects);;
+						investigationCenter.setProjects(projects);
 						update();
 					}
-
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonENTER) {
+			}
+			else if(e.getSource() == buttonENTER) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
 						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, investigationCenter, listProjects.getSelectedValue());
@@ -389,25 +386,38 @@ public class InvestigationCenterGUI {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonADDPeopleToProject) {
+			}
+			else if(e.getSource() == buttonADDPeopleToProject) {
 				try {
 					if (listPeople.getSelectedValue() != null && listProjects.getSelectedValue() != null) {
-						//investigationCenter.getProjects().remove(listProjects.getSelectedValue());
-						//listProjects.getSelectedValue().addMember(listPeople.getSelectedValue());
-						//investigationCenter.getProjects().add(listProjects.getSelectedValue());
+						Project project = listProjects.getSelectedValue();
+						ArrayList<Project> projects= investigationCenter.getProjects();
+						projects.remove(project);
+						project.addMember(listPeople.getSelectedValue());
+						projects.add(project);
+						investigationCenter.setProjects(projects);
 						update();
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonREMOVEPeopleFromProject) {
+			}
+			else if(e.getSource() == buttonREMOVEPeopleFromProject) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
-						//ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, investigationCenter, listProjects.getSelectedValue());
-						//close();
-						//projectManagementGUI.initialize();
+						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, investigationCenter, listProjects.getSelectedValue());
+						close();
+						projectManagementGUI.initialize();
 					}
-
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonRETURN) {
+				try {
+					MainGUI mainGUI = new MainGUI(frame, listaIC);
+					close();
+					mainGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

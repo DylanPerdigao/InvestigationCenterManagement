@@ -29,6 +29,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
 
+
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args){
 		ArrayList<InvestigationCenter> listIC = new ArrayList<InvestigationCenter>();
