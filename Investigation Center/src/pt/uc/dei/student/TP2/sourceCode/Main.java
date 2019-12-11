@@ -170,9 +170,9 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//int x=frame.getWidth();
 		//int y=frame.getHeight();
-		//MainGUI mainGUI = new MainGUI(frame,listIC);
-		//mainGUI.initialize();
-		ProjectManagementGUI p = new ProjectManagementGUI(frame,listIC.get(0),listIC.get(0).getProjects().get(0));
-		p.initialize();
+		MainGUI mainGUI = new MainGUI(frame,listIC);
+		mainGUI.initialize();
+		//ProjectManagementGUI p = new ProjectManagementGUI(frame,listIC.get(0),listIC.get(0).getProjects().get(0));
+		//p.initialize();
 	}
 }
