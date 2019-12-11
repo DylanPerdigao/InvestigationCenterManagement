@@ -3,13 +3,19 @@ package pt.uc.dei.student.TP2.GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
 import pt.uc.dei.student.TP2.sourceCode.AdvisedStudent;
+import pt.uc.dei.student.TP2.sourceCode.Bachelor;
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
+import pt.uc.dei.student.TP2.sourceCode.Master;
 import pt.uc.dei.student.TP2.sourceCode.Person;
+import pt.uc.dei.student.TP2.sourceCode.PhD;
 import pt.uc.dei.student.TP2.sourceCode.Project;
+import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
 public class InvestigationCenterGUI extends JPanel{
 
@@ -265,7 +271,6 @@ public class InvestigationCenterGUI extends JPanel{
 
 		//Listeners
 		InvestigationCenterGUI.ButtonListener buttonActionListener = new InvestigationCenterGUI.ButtonListener();
-
 		buttonENTER.addActionListener(buttonActionListener);
 		buttonPersonTeacherCREATE.addActionListener(buttonActionListener);
 		buttonPersonBachelorCREATE.addActionListener(buttonActionListener);
@@ -274,7 +279,7 @@ public class InvestigationCenterGUI extends JPanel{
 		buttonPersonREMOVE.addActionListener(buttonActionListener);
 		buttonProjectCREATE.addActionListener(buttonActionListener);
 		buttonProjectREMOVE.addActionListener(buttonActionListener);
-
+		listPeople.addMouseListener(buttonActionListener);
 		frame.setVisible(true);
 	}
 
@@ -283,7 +288,7 @@ public class InvestigationCenterGUI extends JPanel{
 		frame.repaint();
 	}
 
-	private class ButtonListener implements ActionListener {
+	private class ButtonListener implements ActionListener, MouseListener {
 
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonPersonTeacherCREATE){
@@ -358,6 +363,64 @@ public class InvestigationCenterGUI extends JPanel{
 					ex.printStackTrace();
 				}
 			}
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			if(e.getSource() == listPeople) {
+				Person p = listPeople.getSelectedValue();
+				String message = "Name:\t"+p.getName()+"\nE-mail:\t"+p.getEmail();
+				if(p instanceof Bachelor) {
+					Bachelor bachelorStudent = (Bachelor) p;
+					message += "\nBACHELOR STUDENT";
+					message += "\nGrant begin:\t"+bachelorStudent.getGrantBegin();
+					message += "\nGrant end:\t"+bachelorStudent.getGrantEnd();
+					message += "\nCost per month:\t"+bachelorStudent.getCost()+"€";
+				}if(p instanceof Master) {
+					Master masterStudent = (Master) p;
+					message += "\nMASTER STUDENT";
+					message += "\nGrant begin:\t"+masterStudent.getGrantBegin();
+					message += "\nGrant end:\t"+masterStudent.getGrantEnd();
+					message += "\nCost per month:\t"+masterStudent.getCost()+"€";
+				}if(p instanceof PhD) {
+					PhD PhDStudent = (PhD) p;
+					message += "\nPhD STUDENT";
+					message += "\nGrant begin:\t"+PhDStudent.getGrantBegin();
+					message += "\nGrant end:\t"+PhDStudent.getGrantEnd();
+					message += "\nCost per month:\t"+PhDStudent.getCost()+"€";
+				}if(p instanceof Teacher) {
+					Teacher teacher = (Teacher) p;
+					message += "\nTEACHER";
+					message += "\nMecanographic Number:\t"+teacher.getMecanographicNumber();
+					message += "\nInvestigation Area:\t"+teacher.getInvestigationArea();
+				}
+				JOptionPane.showMessageDialog(null, message,"People Description", JOptionPane.PLAIN_MESSAGE);
+				
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 
 	}
