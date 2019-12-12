@@ -32,7 +32,7 @@ import pt.uc.dei.student.TP2.sourceCode.*;
 public class InvestigationCenterGUI {
 	
 	//Constraints
-	GridBagConstraints c = new GridBagConstraints();
+	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
 	private JButton buttonProjectCREATE;
 	private JButton buttonProjectREMOVE;

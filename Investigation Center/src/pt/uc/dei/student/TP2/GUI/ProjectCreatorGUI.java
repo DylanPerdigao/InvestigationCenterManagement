@@ -26,16 +26,18 @@ import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
 public class ProjectCreatorGUI{
 
-	private static final long serialVersionUID = 1L;
 	// Constraints
 	private GridBagConstraints c = new GridBagConstraints();
+
 	// Buttons
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
+
 	// Text
 	private JTextField textName;
 	private JTextField textAcronym;
 	private JTextField textDuration;
+
 	//ComboBox
 	private JComboBox<String> beginDayList,beginMonthList,beginYearList;
 	private JComboBox<String> endDayList,endMonthList,endYearList;

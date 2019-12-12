@@ -25,12 +25,15 @@ public class TaskCreatorGUI{
 
 	// Constraints
 	private GridBagConstraints c = new GridBagConstraints();
+
 	// Buttons
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
+
 	// Text
 	private JTextField textName;
 	private JTextField textDuration;
+
 	//Combo Box
 	private JComboBox<String> tasksTypeList;
 	private String[] tasksType = {"Documentation","Design","Development"};
