@@ -404,7 +404,7 @@ public class InvestigationCenterGUI {
     			ObjectOutputStream oos = new ObjectOutputStream(fos);
     			oos.writeObject(IC);
     			oos.close();
-    			JOptionPane.showMessageDialog(null, "Successfully saved work","Save", JOptionPane.PLAIN_MESSAGE);
+    			JOptionPane.showMessageDialog(null, "Work saved successfully","Save", JOptionPane.PLAIN_MESSAGE);
     		} catch (FileNotFoundException ex) {
     			System.out.println("Error creating file"); 
     		} catch (IOException ex) {
