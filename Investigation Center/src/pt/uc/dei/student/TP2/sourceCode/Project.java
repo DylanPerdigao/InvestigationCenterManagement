@@ -17,7 +17,7 @@ public class Project {
     private int duration;
     private Teacher principalInvestigator;
     private ArrayList<Person> members;
-    private ArrayList<Task> tasks, unstartedTasks, unstartedTasksIET,completedTasks;
+    private ArrayList<Task> tasks;
     private boolean status;
 
     /**

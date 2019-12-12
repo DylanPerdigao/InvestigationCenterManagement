@@ -24,37 +24,31 @@ public class ProjectGUI{
 
 	private static final long serialVersionUID = 1L;
 	// Constraints
-	GridBagConstraints c = new GridBagConstraints();
+	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
 	// Label
 	private JLabel title;
-	JLabel emptyLabel1;
-	JLabel emptyLabel2;
-	JLabel emptyLabel3;
-	JLabel labelName;
-	JLabel labelEmail;
-	JLabel labelGrantBegin;
-	JLabel labelGrantEnd;
-	JLabel labelAdvisors;
+	private JLabel emptyLabel1;
+	private JLabel emptyLabel2;
+	private JLabel emptyLabel3;
+	private JLabel labelName;
+	private JLabel labelAcronym;
+	private JLabel labelGrantBegin;
+	private JLabel labelGrantEnd;
+	private JLabel labelDuration;
 	// Text
 	private JTextField textName;
-	private JTextField textEmail;
+	private JTextField textAcronym;
 	private JTextField textGrantBeginDay;
 	private JTextField textGrantBeginMonth;
 	private JTextField textGrantBeginYear;
 	private JTextField textGrantEndDay;
 	private JTextField textGrantEndMonth;
 	private JTextField textGrantEndYear;
+	private JTextField textDuration;
 
-	// List
-	private DefaultListModel<Teacher> listValues;
-	private JList<Teacher> list;
-	private JScrollPane listScroller;
-
-	private int x;
-	private int y;
 	private JFrame frame;
 	private InvestigationCenter investigationCenter;
 
@@ -62,14 +56,6 @@ public class ProjectGUI{
 		super();
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
-
-		update();
-
-		// Buttons
-		/*
-		 * buttonCREATE.addActionListener(this); buttonREMOVE.addActionListener(this);
-		 * buttonENTER.addActionListener(this);
-		 */
 
 	}
 	public void initialize(){
@@ -134,9 +120,9 @@ public class ProjectGUI{
 		c.gridy = 1;
 		c.gridheight = 1;
 		c.gridwidth = 6;
-		frame.add(getTextName(), c);
+		frame.add(textName, c);
 
-		labelEmail = new JLabel("Email");
+		labelAcronym = new JLabel("Acronym");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -144,19 +130,19 @@ public class ProjectGUI{
 		c.gridy = 2;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		frame.add(labelEmail, c);
+		frame.add(labelAcronym, c);
 
-		textEmail = new JTextField(10);
+		textAcronym = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
 		c.gridx = 2;
 		c.gridy = 2;
 		c.gridheight = 1;
-		c.gridwidth = 6;
-		frame.add(getTextEmail(), c);
+		c.gridwidth = 1;
+		frame.add(textAcronym, c);
 
-		labelGrantBegin = new JLabel("Grant Begin");
+		labelGrantBegin = new JLabel("Begin Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -174,7 +160,7 @@ public class ProjectGUI{
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantBeginDay(), c);
+		frame.add(textGrantBeginDay, c);
 
 		textGrantBeginMonth = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
@@ -184,7 +170,7 @@ public class ProjectGUI{
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantBeginMonth(), c);
+		frame.add(textGrantBeginMonth, c);
 
 		textGrantBeginYear = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
@@ -194,9 +180,9 @@ public class ProjectGUI{
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantBeginYear(), c);
+		frame.add(textGrantBeginYear, c);
 
-		labelGrantEnd = new JLabel("Grant End");
+		labelGrantEnd = new JLabel("End Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -214,7 +200,7 @@ public class ProjectGUI{
 		c.gridy = 4;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantEndDay(), c);
+		frame.add(textGrantEndDay, c);
 
 		textGrantEndMonth = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
@@ -224,7 +210,7 @@ public class ProjectGUI{
 		c.gridy = 4;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantEndMonth(), c);
+		frame.add(textGrantEndMonth, c);
 
 		textGrantEndYear = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
@@ -234,9 +220,9 @@ public class ProjectGUI{
 		c.gridy = 4;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantEndYear(), c);
-
-		labelAdvisors = new JLabel("Select Advisors");
+		frame.add(textGrantEndYear, c);
+		
+		labelDuration = new JLabel("Duration");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -244,19 +230,19 @@ public class ProjectGUI{
 		c.gridy = 5;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		frame.add(labelAdvisors, c);
+		frame.add(labelDuration, c);
 
-		listScroller = new JScrollPane(list);
+		textDuration = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
 		c.gridx = 2;
 		c.gridy = 5;
-		c.gridheight = 2;
-		c.gridwidth = 3;
-		frame.add(listScroller, c);
-
-		buttonCREATE = new JButton("Add Person");
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		frame.add(textDuration, c);
+		
+		buttonCREATE = new JButton("Add Project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5; // percentagem de largura celula em relacao as outras
 		c.weighty = 0; // percentagem de altura celula em relacao as outras
@@ -314,116 +300,5 @@ public class ProjectGUI{
 				}
 			}
 		}
-	}
-
-	private void update(){
-		// List
-		listValues = new DefaultListModel<Teacher>();
-		list = new JList<Teacher>(listValues);
-		setListScroller(new JScrollPane(list));
-	}
-
-	public JTextField getTextName() {
-		return textName;
-	}
-
-	public void setTextName(JTextField textName) {
-		this.textName = textName;
-	}
-
-	public JTextField getTextEmail() {
-		return textEmail;
-	}
-
-	public void setTextEmail(JTextField textEmail) {
-		this.textEmail = textEmail;
-	}
-
-	public JTextField getTextGrantBeginDay() {
-		return textGrantBeginDay;
-	}
-
-	public void setTextGrantBeginDay(JTextField textGrantBeginDay) {
-		this.textGrantBeginDay = textGrantBeginDay;
-	}
-
-	public JTextField getTextGrantBeginMonth() {
-		return textGrantBeginMonth;
-	}
-
-	public void setTextGrantBeginMonth(JTextField textGrantBeginMonth) {
-		this.textGrantBeginMonth = textGrantBeginMonth;
-	}
-
-	public JTextField getTextGrantBeginYear() {
-		return textGrantBeginYear;
-	}
-
-	public void setTextGrantBeginYear(JTextField textGrantBeginYear) {
-		this.textGrantBeginYear = textGrantBeginYear;
-	}
-
-	public JTextField getTextGrantEndDay() {
-		return textGrantEndDay;
-	}
-
-	public void setTextGrantEndDay(JTextField textGrantEndDay) {
-		this.textGrantEndDay = textGrantEndDay;
-	}
-
-	public JTextField getTextGrantEndMonth() {
-		return textGrantEndMonth;
-	}
-
-	public void setTextGrantEndMonth(JTextField textGrantEndMonth) {
-		this.textGrantEndMonth = textGrantEndMonth;
-	}
-
-	public JTextField getTextGrantEndYear() {
-		return textGrantEndYear;
-	}
-
-	public void setTextGrantEndYear(JTextField textGrantEndYear) {
-		this.textGrantEndYear = textGrantEndYear;
-	}
-
-	public JButton getButtonCREATE() {
-		return buttonCREATE;
-	}
-
-	public void setButtonCREATE(JButton buttonCREATE) {
-		this.buttonCREATE = buttonCREATE;
-	}
-
-	public JButton getButtonCANCEL() {
-		return buttonCANCEL;
-	}
-
-	public void setButtonCANCEL(JButton buttonCANCEL) {
-		this.buttonCANCEL = buttonCANCEL;
-	}
-
-	public JScrollPane getListScroller() {
-		return listScroller;
-	}
-
-	public void setListScroller(JScrollPane listScroller) {
-		this.listScroller = listScroller;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 }
