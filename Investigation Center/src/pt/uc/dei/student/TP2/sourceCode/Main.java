@@ -2,6 +2,11 @@ package pt.uc.dei.student.TP2.sourceCode;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import pt.uc.dei.student.TP2.GUI.InvestigationCenterGUI;
 
@@ -189,25 +195,23 @@ public class Main {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setSize(screenSize.width, screenSize.height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//int x=frame.getWidth();
-		//int y=frame.getHeight();
+
 		InvestigationCenterGUI main = new InvestigationCenterGUI(frame,IC);
 		main.initialize();
-		/*TODO: put it everywhere
+		/* TODO: put it everywhere
 		 * WRITE OBJECT FILE
 		 */
-		/*
+		
 		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
 		try {
 			FileOutputStream fos = new FileOutputStream(outputObjFile); 
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(listIC);
+			oos.writeObject(IC);
 			oos.close();
 		} catch (FileNotFoundException ex) {
 			System.out.println("Error creating file"); 
 		} catch (IOException ex) {
-			System.out.println("Error writing file"); 
-		}*/
-
+			System.out.println("Error writing file: "+ ex); 
+		}
 	}
 }

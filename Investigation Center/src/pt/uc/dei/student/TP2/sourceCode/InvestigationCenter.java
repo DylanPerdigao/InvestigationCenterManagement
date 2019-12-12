@@ -1,5 +1,6 @@
 package pt.uc.dei.student.TP2.sourceCode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,9 @@ import java.util.ArrayList;
  * @since	09-12-2019
  * @version	1.0
  */
-public class InvestigationCenter {
+public class InvestigationCenter implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private static final boolean COMPLETED = true;
 	private static final boolean UNCOMPLETED = false;
 	private String name;

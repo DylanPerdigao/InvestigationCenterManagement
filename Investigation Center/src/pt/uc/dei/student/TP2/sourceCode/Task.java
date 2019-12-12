@@ -1,5 +1,6 @@
 package pt.uc.dei.student.TP2.sourceCode;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -10,7 +11,8 @@ import java.time.LocalDate;
  * @since	09-12-2019
  * @version	1.0
  */
-public class Task {
+public class Task implements Serializable{
+	private static final long serialVersionUID = 1L;
     private String name;
     private double effortRate;
     private int duration;

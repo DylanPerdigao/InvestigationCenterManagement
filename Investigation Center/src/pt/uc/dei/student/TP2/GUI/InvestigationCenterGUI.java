@@ -6,6 +6,13 @@ import java.awt.event.ActionListener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
@@ -44,11 +51,11 @@ public class InvestigationCenterGUI {
 	private JScrollPane listScrollerProjects;
 
 	private JFrame frame;
-	private InvestigationCenter investigationCenter;
+	private InvestigationCenter IC;
 
-	public InvestigationCenterGUI(JFrame frame,InvestigationCenter investigationCenter) {
+	public InvestigationCenterGUI(JFrame frame,InvestigationCenter IC) {
 		this.frame=frame;
-		this.investigationCenter=investigationCenter;
+		this.IC=IC;
 
 		update();
 	}
@@ -61,7 +68,7 @@ public class InvestigationCenterGUI {
 		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		title = new JLabel(investigationCenter.getName());
+		title = new JLabel(IC.getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -253,10 +260,11 @@ public class InvestigationCenterGUI {
 		buttonADDPeopleToProject.addActionListener(actionListener);
 		buttonREMOVEPeopleFromProject.addActionListener(actionListener);
 		buttonRETURN.addActionListener(actionListener);
-
+		
 		listPeople.addMouseListener(actionListener);
 		listProjects.addMouseListener(actionListener);
-
+		
+		frame.addWindowListener(actionListener);
 
 		frame.setVisible(true);
 	}
@@ -266,12 +274,12 @@ public class InvestigationCenterGUI {
 		frame.repaint();
 	}
 
-	private class Listener implements ActionListener, MouseListener {
+	private class Listener implements ActionListener, MouseListener,WindowListener {
 
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == buttonProjectCREATE) {
 				try {
-					ProjectCreatorGUI projectGUI = new ProjectCreatorGUI(frame,investigationCenter);
+					ProjectCreatorGUI projectGUI = new ProjectCreatorGUI(frame,IC);
 					close();
 					projectGUI.initialize();
 				} catch (Exception ex) {
@@ -281,9 +289,9 @@ public class InvestigationCenterGUI {
 			else if(e.getSource() == buttonProjectREMOVE) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
-						ArrayList<Project> projects= investigationCenter.getProjects();
+						ArrayList<Project> projects= IC.getProjects();
 						projects.remove(listProjects.getSelectedValue());
-						investigationCenter.setProjects(projects);
+						IC.setProjects(projects);
 						update();
 					}
 				} catch (Exception ex) {
@@ -293,7 +301,7 @@ public class InvestigationCenterGUI {
 			else if(e.getSource() == buttonENTER) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
-						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, investigationCenter, listProjects.getSelectedValue());
+						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
 						close();
 						projectManagementGUI.initialize();
 					}
@@ -306,11 +314,11 @@ public class InvestigationCenterGUI {
 				try {
 					if (listPeople.getSelectedValue() != null && listProjects.getSelectedValue() != null) {
 						Project project = listProjects.getSelectedValue();
-						ArrayList<Project> projects= investigationCenter.getProjects();
+						ArrayList<Project> projects= IC.getProjects();
 						projects.remove(project);
 						project.addMember(listPeople.getSelectedValue());
 						projects.add(project);
-						investigationCenter.setProjects(projects);
+						IC.setProjects(projects);
 						listValuesProjectMembers.addAll(project.getMembers());
 						update();
 					}
@@ -321,7 +329,7 @@ public class InvestigationCenterGUI {
 			else if(e.getSource() == buttonREMOVEPeopleFromProject) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
-						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, investigationCenter, listProjects.getSelectedValue());
+						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
 						close();
 						projectManagementGUI.initialize();
 					}
@@ -388,12 +396,41 @@ public class InvestigationCenterGUI {
 		public void mouseEntered(MouseEvent e) {}
 		@Override
 		public void mouseExited(MouseEvent e) {}
+        @Override
+        public void windowClosing(WindowEvent e) {
+        	File outputObjFile = new File("ressources/InvestigationsCenter.obj");
+    		try {
+    			FileOutputStream fos = new FileOutputStream(outputObjFile); 
+    			ObjectOutputStream oos = new ObjectOutputStream(fos);
+    			oos.writeObject(IC);
+    			oos.close();
+    			JOptionPane.showMessageDialog(null, "Successfully saved work","Save", JOptionPane.PLAIN_MESSAGE);
+    		} catch (FileNotFoundException ex) {
+    			System.out.println("Error creating file"); 
+    		} catch (IOException ex) {
+    			System.out.println("Error writing file"); 
+    		}
+        	
+            System.exit(0);
+        }
+		@Override
+		public void windowOpened(WindowEvent e) {}
+		@Override
+		public void windowClosed(WindowEvent e) {}
+		@Override
+		public void windowIconified(WindowEvent e) {}
+		@Override
+		public void windowDeiconified(WindowEvent e) {}
+		@Override
+		public void windowActivated(WindowEvent e) {}
+		@Override
+		public void windowDeactivated(WindowEvent e) {}
 	}
 
 	private void update() {
 		// Lists
 		listValuesPeople = new DefaultListModel<Person>();
-		listValuesPeople.addAll(investigationCenter.getPeople());
+		listValuesPeople.addAll(IC.getPeople());
 		listPeople = new JList<Person>(listValuesPeople);
 		listScrollerPeople = new JScrollPane(listPeople);
 		
@@ -402,7 +439,7 @@ public class InvestigationCenterGUI {
 		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
 
 		listValuesProjects = new DefaultListModel<Project>();
-		listValuesProjects.addAll(investigationCenter.getProjects());
+		listValuesProjects.addAll(IC.getProjects());
 		listProjects = new JList<Project>(listValuesProjects);
 		listScrollerProjects = new JScrollPane(listProjects);
 	}

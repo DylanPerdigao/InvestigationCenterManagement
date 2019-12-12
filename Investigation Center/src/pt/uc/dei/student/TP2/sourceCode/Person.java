@@ -1,5 +1,6 @@
 package pt.uc.dei.student.TP2.sourceCode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +12,8 @@ import java.util.ArrayList;
  * @version	1.0
  */
 
-public class Person {
+public class Person implements Serializable{
+	private static final long serialVersionUID = 1L;
     //Variables
     private  String name, email;
     private ArrayList<Task> tasks;

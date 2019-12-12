@@ -1,5 +1,6 @@
 package pt.uc.dei.student.TP2.sourceCode;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -12,7 +13,8 @@ import java.util.ArrayList;
  * @version	1.0
  */
 
-public class Grantee extends Person{
+public class Grantee extends Person implements Serializable{
+	private static final long serialVersionUID = 1L;
     //Variables
     private LocalDate grantBegin, grantEnd;
     private Project project;

@@ -1,5 +1,6 @@
 package pt.uc.dei.student.TP2.sourceCode;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,7 +12,8 @@ import java.util.ArrayList;
  * @since	05-12-2019
  * @version	1.0
  */
-public class Master extends AdvisedStudent {
+public class Master extends AdvisedStudent implements Serializable{
+	private static final long serialVersionUID = 1L;
     //Variables
     private final double COST = 1000;
 

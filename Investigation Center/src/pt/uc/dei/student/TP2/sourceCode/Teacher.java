@@ -1,5 +1,6 @@
 package pt.uc.dei.student.TP2.sourceCode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,8 +11,9 @@ import java.util.ArrayList;
  * @since	09-12-2019
  * @version	1.0
  */
-public class Teacher extends Person {
-    //Variables
+public class Teacher extends Person implements Serializable{
+	private static final long serialVersionUID = 1L;
+	//Variables
     private int mecanographicNumber;
     private String investigationArea;
     private ArrayList<Project> projects;
