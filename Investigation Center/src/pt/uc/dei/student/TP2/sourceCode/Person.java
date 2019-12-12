@@ -36,7 +36,7 @@ public class Person implements Serializable{
      * 
      * @since 10-12-2019 
      */
-    Person() {
+    public Person() {
         setName(null);
         setEmail(null);
         setTasks(null);

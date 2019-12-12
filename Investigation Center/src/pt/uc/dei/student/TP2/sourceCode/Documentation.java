@@ -13,6 +13,7 @@ import java.time.LocalDate;
  */
 public class Documentation extends Task implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private static final double effortRate = 0.25;
     /**
      * This is the constructor of the documentation task object.
      * 
@@ -25,7 +26,7 @@ public class Documentation extends Task implements Serializable{
      * @param status	This is the status of the documentation task.
      * @since 09-12-2019 
      */
-    public Documentation(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, double status) {
+    public Documentation(String name, LocalDate beginDate, LocalDate endDate, int duration, Person responsible, double status) {
         super(name, effortRate, beginDate, endDate, duration, responsible, status);
     }
     /**
