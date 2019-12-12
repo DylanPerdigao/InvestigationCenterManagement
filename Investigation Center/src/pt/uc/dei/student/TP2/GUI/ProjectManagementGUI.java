@@ -84,17 +84,16 @@ public class ProjectManagementGUI{
 		setProject(project);
 		// List UNSTARTED TASK
 		listValuesUnstartedTasks = new DefaultListModel<Task>();
-		listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
 		listUnstartedTasks = new JList<Task>(listValuesUnstartedTasks);
 		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks); 
 		// List UNSTARTED TASK IN ESTIMATED TIME
 		listValuesUnstartedTasksIET = new DefaultListModel<Task>();
-		listValuesUnstartedTasksIET.addAll(project.getUnstartedTasks());
+		listValuesUnstartedTasksIET.addAll(project.getUncompletedTasksIET());
 		listUnstartedTasksIET = new JList<Task>(listValuesUnstartedTasksIET);
 		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET); 
 		// List COMPLETED TASK
 		listValuesCompletedTasks = new DefaultListModel<Task>();
-		listValuesCompletedTasks.addAll(project.getUnstartedTasks());
+		listValuesCompletedTasks.addAll(project.getCompletedTasks());
 		listCompletedTasks = new JList<Task>(listValuesCompletedTasks);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks); 
 		// List TASK
@@ -122,7 +121,7 @@ public class ProjectManagementGUI{
 		c.weighty = 10;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridwidth = 6;
+		c.gridwidth = 7;
 		getFrame().add(title, c);
 
 
@@ -140,7 +139,7 @@ public class ProjectManagementGUI{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
-		c.gridx = 6;
+		c.gridx = 7;
 		c.gridy = 12;
 		c.gridwidth = 1;
 		c.gridheight= 1;
@@ -286,7 +285,7 @@ public class ProjectManagementGUI{
 		c.ipadx = 100;
 		c.gridx = 4;
 		c.gridy = 3;
-		c.gridwidth = 2;
+		c.gridwidth = 3;
 		c.gridheight= 1;
 		getFrame().add(listScrollerMembers, c);
 
@@ -308,7 +307,7 @@ public class ProjectManagementGUI{
 		c.ipadx = 100;
 		c.gridx = 4;
 		c.gridy = 5;
-		c.gridwidth = 2;
+		c.gridwidth = 3;
 		c.gridheight= 1;
 		getFrame().add(listScrollerTasks, c);
 		
@@ -340,7 +339,7 @@ public class ProjectManagementGUI{
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
 		c.ipady = 10;		//altura celula
-		c.gridx = 5;       	//posiçao celula x
+		c.gridx = 6;       	//posiçao celula x
 		c.gridy = 6; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
@@ -371,6 +370,7 @@ public class ProjectManagementGUI{
 
 		buttonTaskCREATE.addActionListener(listener);
 		buttonTaskREMOVE.addActionListener(listener);
+		buttonTaskSTATUS.addActionListener(listener);
 		buttonRETURN.addActionListener(listener);
 		buttonProjectEND.addActionListener(listener);
 		
@@ -428,6 +428,18 @@ public class ProjectManagementGUI{
 				try {
 
 					//frame.dispose();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}else if(e.getSource() == buttonTaskSTATUS) {
+				try {
+					String input = JOptionPane.showInputDialog("Update Conclusion of "+listTasks.getSelectedValue().getName());
+					double status = Double.parseDouble(input);
+					if(status<0 || status>100) {
+						JOptionPane.showMessageDialog(null, "Invalid input","Error", JOptionPane.PLAIN_MESSAGE);
+					}else {
+						listTasks.getSelectedValue().setStatus(status);
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
