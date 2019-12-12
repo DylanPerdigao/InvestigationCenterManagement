@@ -298,6 +298,10 @@ public class InvestigationCenterGUI {
 		listValuesProjects.addAll(IC.getProjects());
 		listProjects = new JList<Project>(listValuesProjects);
 		listScrollerProjects = new JScrollPane(listProjects);
+
+		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	private void save() {
@@ -319,8 +323,8 @@ public class InvestigationCenterGUI {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == buttonProjectCREATE) {
 				try {
-					ProjectCreatorGUI projectGUI = new ProjectCreatorGUI(frame,IC);
 					close();
+					ProjectCreatorGUI projectGUI = new ProjectCreatorGUI(frame,IC);
 					projectGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
