@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.time.LocalDate;
 
 import javax.swing.JButton;
@@ -268,10 +270,10 @@ public class TaskCreatorGUI{
 		frame.add(buttonCANCEL, c);
 
 		//Listeners
-		TaskCreatorGUI.ButtonListener buttonActionListener = new TaskCreatorGUI.ButtonListener();
+		TaskCreatorGUI.Listener listener = new TaskCreatorGUI.Listener();
 
-		buttonCREATE.addActionListener(buttonActionListener);
-		buttonCANCEL.addActionListener(buttonActionListener);
+		buttonCREATE.addActionListener(listener);
+		buttonCANCEL.addActionListener(listener);
 
 
 		frame.setVisible(true);
@@ -282,8 +284,7 @@ public class TaskCreatorGUI{
 		frame.repaint();
 	}
 
-	private class ButtonListener implements ActionListener {
-
+	private class Listener implements ActionListener, MouseListener {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonCREATE){
 				try{
@@ -303,5 +304,15 @@ public class TaskCreatorGUI{
 				}
 			}
 		}
+		@Override
+		public void mouseClicked(MouseEvent e) {}
+		@Override
+		public void mousePressed(MouseEvent e) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
 	}
 }

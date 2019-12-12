@@ -253,18 +253,18 @@ public class InvestigationCenterGUI {
 		frame.add(listScrollerProjects, c);
 
 		//Listeners
-		InvestigationCenterGUI.Listener actionListener = new InvestigationCenterGUI.Listener();
-		buttonENTER.addActionListener(actionListener);
-		buttonProjectCREATE.addActionListener(actionListener);
-		buttonProjectREMOVE.addActionListener(actionListener);
-		buttonADDPeopleToProject.addActionListener(actionListener);
-		buttonREMOVEPeopleFromProject.addActionListener(actionListener);
-		buttonRETURN.addActionListener(actionListener);
+		InvestigationCenterGUI.Listener listener = new InvestigationCenterGUI.Listener();
+		buttonENTER.addActionListener(listener);
+		buttonProjectCREATE.addActionListener(listener);
+		buttonProjectREMOVE.addActionListener(listener);
+		buttonADDPeopleToProject.addActionListener(listener);
+		buttonREMOVEPeopleFromProject.addActionListener(listener);
+		buttonRETURN.addActionListener(listener);
 		
-		listPeople.addMouseListener(actionListener);
-		listProjects.addMouseListener(actionListener);
+		listPeople.addMouseListener(listener);
+		listProjects.addMouseListener(listener);
 		
-		frame.addWindowListener(actionListener);
+		frame.addWindowListener(listener);
 
 		frame.setVisible(true);
 	}
@@ -273,7 +273,36 @@ public class InvestigationCenterGUI {
 		frame.getContentPane().removeAll();
 		frame.repaint();
 	}
+	private void update() {
+		// Lists
+		listValuesPeople = new DefaultListModel<Person>();
+		listValuesPeople.addAll(IC.getPeople());
+		listPeople = new JList<Person>(listValuesPeople);
+		listScrollerPeople = new JScrollPane(listPeople);
+		
+		listValuesProjectMembers = new DefaultListModel<Person>();
+		listProjectMembers = new JList<Person>(listValuesProjectMembers);
+		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
 
+		listValuesProjects = new DefaultListModel<Project>();
+		listValuesProjects.addAll(IC.getProjects());
+		listProjects = new JList<Project>(listValuesProjects);
+		listScrollerProjects = new JScrollPane(listProjects);
+	}
+	private void save() {
+		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
+		try {
+			FileOutputStream fos = new FileOutputStream(outputObjFile); 
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(IC);
+			oos.close();
+			JOptionPane.showMessageDialog(null, "Work saved successfully","Save", JOptionPane.PLAIN_MESSAGE);
+		} catch (FileNotFoundException ex) {
+			System.out.println("Error creating file"); 
+		} catch (IOException ex) {
+			System.out.println("Error writing file"); 
+		}
+	}
 	private class Listener implements ActionListener, MouseListener,WindowListener {
 
 		public void actionPerformed(ActionEvent e){
@@ -347,13 +376,10 @@ public class InvestigationCenterGUI {
 				}
 			}
 		}
-
 		@Override
 		public void mouseClicked(MouseEvent e) {}
-
 		@Override
 		public void mousePressed(MouseEvent e) {}
-
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			if(e.getSource() == listPeople) {
@@ -398,19 +424,7 @@ public class InvestigationCenterGUI {
 		public void mouseExited(MouseEvent e) {}
         @Override
         public void windowClosing(WindowEvent e) {
-        	File outputObjFile = new File("ressources/InvestigationsCenter.obj");
-    		try {
-    			FileOutputStream fos = new FileOutputStream(outputObjFile); 
-    			ObjectOutputStream oos = new ObjectOutputStream(fos);
-    			oos.writeObject(IC);
-    			oos.close();
-    			JOptionPane.showMessageDialog(null, "Work saved successfully","Save", JOptionPane.PLAIN_MESSAGE);
-    		} catch (FileNotFoundException ex) {
-    			System.out.println("Error creating file"); 
-    		} catch (IOException ex) {
-    			System.out.println("Error writing file"); 
-    		}
-        	
+        	save();
             System.exit(0);
         }
 		@Override
@@ -425,22 +439,5 @@ public class InvestigationCenterGUI {
 		public void windowActivated(WindowEvent e) {}
 		@Override
 		public void windowDeactivated(WindowEvent e) {}
-	}
-
-	private void update() {
-		// Lists
-		listValuesPeople = new DefaultListModel<Person>();
-		listValuesPeople.addAll(IC.getPeople());
-		listPeople = new JList<Person>(listValuesPeople);
-		listScrollerPeople = new JScrollPane(listPeople);
-		
-		listValuesProjectMembers = new DefaultListModel<Person>();
-		listProjectMembers = new JList<Person>(listValuesProjectMembers);
-		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
-
-		listValuesProjects = new DefaultListModel<Project>();
-		listValuesProjects.addAll(IC.getProjects());
-		listProjects = new JList<Project>(listValuesProjects);
-		listScrollerProjects = new JScrollPane(listProjects);
 	}
 }

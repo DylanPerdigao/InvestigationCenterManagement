@@ -5,14 +5,22 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
@@ -360,13 +368,26 @@ public class ProjectManagementGUI{
 
 		getFrame().setVisible(true);
 	}
-
 	private void close(){
 		getFrame().getContentPane().removeAll();
 		getFrame().repaint();
 	}
-
-	private class ButtonListener implements ActionListener {
+	private void save() {
+		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
+		try {
+			FileOutputStream fos = new FileOutputStream(outputObjFile); 
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(getInvestigationCenter());
+			oos.close();
+			JOptionPane.showMessageDialog(null, "Work saved successfully","Save", JOptionPane.PLAIN_MESSAGE);
+		} catch (FileNotFoundException ex) {
+			System.out.println("Error creating file"); 
+		} catch (IOException ex) {
+			System.out.println("Error writing file"); 
+		}
+	}
+	
+	private class ButtonListener implements ActionListener, MouseListener,WindowListener {
 
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonTaskCREATE){
@@ -403,6 +424,36 @@ public class ProjectManagementGUI{
 				}
 			}
 		}
+        @Override
+        public void windowClosing(WindowEvent e) {
+        	save();
+            System.exit(0);
+        }
+		@Override
+		public void windowOpened(WindowEvent e) {}
+		@Override
+		public void windowClosed(WindowEvent e) {}
+		@Override
+		public void windowIconified(WindowEvent e) {}
+		@Override
+		public void windowDeiconified(WindowEvent e) {}
+		@Override
+		public void windowActivated(WindowEvent e) {}
+		@Override
+		public void windowDeactivated(WindowEvent e) {}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
 	}
 
 	public InvestigationCenter getInvestigationCenter() {
