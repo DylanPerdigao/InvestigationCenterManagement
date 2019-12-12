@@ -55,17 +55,15 @@ public class Main {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 					while((line = br.readLine()) != null) {
 						try {
-							token = "INVESTIGATION CENTER:\t";
-							if(line.startsWith(token)) {
+							if(line.startsWith("INVESTIGATION CENTER:\t")) {
 								//SPLIT
-								String[] stringIC = line.split(token,0);
+								String[] stringIC = line.split("INVESTIGATION CENTER:\t",0);
 								//ADD TO LIST
 								IC.setName(stringIC[1]);
 							}
-							token = "PROJECT:\t";
-							if(line.startsWith(token)) {
+							else if(line.startsWith("PROJECT:\t")) {
 								//SPLIT
-								String[] stringP = line.split(token,0);
+								String[] stringP = line.split("PROJECT:\t",0);
 								String[] projectInfo = stringP[1].split("/",0);
 								//PROJECT OBJECT
 								String name = projectInfo[0];
@@ -77,10 +75,9 @@ public class Main {
 								Project project = new Project(name, acronym,begin,end,duration,new Teacher(),new ArrayList<Person>(), new ArrayList<Task>(),isCompleted);
 								IC.addProject(project);
 							}
-							token = "\tTASK:\t";
-							if(line.startsWith(token)) {
+							else if(line.startsWith("\tTASK:\t")) {
 								//SPLIT
-								String[] stringT = line.split(token,0);
+								String[] stringT = line.split("\tTASK:\t",0);
 								String[] taskInfo = stringT[1].split("/",0);
 								//TASK OBJECT
 								String name = taskInfo[0];
@@ -104,10 +101,9 @@ public class Main {
 									System.out.printf("Error with effort rate");
 								}
 							}
-							token = "\tTEACHER:\t";
-							if(line.startsWith(token)) {
+							else if(line.startsWith("\tTEACHER:\t")) {
 								//SPLIT
-								String[] stringTeacher = line.split(token,0);
+								String[] stringTeacher = line.split("\tTEACHER:\t",0);
 								String[] teacherInfo = stringTeacher[1].split("/",0);
 								//TEACHER OBJECT
 								String name = teacherInfo[0];
@@ -119,9 +115,8 @@ public class Main {
 								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(teacher);
 							}
-							token = "\tBACHELOR:\t";
-							if(line.startsWith(token)) {
-								String[] stringBachelor = line.split(token,0);
+							else if(line.startsWith("\tBACHELOR:\t")) {
+								String[] stringBachelor = line.split("\tBACHELOR:\t",0);
 								String[] bachelorInfo = stringBachelor[1].split("/",0);
 								//BACHELOR OBJECT
 								String name = bachelorInfo[0];
@@ -133,9 +128,8 @@ public class Main {
 								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(bachelor);
 							}
-							token = "\tMASTER:\t";
-							if(line.startsWith(token)) {
-								String[] stringMaster = line.split(token,0);
+							else if(line.startsWith("\tMASTER:\t")) {
+								String[] stringMaster = line.split("\tMASTER:\t",0);
 								String[] masterInfo = stringMaster[1].split("/",0);
 								//MASTER OBJECT
 								String name = masterInfo[0];
@@ -147,9 +141,8 @@ public class Main {
 								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(master);
 							}
-							token = "\tPhD:\t";
-							if(line.startsWith(token)) {
-								String[] stringPhD = line.split(token,0);
+							else if(line.startsWith("\tPhD:\t")) {
+								String[] stringPhD = line.split("\tPhD:\t",0);
 								String[] phdInfo = stringPhD[1].split("/",0);
 								//MASTER OBJECT
 								String name = phdInfo[0];
