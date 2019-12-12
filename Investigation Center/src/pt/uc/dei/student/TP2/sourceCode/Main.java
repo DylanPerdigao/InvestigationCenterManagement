@@ -80,24 +80,25 @@ public class Main {
 								String[] taskInfo = stringT[1].split("/",0);
 								//TASK OBJECT
 								String name = taskInfo[0];
-								double effortRate = Double.parseDouble(taskInfo[1]);
+								String taskType = taskInfo[1];
 								LocalDate begin = LocalDate.parse(taskInfo[2],formatter);
 								LocalDate end = LocalDate.parse(taskInfo[3],formatter);
 								int duration = Integer.parseInt(taskInfo[4]);
 								double completion = Double.parseDouble(taskInfo[5]);
 								//ADD TO LIST
 								int projectCounter = IC.getProjects().size()-1;
-								if(effortRate==0.25) {		
-									Task task = new Documentation(name,begin, end, duration,new Person(),completion);
-									IC.getProjects().get(projectCounter).createTask(task);
-								}else if(effortRate==0.5) {
-									Task task = new Design(name,begin, end, duration,new Person(),completion);
-									IC.getProjects().get(projectCounter).createTask(task);
-								}else if(effortRate==1) {
-									Task task = new Development(name,begin, end, duration,new Person(),completion);
-									IC.getProjects().get(projectCounter).createTask(task);
-								}else{
-									System.out.printf("Error with effort rate");
+								switch(taskType) {	
+								case "DOC":
+									IC.getProjects().get(projectCounter).createTask(new Documentation(name,begin, end, duration,new Person(),completion));
+									break;
+								case "DES":
+									IC.getProjects().get(projectCounter).createTask(new Design(name,begin, end, duration,new Person(),completion));
+									break;
+								case "DEV":
+									IC.getProjects().get(projectCounter).createTask(new Development(name,begin, end, duration,new Person(),completion));
+									break;
+								default:
+									System.out.printf("Error reading task Type");
 								}
 							}
 							else if(line.startsWith("\tTEACHER:\t")) {
