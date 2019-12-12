@@ -30,7 +30,7 @@ import pt.uc.dei.student.TP2.sourceCode.*;
  */
 
 public class InvestigationCenterGUI {
-
+	
 	//Constraints
 	GridBagConstraints c = new GridBagConstraints();
 	// Buttons
@@ -41,17 +41,17 @@ public class InvestigationCenterGUI {
 	private JButton buttonENTER;
 	private JButton buttonINFO;
 	// Label
-	private JLabel title;
-	private JLabel emptyLabel1;
-	private JLabel emptyLabel2;
-	private JLabel emptyLabel3;
-	private JLabel labelPeople;
-	private JLabel labelProjects;
-	private JLabel labelProjectMembers;
+	JLabel title;
+	JLabel emptyLabel1;
+	JLabel emptyLabel2;
+	JLabel emptyLabel3;
+	JLabel labelPeople;
+	JLabel labelProjects;
+	JLabel labelProjectMembers;
 	// List
-	private DefaultListModel<Person> listValuesPeople;
+	DefaultListModel<Person> listValuesPeople;
 	private DefaultListModel<Person> listValuesProjectMembers;
-	private DefaultListModel<Project> listValuesProjects;
+	DefaultListModel<Project> listValuesProjects;
 	private JList<Person> listPeople;
 	private JList<Person> listProjectMembers;
 	private JList<Project> listProjects;
@@ -66,7 +66,20 @@ public class InvestigationCenterGUI {
 		this.frame=frame;
 		this.IC=IC;
 
-		update();
+		// Lists
+		listValuesPeople = new DefaultListModel<Person>();
+		listValuesPeople.addAll(IC.getPeople());
+		listPeople = new JList<Person>(listValuesPeople);
+		listScrollerPeople = new JScrollPane(listPeople);
+
+		listValuesProjectMembers = new DefaultListModel<Person>();
+		listProjectMembers = new JList<Person>(listValuesProjectMembers);
+		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
+
+		listValuesProjects = new DefaultListModel<Project>();
+		listValuesProjects.addAll(IC.getProjects());
+		listProjects = new JList<Project>(listValuesProjects);
+		listScrollerProjects = new JScrollPane(listProjects);
 	}
 
 
@@ -76,7 +89,7 @@ public class InvestigationCenterGUI {
 		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+		
 		title = new JLabel(IC.getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -112,7 +125,7 @@ public class InvestigationCenterGUI {
 		/*
 		 * PEOPLE
 		 */
-
+		
 		emptyLabel3 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -123,7 +136,7 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(emptyLabel3, c);
-
+		
 		labelPeople = new JLabel("People List");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -181,7 +194,7 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(buttonProjectREMOVE, c);
-
+		
 		buttonADDPeopleToProject = new JButton("Add selected person to selected project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
@@ -203,7 +216,7 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(buttonREMOVEPeopleFromProject, c);
-
+		
 		labelProjects = new JLabel("Project Members");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -226,7 +239,7 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(listScrollerProjectMembers, c);
-
+		
 		buttonENTER = new JButton("Enter in Project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -271,7 +284,7 @@ public class InvestigationCenterGUI {
 
 		listPeople.addMouseListener(actionListener);
 		listProjects.addMouseListener(actionListener);
-
+		
 		frame.addWindowListener(actionListener);
 
 		frame.setVisible(true);
@@ -284,23 +297,11 @@ public class InvestigationCenterGUI {
 
 	private void update() {
 		// Lists
-		listValuesPeople = new DefaultListModel<Person>();
+		listValuesPeople.removeAllElements();
 		listValuesPeople.addAll(IC.getPeople());
-		listPeople = new JList<Person>(listValuesPeople);
-		listScrollerPeople = new JScrollPane(listPeople);
 
-		listValuesProjectMembers = new DefaultListModel<Person>();
-		listProjectMembers = new JList<Person>(listValuesProjectMembers);
-		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
-
-		listValuesProjects = new DefaultListModel<Project>();
+		listValuesProjects.removeAllElements();
 		listValuesProjects.addAll(IC.getProjects());
-		listProjects = new JList<Project>(listValuesProjects);
-		listScrollerProjects = new JScrollPane(listProjects);
-
-		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	private void save() {
@@ -310,7 +311,7 @@ public class InvestigationCenterGUI {
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(IC);
 			oos.close();
-		} catch (FileNotFoundException ex) {
+			} catch (FileNotFoundException ex) {
 			System.out.println("Error creating file");
 		} catch (IOException ex) {
 			System.out.println("Error writing file");
@@ -328,7 +329,8 @@ public class InvestigationCenterGUI {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonProjectREMOVE) {
+			}
+			else if(e.getSource() == buttonProjectREMOVE) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
 						ArrayList<Project> projects= IC.getProjects();
@@ -339,7 +341,8 @@ public class InvestigationCenterGUI {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonENTER) {
+			}
+			else if(e.getSource() == buttonENTER) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
 						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
@@ -350,7 +353,8 @@ public class InvestigationCenterGUI {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonADDPeopleToProject) {
+			}
+			else if(e.getSource() == buttonADDPeopleToProject) {
 				try {
 					if (listPeople.getSelectedValue() != null && listProjects.getSelectedValue() != null) {
 						Project project = listProjects.getSelectedValue();
@@ -365,17 +369,19 @@ public class InvestigationCenterGUI {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonREMOVEPeopleFromProject) {
+			}
+			else if(e.getSource() == buttonREMOVEPeopleFromProject) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
 						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
 						close();
 						projectManagementGUI.initialize();
 					}
-				}catch (Exception ex) {
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonINFO) {
+			}
+			else if(e.getSource() == buttonINFO) {
 				try {
 					Person p = listPeople.getSelectedValue();
 					//listPeople.clearSelection();
@@ -433,7 +439,7 @@ public class InvestigationCenterGUI {
 		@Override
 		public void windowClosing(WindowEvent e) {
 			save();
-			System.exit(0);
+			frame.dispose();
 		}
 		@Override
 		public void windowOpened(WindowEvent e) {}
