@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * This class represent the task.
  * 
  * @author	Dylan Gonçalves Perdigão
- * @author	Bruno Leitão Faria
+ * @author	Bruno Ricardo Leitão Faria
  * @since	09-12-2019
  * @version	1.0
  */

@@ -20,6 +20,15 @@ import javax.swing.*;
 
 import pt.uc.dei.student.TP2.sourceCode.*;
 
+/**
+ * This class represent the advised students of a project (Bachelor and Master students)
+ *
+ * @author	Dylan Gonçalves Perdigão
+ * @author	Bruno Ricardo Leitão Faria
+ * @since	05-12-2019
+ * @version	1.0
+ */
+
 public class InvestigationCenterGUI {
 	
 	//Constraints
@@ -274,6 +283,37 @@ public class InvestigationCenterGUI {
 		frame.repaint();
 	}
 
+	private void update() {
+		// Lists
+		listValuesPeople = new DefaultListModel<Person>();
+		listValuesPeople.addAll(IC.getPeople());
+		listPeople = new JList<Person>(listValuesPeople);
+		listScrollerPeople = new JScrollPane(listPeople);
+		
+		listValuesProjectMembers = new DefaultListModel<Person>();
+		listProjectMembers = new JList<Person>(listValuesProjectMembers);
+		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
+
+		listValuesProjects = new DefaultListModel<Project>();
+		listValuesProjects.addAll(IC.getProjects());
+		listProjects = new JList<Project>(listValuesProjects);
+		listScrollerProjects = new JScrollPane(listProjects);
+	}
+
+	private void save() {
+		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
+		try {
+			FileOutputStream fos = new FileOutputStream(outputObjFile);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(IC);
+			oos.close();
+			} catch (FileNotFoundException ex) {
+			System.out.println("Error creating file");
+		} catch (IOException ex) {
+			System.out.println("Error writing file");
+		}
+	}
+
 	private class Listener implements ActionListener, MouseListener,WindowListener {
 
 		public void actionPerformed(ActionEvent e){
@@ -339,9 +379,9 @@ public class InvestigationCenterGUI {
 			}
 			else if(e.getSource() == buttonRETURN) {
 				try {
-					/*MainGUI mainGUI = new MainGUI(frame, listaIC);
+					save();
 					close();
-					mainGUI.initialize();*/
+					frame.dispose();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -425,22 +465,5 @@ public class InvestigationCenterGUI {
 		public void windowActivated(WindowEvent e) {}
 		@Override
 		public void windowDeactivated(WindowEvent e) {}
-	}
-
-	private void update() {
-		// Lists
-		listValuesPeople = new DefaultListModel<Person>();
-		listValuesPeople.addAll(IC.getPeople());
-		listPeople = new JList<Person>(listValuesPeople);
-		listScrollerPeople = new JScrollPane(listPeople);
-		
-		listValuesProjectMembers = new DefaultListModel<Person>();
-		listProjectMembers = new JList<Person>(listValuesProjectMembers);
-		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
-
-		listValuesProjects = new DefaultListModel<Project>();
-		listValuesProjects.addAll(IC.getProjects());
-		listProjects = new JList<Project>(listValuesProjects);
-		listScrollerProjects = new JScrollPane(listProjects);
 	}
 }

@@ -28,7 +28,7 @@ import java.time.format.DateTimeFormatter;
  * Main class of the program
  *
  * @author	Dylan Gonçalves Perdigão
- * @author	Bruno Leitão Faria
+ * @author	Bruno Ricardo Leitão Faria
  * @version	1.0
  * @since	05-12-2019
  */
@@ -198,20 +198,7 @@ public class Main {
 
 		InvestigationCenterGUI main = new InvestigationCenterGUI(frame,IC);
 		main.initialize();
-		/* TODO: put it everywhere
-		 * WRITE OBJECT FILE
-		 */
-		
-		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
-		try {
-			FileOutputStream fos = new FileOutputStream(outputObjFile); 
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(IC);
-			oos.close();
-		} catch (FileNotFoundException ex) {
-			System.out.println("Error creating file"); 
-		} catch (IOException ex) {
-			System.out.println("Error writing file: "+ ex); 
-		}
+
 	}
+
 }

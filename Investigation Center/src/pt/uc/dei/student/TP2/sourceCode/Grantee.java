@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * This class represents a person who has a Grant.
  * 
  * @author	Dylan Gonçalves Perdigão
- * @author	Bruno Leitão Faria
+ * @author	Bruno Ricardo Leitão Faria
  * @since	09-12-2019
  * @version	1.0
  */

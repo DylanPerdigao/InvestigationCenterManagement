@@ -22,6 +22,15 @@ import pt.uc.dei.student.TP2.sourceCode.Person;
 import pt.uc.dei.student.TP2.sourceCode.Project;
 import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
+/**
+ * This class represent the advised students of a project (Bachelor and Master students)
+ *
+ * @author	Dylan Gonçalves Perdigão
+ * @author	Bruno Ricardo Leitão Faria
+ * @since	05-12-2019
+ * @version	1.0
+ */
+
 public class ProjectCreatorGUI{
 
 	private static final long serialVersionUID = 1L;
