@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -44,18 +45,12 @@ public class ProjectManagementGUI{
 	private JButton buttonTaskSTATUS;
 	private JButton buttonRETURN;
 	private JButton buttonProjectEND;
+	private JButton buttonPRINCIPALINVESTIGATOR;
+	private JButton buttonPersonASSIGN;
 	// Label
 	JLabel title;
-	JLabel emptyLabel1;
-	JLabel emptyLabel2;
-	JLabel emptyLabel3;
-	JLabel labelUnstartedTasks;
-	JLabel labelUnstartedTasksIET;
-	JLabel labelCompletedTasks;
-	JLabel labelPI, labelPRINCIPALINVESTIGATOR;
-	JLabel labelMembers;
-	JLabel labelCost, labelCOST;
-	JLabel labelTasks;
+	JLabel labelPRINCIPALINVESTIGATOR;
+	JLabel labelCOST;
 	// List
 	private DefaultListModel<Task> listValuesTasks;
 	private DefaultListModel<Task> listValuesUnstartedTasks;
@@ -124,246 +119,62 @@ public class ProjectManagementGUI{
 		c.gridwidth = 7;
 		getFrame().add(title, c);
 
-
-		emptyLabel1 = new JLabel("");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.gridx = 0;
-		c.gridy = 10;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(emptyLabel1, c);
-
-		emptyLabel2 = new JLabel("");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.gridx = 7;
-		c.gridy = 13;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(emptyLabel2, c);
-		
-		emptyLabel3 = new JLabel("");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.gridx = 3;
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(emptyLabel3, c);
+		placeComponent(new JLabel(""),0,10,1,1,0.5,10, 0, 0);
+		placeComponent(new JLabel(""),7,13,1,1,0.5,10, 0, 0);
+		placeComponent(new JLabel(""),3,12,1,1,0.5,10, 0, 0);
 		
 		buttonRETURN = new JButton("Return");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 2;       	//posiçao celula x
-		c.gridy = 11; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		getFrame().add(buttonRETURN, c);
+		placeComponent(buttonRETURN,2,11,1,1,0.5,0, 0, 10);
 		
 		buttonProjectEND = new JButton("Archive Project");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 4;       	//posiçao celula x
-		c.gridy = 11; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 2;	//quantos celulas de largura
-		getFrame().add(buttonProjectEND, c);
+		placeComponent(buttonProjectEND,4,11,2,1,0.5,0, 0, 10);
 		
 		/*
 		 * TASKS
 		 */
 
-		labelUnstartedTasks = new JLabel("Unstarted Tasks");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 2;
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(labelUnstartedTasks, c);
-
+		placeComponent(new JLabel("Unstarted Tasks"),2,1,1,1,0.5,0.5, 0, 0);
 		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 5;
-		c.ipady = 10;
-		c.ipadx = 100;
-		c.gridx = 2;
-		c.gridy = 2;
-		c.gridheight = 2;
-		c.gridwidth = 1;
-		getFrame().add(listScrollerUnstartedTasks, c);
+		placeComponent(listScrollerUnstartedTasks,2,2,1,2,0.5,5,100, 10);
 		
-		labelUnstartedTasksIET = new JLabel("Uncompleted Tasks in Estimated Time");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 2;
-		c.gridy = 4;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(labelUnstartedTasksIET, c);
-
+		placeComponent(new JLabel("Uncompleted Tasks in Estimated Time"),2,4,1,1,0.5,0.5,0, 0);
 		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 5;
-		c.ipady = 10;
-		c.ipadx = 100;
-		c.gridx = 2;
-		c.gridy = 5;
-		c.gridheight = 2;
-		c.gridwidth = 1;
-		getFrame().add(listScrollerUnstartedTasksIET, c);
+		placeComponent(listScrollerUnstartedTasksIET,2,5,1,2,0.5,5,100, 10);
 		
-		labelCompletedTasks = new JLabel("Completed Tasks");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 2;
-		c.gridy = 8;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(labelCompletedTasks, c);
-
+		placeComponent(new JLabel("Completed Tasks"),2,8,1,1,0.5,0.5,0,0);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 5;
-		c.ipady = 10;
-		c.ipadx = 100;
-		c.gridx = 2;
-		c.gridy = 9;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		getFrame().add(listScrollerCompletedTasks, c);
+		placeComponent(listScrollerCompletedTasks,2,9,1,1,0.5,5,100, 10);
 		
-		labelPI = new JLabel("Principal Investigator");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 4;
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(labelPI, c);
+		placeComponent(new JLabel("Principal Investigator"),4,1,1,1,0.5,0.5,0, 0);
+		labelPRINCIPALINVESTIGATOR = new JLabel("NO PRINCIPAL INVESTIGATOR");
+		placeComponent(labelPRINCIPALINVESTIGATOR,5,1,1,1,0.5,0.5,0,0);
 		
-		labelPRINCIPALINVESTIGATOR = new JLabel("INSERT NAME OF PRINCIPAL INVESTIGATOR");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 5;
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(labelPRINCIPALINVESTIGATOR, c);
+		buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
+		placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);
 		
-		labelMembers = new JLabel("Members");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 4;
-		c.gridy = 2;
-		c.gridwidth = 2;
-		c.gridheight= 1;
-		getFrame().add(labelMembers, c);
-
+		placeComponent(new JLabel("Members"),4,2,2,1,0.5,0.5,0,0);
 		listScrollerMembers = new JScrollPane(listMembers);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.ipady = 10;
-		c.ipadx = 100;
-		c.gridx = 4;
-		c.gridy = 3;
-		c.gridwidth = 3;
-		c.gridheight= 1;
-		getFrame().add(listScrollerMembers, c);
-
-		labelTasks = new JLabel("Tasks");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 4;
-		c.gridy = 4;
-		c.gridwidth = 2;
-		c.gridheight= 1;
-		getFrame().add(labelTasks, c);
-
-		listScrollerTasks = new JScrollPane(listTasks);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.ipady = 10;
-		c.ipadx = 100;
-		c.gridx = 4;
-		c.gridy = 5;
-		c.gridwidth = 3;
-		c.gridheight= 1;
-		getFrame().add(listScrollerTasks, c);
+		placeComponent(listScrollerMembers,4,3,2,1,0.5,10,100,10);
 		
+		buttonPersonASSIGN = new JButton("Assign Member to Task");
+		placeComponent(buttonPersonASSIGN,6,3,1,1,0.5,0.5,0,0);
 
+		placeComponent(new JLabel("Tasks"),4,4,2,1,0.5,0.5,0,0);
+		listScrollerTasks = new JScrollPane(listTasks);
+		placeComponent(listScrollerTasks,4,5,3,1,0.5,10,100,10);
+		
 		buttonTaskCREATE = new JButton("Add Task");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 4;       	//posiçao celula x
-		c.gridy = 6; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		getFrame().add(buttonTaskCREATE, c);
+		placeComponent(buttonTaskCREATE,4,6,1,1,0.5,0, 0, 10);
 
 		buttonTaskREMOVE = new JButton("Remove Task");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 5;       	//posiçao celula x
-		c.gridy = 6; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		getFrame().add(buttonTaskREMOVE, c);
+		placeComponent(buttonTaskREMOVE,5,6,1,1,0.5,0, 0, 10);
 		
-		buttonTaskSTATUS = new JButton("Update status");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 6;       	//posiçao celula x
-		c.gridy = 6; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		getFrame().add(buttonTaskSTATUS, c);
+		buttonTaskSTATUS = new JButton("Update Completion");
+		placeComponent(buttonTaskSTATUS,6,6,1,1,0.5,0, 0, 10);
 
-		labelCost = new JLabel("Project Cost");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 4;
-		c.gridy = 10;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(labelCost, c);
-
-		labelCOST = new JLabel(String.valueOf(getProject().projectCost()));
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 5;
-		c.gridy = 10;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		getFrame().add(labelCOST, c);
+		placeComponent(new JLabel("Project Cost"),4,10,1,1,0.5,0.5, 0, 0);
+		labelCOST = new JLabel(String.valueOf(getProject().projectCost())+"€");
+		placeComponent(labelCOST,5,10,1,1,0.5,0.5, 0, 0);
 
 		//Listeners
 		ProjectManagementGUI.Listener listener = new ProjectManagementGUI.Listener();
@@ -378,7 +189,18 @@ public class ProjectManagementGUI{
 
 		getFrame().setVisible(true);
 	}
-
+	private void placeComponent(JComponent component,int gx, int gy,int gw,int gh,double wx,double wy, int ix, int iy) {
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = gx;       	//posiçao celula x
+		c.gridy = gy; 		//posiçao celula y
+		c.gridwidth = gw;	//quantos celulas de largura
+		c.gridheight = gh;   //quantos celulas de altura
+		c.weightx = wx;	//percentagem de largura celula em relacao as outras
+		c.weighty = wy;		//percentagem de altura celula em relacao as outras
+		c.ipady = iy;		//altura celula
+		c.ipadx = ix;
+		getFrame().add(component, c);
+	}
 	private void close(){
 		getFrame().getContentPane().removeAll();
 		getFrame().repaint();

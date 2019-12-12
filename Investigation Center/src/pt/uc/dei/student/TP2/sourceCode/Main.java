@@ -172,7 +172,7 @@ public class Main {
 		 * GRAPHICAL USER INTERFACE
 		 */
 		JFrame frame = new JFrame();
-		frame.setTitle("Investigation Center"); 
+		frame.setTitle(IC.getName()); 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setSize(screenSize.width, screenSize.height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
