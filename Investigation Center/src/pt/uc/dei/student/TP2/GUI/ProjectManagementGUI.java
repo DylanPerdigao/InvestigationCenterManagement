@@ -140,7 +140,7 @@ public class ProjectManagementGUI{
 		c.weightx = 0.5;
 		c.weighty = 10;
 		c.gridx = 7;
-		c.gridy = 12;
+		c.gridy = 13;
 		c.gridwidth = 1;
 		c.gridheight= 1;
 		getFrame().add(emptyLabel2, c);
