@@ -13,7 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import pt.uc.dei.student.TP2.sourceCode.Design;
+import pt.uc.dei.student.TP2.sourceCode.Development;
+import pt.uc.dei.student.TP2.sourceCode.Documentation;
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
+import pt.uc.dei.student.TP2.sourceCode.Person;
+import pt.uc.dei.student.TP2.sourceCode.Task;
 
 /**
  * This class represent the advised students of a project (Bachelor and Master students)
@@ -296,13 +301,29 @@ public class TaskCreatorGUI{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonCREATE){
 				try{
-					//não é importante para ja
-					System.out.println("não é importante para ja\n");
+					String name = textName.getText();
+					int duration = Integer.parseInt(textDuration.getText());
+					String strBegin = beginYearList.getSelectedItem()+"-"+ beginMonthList.getSelectedItem()+"-"+beginDayList.getSelectedItem();
+					LocalDate begin = LocalDate.parse(strBegin);
+					String strEnd = endYearList.getSelectedItem()+"-"+endMonthList.getSelectedItem()+"-"+endDayList.getSelectedItem();
+					LocalDate end = LocalDate.parse(strEnd);
+					Task task = null;
+					switch((String)tasksTypeList.getSelectedItem()) {
+						case "Documentation": 
+							task = new Documentation(name,begin, end, duration,new Person(),0);
+							break;
+						case "Design":
+							task = new Design(name,begin, end, duration,new Person(),0);
+							break;
+						case "Development":
+							task = new Development(name,begin, end, duration,new Person(),0);
+							break;
+					}
+					//TODO ADD AND MUDA DE FRAME?
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonCANCEL) {
+			}else if(e.getSource() == buttonCANCEL) {
 				try {
 					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,investigationCenter);
 					close();

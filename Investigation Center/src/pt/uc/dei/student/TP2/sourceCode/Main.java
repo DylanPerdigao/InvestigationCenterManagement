@@ -100,13 +100,13 @@ public class Main {
 								//ADD TO LIST
 								projectCounter = IC.getProjects().size()-1;
 								if(effortRate==0.25) {		
-									Documentation task = new Documentation(name, effortRate,begin, end, duration,new Person(),completion);
+									Task task = new Documentation(name,begin, end, duration,new Person(),completion);
 									IC.getProjects().get(projectCounter).createTask(task);
 								}else if(effortRate==0.5) {
-									Design task = new Design(name, effortRate,begin, end, duration,new Person(),completion);
+									Task task = new Design(name,begin, end, duration,new Person(),completion);
 									IC.getProjects().get(projectCounter).createTask(task);
 								}else if(effortRate==1) {
-									Development task = new Development(name, effortRate,begin, end, duration,new Person(),completion);
+									Task task = new Development(name,begin, end, duration,new Person(),completion);
 									IC.getProjects().get(projectCounter).createTask(task);
 								}else{
 									System.out.printf("Error with effort rate");
