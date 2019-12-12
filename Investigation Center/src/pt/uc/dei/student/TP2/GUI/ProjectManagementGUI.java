@@ -21,7 +21,6 @@ import pt.uc.dei.student.TP2.sourceCode.Project;
 import pt.uc.dei.student.TP2.sourceCode.Task;
 
 public class ProjectManagementGUI{
-	private static final long serialVersionUID = 1L;
 	//Constraints
 	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
@@ -68,30 +67,30 @@ public class ProjectManagementGUI{
 		setInvestigationCenter(investigationCenter);
 		setProject(project);
 		// List UNSTARTED TASK
-		setListValuesUnstartedTasks(new DefaultListModel<Task>());
+		listValuesUnstartedTasks = new DefaultListModel<Task>();
 		listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
-		setListUnstartedTasks(new JList<Task>(listValuesUnstartedTasks));
-		setListScrollerUnstartedTasks(new JScrollPane(listUnstartedTasks)); 
+		listUnstartedTasks = new JList<Task>(listValuesUnstartedTasks);
+		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks); 
 		// List UNSTARTED TASK IN ESTIMATED TIME
-		setListValuesUnstartedTasksIET(new DefaultListModel<Task>());
+		listValuesUnstartedTasksIET = new DefaultListModel<Task>();
 		listValuesUnstartedTasksIET.addAll(project.getUnstartedTasks());
-		setListUnstartedTasksIET(new JList<Task>(listValuesUnstartedTasksIET));
-		setListScrollerUnstartedTasksIET(new JScrollPane(listUnstartedTasksIET)); 
+		listUnstartedTasksIET = new JList<Task>(listValuesUnstartedTasksIET);
+		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET); 
 		// List COMPLETED TASK
-		setListValuesCompletedTasks(new DefaultListModel<Task>());
+		listValuesCompletedTasks = new DefaultListModel<Task>();
 		listValuesCompletedTasks.addAll(project.getUnstartedTasks());
-		setListCompletedTasks(new JList<Task>(listValuesCompletedTasks));
-		setListScrollerCompletedTasks(new JScrollPane(listCompletedTasks)); 
+		listCompletedTasks = new JList<Task>(listValuesCompletedTasks);
+		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks); 
 		// List TASK
-		setListValuesTasks(new DefaultListModel<Task>());
+		listValuesTasks = new DefaultListModel<Task>();
 		listValuesTasks.addAll(project.getTasks());
-		setListTasks(new JList<Task>(listValuesTasks));
-		setListScrollerTasks(new JScrollPane(listTasks)); 
+		listTasks = new JList<Task>(listValuesTasks);
+		listScrollerTasks = new JScrollPane(listTasks); 
 		// List Members
-		setListValuesMembers(new DefaultListModel<Person>());
+		listValuesMembers = new DefaultListModel<Person>();
 		listValuesMembers.addAll(project.getMembers());
-		setListMembers(new JList<Person>(listValuesMembers));
-		setListScrollerMembers(new JScrollPane(listMembers)); 
+		listMembers = new JList<Person>(listValuesMembers);
+		listScrollerMembers = new JScrollPane(listMembers); 
 	}
 
 
@@ -141,7 +140,7 @@ public class ProjectManagementGUI{
 		c.gridheight= 1;
 		getFrame().add(emptyLabel3, c);
 		
-		setButtonRETURN(new JButton("Return"));
+		buttonRETURN = new JButton("Return");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -150,9 +149,9 @@ public class ProjectManagementGUI{
 		c.gridy = 11; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		getFrame().add(getButtonRETURN(), c);
+		getFrame().add(buttonRETURN, c);
 		
-		setButtonProjectEND(new JButton("End Project"));
+		buttonProjectEND = new JButton("End Project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -161,7 +160,7 @@ public class ProjectManagementGUI{
 		c.gridy = 11; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 2;	//quantos celulas de largura
-		getFrame().add(getButtonProjectEND(), c);
+		getFrame().add(buttonProjectEND, c);
 		
 		/*
 		 * TASKS
@@ -177,7 +176,7 @@ public class ProjectManagementGUI{
 		c.gridheight= 1;
 		getFrame().add(labelUnstartedTasks, c);
 
-		setListScrollerUnstartedTasks(new JScrollPane(listUnstartedTasks));
+		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 5;
@@ -187,7 +186,7 @@ public class ProjectManagementGUI{
 		c.gridy = 2;
 		c.gridheight = 2;
 		c.gridwidth = 1;
-		getFrame().add(getListScrollerUnstartedTasks(), c);
+		getFrame().add(listScrollerUnstartedTasks, c);
 		
 		labelUnstartedTasksIET = new JLabel("Uncompleted Tasks in Estimated Time");
 		c.fill = GridBagConstraints.BOTH;
@@ -199,7 +198,7 @@ public class ProjectManagementGUI{
 		c.gridheight= 1;
 		getFrame().add(labelUnstartedTasksIET, c);
 
-		setListScrollerUnstartedTasksIET(new JScrollPane(listUnstartedTasksIET));
+		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 5;
@@ -209,7 +208,7 @@ public class ProjectManagementGUI{
 		c.gridy = 5;
 		c.gridheight = 2;
 		c.gridwidth = 1;
-		getFrame().add(getListScrollerUnstartedTasksIET(), c);
+		getFrame().add(listScrollerUnstartedTasksIET, c);
 		
 		labelCompletedTasks = new JLabel("Completed Tasks");
 		c.fill = GridBagConstraints.BOTH;
@@ -221,7 +220,7 @@ public class ProjectManagementGUI{
 		c.gridheight= 1;
 		getFrame().add(labelCompletedTasks, c);
 
-		setListScrollerCompletedTasks(new JScrollPane(listCompletedTasks));
+		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 5;
@@ -231,7 +230,7 @@ public class ProjectManagementGUI{
 		c.gridy = 9;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		getFrame().add(getListScrollerCompletedTasks(), c);
+		getFrame().add(listScrollerCompletedTasks, c);
 		
 		labelPI = new JLabel("Principal Investigator");
 		c.fill = GridBagConstraints.BOTH;
@@ -263,7 +262,7 @@ public class ProjectManagementGUI{
 		c.gridheight= 1;
 		getFrame().add(labelMembers, c);
 
-		setListScrollerMembers(new JScrollPane(getListMembers()));
+		listScrollerMembers = new JScrollPane(listMembers);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -273,7 +272,7 @@ public class ProjectManagementGUI{
 		c.gridy = 3;
 		c.gridwidth = 2;
 		c.gridheight= 1;
-		getFrame().add(getListScrollerMembers(), c);
+		getFrame().add(listScrollerMembers, c);
 
 		labelTasks = new JLabel("Tasks");
 		c.fill = GridBagConstraints.BOTH;
@@ -285,7 +284,7 @@ public class ProjectManagementGUI{
 		c.gridheight= 1;
 		getFrame().add(labelTasks, c);
 
-		setListScrollerTasks(new JScrollPane(getListTasks()));
+		listScrollerTasks = new JScrollPane(listTasks);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -295,10 +294,10 @@ public class ProjectManagementGUI{
 		c.gridy = 5;
 		c.gridwidth = 2;
 		c.gridheight= 1;
-		getFrame().add(getListScrollerTasks(), c);
+		getFrame().add(listScrollerTasks, c);
 		
 
-		setButtonTaskCREATE(new JButton("Add Task"));
+		buttonTaskCREATE = new JButton("Add Task");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -307,9 +306,9 @@ public class ProjectManagementGUI{
 		c.gridy = 6; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		getFrame().add(getButtonTaskCREATE(), c);
+		getFrame().add(buttonTaskCREATE, c);
 
-		setButtonTaskREMOVE(new JButton("Remove Task"));
+		buttonTaskREMOVE = new JButton("Remove Task");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -318,9 +317,9 @@ public class ProjectManagementGUI{
 		c.gridy = 6; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		getFrame().add(getButtonTaskREMOVE(), c);
+		getFrame().add(buttonTaskREMOVE, c);
 		
-		setButtonTaskREMOVE(new JButton("Remove Task"));
+		buttonTaskREMOVE= new JButton("Remove Task");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -329,7 +328,7 @@ public class ProjectManagementGUI{
 		c.gridy = 6; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		getFrame().add(getButtonTaskREMOVE(), c);
+		getFrame().add(buttonTaskREMOVE, c);
 
 		labelCost = new JLabel("Project Cost");
 		c.fill = GridBagConstraints.BOTH;
@@ -341,7 +340,7 @@ public class ProjectManagementGUI{
 		c.gridheight= 1;
 		getFrame().add(labelCost, c);
 
-		labelCOST = new JLabel(String.valueOf(project.projectCost()));
+		labelCOST = new JLabel(String.valueOf(getProject().projectCost()));
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -406,154 +405,12 @@ public class ProjectManagementGUI{
 		}
 	}
 
-	public JButton getButtonRETURN() {
-		return buttonRETURN;
-	}
-
-	public void setButtonRETURN(JButton buttonRETURN) {
-		this.buttonRETURN = buttonRETURN;
-	}
-
-	private DefaultListModel<Task> getListValuesUnstartedTasks() {
-		return listValuesUnstartedTasks;
-	}
-
-	private void setListValuesUnstartedTasks(DefaultListModel<Task> listValuesUnstartedTasks) {	this.listValuesUnstartedTasks = listValuesUnstartedTasks; }
-
-	public DefaultListModel<Task> getListValuesUnstartedTasksIET() {
-		return listValuesUnstartedTasksIET;
-	}
-
-	public void setListValuesUnstartedTasksIET(DefaultListModel<Task> listValuesUnstartedTasksIET) { this.listValuesUnstartedTasksIET = listValuesUnstartedTasksIET; }
-
-	public DefaultListModel<Task> getListValuesCompletedTasks() {
-		return listValuesCompletedTasks;
-	}
-
-	public void setListValuesCompletedTasks(DefaultListModel<Task> listValuesCompletedTasks) { this.listValuesCompletedTasks = listValuesCompletedTasks; }
-
-	public JList<Task> getListUnstartedTasks() {
-		return listUnstartedTasks;
-	}
-
-	public void setListUnstartedTasks(JList<Task> listUnstartedTasks) {
-		this.listUnstartedTasks = listUnstartedTasks;
-	}
-
-	public JList<Task> getListUnstartedTasksIET() {
-		return listUnstartedTasksIET;
-	}
-
-	public void setListUnstartedTasksIET(JList<Task> listUnstartedTasksIET) { this.listUnstartedTasksIET = listUnstartedTasksIET; }
-
-	public JList<Task> getListCompletedTasks() {
-		return listCompletedTasks;
-	}
-
-	public void setListCompletedTasks(JList<Task> listCompletedTasks) {
-		this.listCompletedTasks = listCompletedTasks;
-	}
-
-	private JScrollPane getListScrollerUnstartedTasks() {
-		return listScrollerUnstartedTasks;
-	}
-
-	private void setListScrollerUnstartedTasks(JScrollPane listScrollerUnstartedTasks) { this.listScrollerUnstartedTasks = listScrollerUnstartedTasks; }
-
-	private JScrollPane getListScrollerUnstartedTasksIET() {
-		return listScrollerUnstartedTasksIET;
-	}
-
-	private void setListScrollerUnstartedTasksIET(JScrollPane listScrollerUnstartedTasksIET) { this.listScrollerUnstartedTasksIET = listScrollerUnstartedTasksIET; }
-
-	private JScrollPane getListScrollerCompletedTasks() {
-		return listScrollerCompletedTasks;
-	}
-
-	private void setListScrollerCompletedTasks(JScrollPane listScrollerCompletedTasks) { this.listScrollerCompletedTasks = listScrollerCompletedTasks; }
-
-	public JButton getButtonTaskCREATE() {
-		return buttonTaskCREATE;
-	}
-
-	public void setButtonTaskCREATE(JButton buttonTaskCREATE) {
-		this.buttonTaskCREATE = buttonTaskCREATE;
-	}
-
-	public JButton getButtonTaskREMOVE() {
-		return buttonTaskREMOVE;
-	}
-
-	public void setButtonTaskREMOVE(JButton buttonTaskREMOVE) {
-		this.buttonTaskREMOVE = buttonTaskREMOVE;
-	}
-
-	public DefaultListModel<Person> getListValuesMembers() {
-		return listValuesMembers;
-	}
-
-	public void setListValuesMembers(DefaultListModel<Person> listValuesMembers) { this.listValuesMembers = listValuesMembers; }
-
-	private JList<Person> getListMembers() {
-		return listMembers;
-	}
-
-	private void setListMembers(JList<Person> listMembers) {
-		this.listMembers = listMembers;
-	}
-
-	public JScrollPane getListScrollerMembers() {
-		return listScrollerMembers;
-	}
-
-	public void setListScrollerMembers(JScrollPane listScrollerMembers) {
-		this.listScrollerMembers = listScrollerMembers;
-	}
-
-	public DefaultListModel<Task> getListValuesTasks() {
-		return listValuesTasks;
-	}
-
-	public void setListValuesTasks(DefaultListModel<Task> listValuesTasks) {
-		this.listValuesTasks = listValuesTasks;
-	}
-
-	public JList<Task> getListTasks() {
-		return listTasks;
-	}
-
-	public void setListTasks(JList<Task> listTasks) {
-		this.listTasks = listTasks;
-	}
-
-	public JScrollPane getListScrollerTasks() {
-		return listScrollerTasks;
-	}
-
-	public void setListScrollerTasks(JScrollPane listScrollerTasks) {
-		this.listScrollerTasks = listScrollerTasks;
-	}
-
-	public JButton getButtonProjectEND() {
-		return buttonProjectEND;
-	}
-
-	public void setButtonProjectEND(JButton buttonProjectEND) {
-		this.buttonProjectEND = buttonProjectEND;
-	}
-
 	public InvestigationCenter getInvestigationCenter() {
 		return investigationCenter;
 	}
 
-	public void setInvestigationCenter(InvestigationCenter investigationCenter) { this.investigationCenter = investigationCenter; }
-
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
+	public void setInvestigationCenter(InvestigationCenter investigationCenter) { 
+		this.investigationCenter = investigationCenter; 
 	}
 
 	private JFrame getFrame() {
@@ -563,7 +420,14 @@ public class ProjectManagementGUI{
 	private void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-}
 
-//ccvrc!
-//ccvrc#
+
+	private Project getProject() {
+		return project;
+	}
+
+
+	private void setProject(Project project) {
+		this.project = project;
+	}
+}

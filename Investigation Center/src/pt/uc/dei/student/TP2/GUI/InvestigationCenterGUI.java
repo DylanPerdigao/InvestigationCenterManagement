@@ -58,7 +58,7 @@ public class InvestigationCenterGUI {
 
 		frame.setLayout(new GridBagLayout());
 		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		getListProjectMembers().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		title = new JLabel(investigationCenter.getName());
@@ -93,7 +93,7 @@ public class InvestigationCenterGUI {
 		c.gridheight= 1;
 		frame.add(emptyLabel2, c);
 		
-		setButtonRETURN(new JButton("Return"));
+		buttonRETURN = new JButton("Return");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -102,7 +102,7 @@ public class InvestigationCenterGUI {
 		c.gridy = 9; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonRETURN(), c);
+		frame.add(buttonRETURN, c);
 		
 		/*
 		 * PEOPLE
@@ -145,7 +145,7 @@ public class InvestigationCenterGUI {
 		 * PROJECTS
 		 */
 
-		setButtonProjectCREATE(new JButton("Add Project"));
+		buttonProjectCREATE = new JButton("Add Project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -154,9 +154,9 @@ public class InvestigationCenterGUI {
 		c.gridy = 2; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonProjectCREATE(), c);
+		frame.add(buttonProjectCREATE, c);
 
-		setButtonProjectREMOVE(new JButton("Remove Project"));
+		buttonProjectREMOVE = new JButton("Remove Project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0;
@@ -165,9 +165,9 @@ public class InvestigationCenterGUI {
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getButtonProjectREMOVE(), c);
+		frame.add(buttonProjectREMOVE, c);
 		
-		setButtonADDPeopleToProject(new JButton("Add selected person to selected project"));
+		buttonADDPeopleToProject = new JButton("Add selected person to selected project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -176,9 +176,9 @@ public class InvestigationCenterGUI {
 		c.gridy = 4; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonADDPeopleToProject(), c);
+		frame.add(buttonADDPeopleToProject, c);
 
-		setButtonREMOVEPeopleFromProject(new JButton("Remove selected person to selected project"));
+		buttonREMOVEPeopleFromProject = new JButton("Remove selected person to selected project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0;
@@ -187,7 +187,7 @@ public class InvestigationCenterGUI {
 		c.gridy = 5;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getButtonREMOVEPeopleFromProject(), c);
+		frame.add(buttonREMOVEPeopleFromProject, c);
 		
 		labelProjects = new JLabel("Project Members");
 		c.fill = GridBagConstraints.BOTH;
@@ -200,7 +200,7 @@ public class InvestigationCenterGUI {
 		frame.add(labelProjects, c);
 
 
-		setListScrollerProjectMembers(new JScrollPane(getListProjectMembers()));
+		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -210,9 +210,9 @@ public class InvestigationCenterGUI {
 		c.gridy = 7;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getListScrollerProjectMembers(), c);
+		frame.add(listScrollerProjectMembers, c);
 		
-		setButtonENTER(new JButton("Enter in Project"));
+		buttonENTER = new JButton("Enter in Project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -221,7 +221,7 @@ public class InvestigationCenterGUI {
 		c.gridy = 8;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getButtonENTER(), c);
+		frame.add(buttonENTER, c);
 
 		labelProjects = new JLabel("Projects List");
 		c.fill = GridBagConstraints.BOTH;
@@ -395,111 +395,15 @@ public class InvestigationCenterGUI {
 		listValuesPeople = new DefaultListModel<Person>();
 		listValuesPeople.addAll(investigationCenter.getPeople());
 		listPeople = new JList<Person>(listValuesPeople);
-		setListScrollerPeople(new JScrollPane(listPeople));
+		listScrollerPeople = new JScrollPane(listPeople);
 		
 		listValuesProjectMembers = new DefaultListModel<Person>();
-		listProjectMembers = new JList<Person>(getListValuesProjectMembers());
-		setListScrollerProjectMembers(new JScrollPane(getListProjectMembers()));
+		listProjectMembers = new JList<Person>(listValuesProjectMembers);
+		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
 
 		listValuesProjects = new DefaultListModel<Project>();
 		listValuesProjects.addAll(investigationCenter.getProjects());
 		listProjects = new JList<Project>(listValuesProjects);
-		setListScrollerProjects(new JScrollPane(listProjects));
-	}
-
-	public JButton getButtonProjectCREATE() {
-		return buttonProjectCREATE;
-	}
-
-	public void setButtonProjectCREATE(JButton buttonProjectCREATE) {
-		this.buttonProjectCREATE = buttonProjectCREATE;
-	}
-
-	public JButton getButtonProjectREMOVE() {
-		return buttonProjectREMOVE;
-	}
-
-	public void setButtonProjectREMOVE(JButton buttonProjectREMOVE) {
-		this.buttonProjectREMOVE = buttonProjectREMOVE;
-	}
-
-	public JButton getButtonENTER() {
-		return buttonENTER;
-	}
-
-	public void setButtonENTER(JButton buttonENTER) {
-		this.buttonENTER = buttonENTER;
-	}
-
-	public JScrollPane getListScrollerPeople() {
-		return listScrollerPeople;
-	}
-
-	public void setListScrollerPeople(JScrollPane listScrollerPeople) {
-		this.listScrollerPeople = listScrollerPeople;
-	}
-
-	public JScrollPane getListScrollerProjects() {
-		return listScrollerProjects;
-	}
-
-	public void setListScrollerProjects(JScrollPane listScrollerProjects) { this.listScrollerProjects = listScrollerProjects; }
-
-	public JButton getButtonRETURN() {
-		return buttonRETURN;
-	}
-
-	public void setButtonRETURN(JButton buttonRETURN) {
-		this.buttonRETURN = buttonRETURN;
-	}
-
-
-	public JButton getButtonADDPeopleToProject() {
-		return buttonADDPeopleToProject;
-	}
-
-
-	public void setButtonADDPeopleToProject(JButton buttonADDPeopleToProject) {
-		this.buttonADDPeopleToProject = buttonADDPeopleToProject;
-	}
-
-
-	public JButton getButtonREMOVEPeopleFromProject() {
-		return buttonREMOVEPeopleFromProject;
-	}
-
-
-	public void setButtonREMOVEPeopleFromProject(JButton buttonREMOVEPeopleFromProject) {
-		this.buttonREMOVEPeopleFromProject = buttonREMOVEPeopleFromProject;
-	}
-
-
-	DefaultListModel<Person> getListValuesProjectMembers() {
-		return listValuesProjectMembers;
-	}
-
-
-	void setListValuesProjectMembers(DefaultListModel<Person> listValuesProjectMembers) {
-		this.listValuesProjectMembers = listValuesProjectMembers;
-	}
-
-
-	private JList<Person> getListProjectMembers() {
-		return listProjectMembers;
-	}
-
-
-	private void setListProjectMembers(JList<Person> listProjectMembers) {
-		this.listProjectMembers = listProjectMembers;
-	}
-
-
-	private JScrollPane getListScrollerProjectMembers() {
-		return listScrollerProjectMembers;
-	}
-
-
-	private void setListScrollerProjectMembers(JScrollPane listScrollerProjectMembers) {
-		this.listScrollerProjectMembers = listScrollerProjectMembers;
+		listScrollerProjects = new JScrollPane(listProjects);
 	}
 }
