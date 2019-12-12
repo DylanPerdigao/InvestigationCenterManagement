@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
-import pt.uc.dei.student.TP2.GUI.MainGUI;
+import pt.uc.dei.student.TP2.GUI.InvestigationCenterGUI;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,10 +30,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
 
-
-	@SuppressWarnings("unchecked")
 	public static void main(String[] args){
-		ArrayList<InvestigationCenter> listIC = new ArrayList<InvestigationCenter>();
+		InvestigationCenter IC = new InvestigationCenter(null,new ArrayList<Person>(), new ArrayList<Project>());
 		/*
 		 * READ OBJECT FILE
 		 */
@@ -41,7 +39,7 @@ public class Main {
 		try {
 			FileInputStream fis = new FileInputStream(inputObjFile); 
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			listIC = (ArrayList<InvestigationCenter>)ois.readObject();
+			IC = (InvestigationCenter)ois.readObject();
 			ois.close();
 		} catch (FileNotFoundException ex) {
 			System.out.println("Object File not found, it will read init.txt file"); 
@@ -55,7 +53,6 @@ public class Main {
 					BufferedReader br = new BufferedReader(fr);
 					String line;
 					String token = null;
-					int ICCounter=0;
 					int projectCounter=0;
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 					while((line = br.readLine()) != null) {
@@ -65,7 +62,7 @@ public class Main {
 								//SPLIT
 								String[] stringIC = line.split(token,0);
 								//ADD TO LIST
-								listIC.add(new InvestigationCenter(stringIC[1], new ArrayList<Person>(), new ArrayList<Project>()));
+								IC.setName(stringIC[1]);
 							}
 							token = "PROJECT:\t";
 							if(line.startsWith(token)) {
@@ -80,9 +77,7 @@ public class Main {
 								int duration = Integer.parseInt(projectInfo[4]);
 								boolean isCompleted = Boolean.parseBoolean(projectInfo[5]);
 								Project project = new Project(name, acronym,begin,end,duration,new Teacher(),new ArrayList<Person>(), new ArrayList<Task>(),isCompleted);
-								//ADD TO LIST
-								ICCounter = listIC.size()-1;
-								listIC.get(ICCounter).addProject(project);
+								IC.addProject(project);
 							}
 							token = "\tTASK:\t";
 							if(line.startsWith(token)) {
@@ -97,16 +92,16 @@ public class Main {
 								int duration = Integer.parseInt(taskInfo[4]);
 								double completion = Double.parseDouble(taskInfo[5]);
 								//ADD TO LIST
-								projectCounter = listIC.get(ICCounter).getProjects().size()-1;
+								projectCounter = IC.getProjects().size()-1;
 								if(effortRate==0.25) {		
 									Documentation task = new Documentation(name, effortRate,begin, end, duration,new Person(),completion);
-									listIC.get(ICCounter).getProjects().get(projectCounter).createTask(task);
+									IC.getProjects().get(projectCounter).createTask(task);
 								}else if(effortRate==0.5) {
 									Design task = new Design(name, effortRate,begin, end, duration,new Person(),completion);
-									listIC.get(ICCounter).getProjects().get(projectCounter).createTask(task);
+									IC.getProjects().get(projectCounter).createTask(task);
 								}else if(effortRate==1) {
 									Development task = new Development(name, effortRate,begin, end, duration,new Person(),completion);
-									listIC.get(ICCounter).getProjects().get(projectCounter).createTask(task);
+									IC.getProjects().get(projectCounter).createTask(task);
 								}else{
 									System.out.printf("Error with effort rate");
 								}
@@ -123,8 +118,8 @@ public class Main {
 								String investigationArea = teacherInfo[3];
 								Teacher teacher = new Teacher(name,email,mecanographicNumber,investigationArea,new ArrayList<Task>(), new ArrayList<Project>());
 								//ADD TO LIST
-								projectCounter = listIC.get(ICCounter).getPeople().size()-1;
-								listIC.get(ICCounter).getPeople().add(teacher);
+								projectCounter = IC.getPeople().size()-1;
+								IC.getPeople().add(teacher);
 							}
 							token = "\tBACHELOR:\t";
 							if(line.startsWith(token)) {
@@ -137,8 +132,8 @@ public class Main {
 								LocalDate end = LocalDate.parse(bachelorInfo[3],formatter);
 								Bachelor bachelor = new Bachelor(name, email, new ArrayList<Task>(),begin,end, new Project(), new ArrayList<Teacher>());
 								//ADD TO LIST
-								projectCounter = listIC.get(ICCounter).getPeople().size()-1;
-								listIC.get(ICCounter).getPeople().add(bachelor);
+								projectCounter = IC.getPeople().size()-1;
+								IC.getPeople().add(bachelor);
 							}
 							token = "\tMASTER:\t";
 							if(line.startsWith(token)) {
@@ -151,8 +146,8 @@ public class Main {
 								LocalDate end = LocalDate.parse(masterInfo[3],formatter);
 								Master master = new Master(name, email, new ArrayList<Task>(),begin,end, new Project(), new ArrayList<Teacher>());
 								//ADD TO LIST
-								projectCounter = listIC.get(ICCounter).getPeople().size()-1;
-								listIC.get(ICCounter).getPeople().add(master);
+								projectCounter = IC.getPeople().size()-1;
+								IC.getPeople().add(master);
 							}
 							token = "\tPhD:\t";
 							if(line.startsWith(token)) {
@@ -165,8 +160,8 @@ public class Main {
 								LocalDate end = LocalDate.parse(phdInfo[3],formatter);
 								PhD phd = new PhD(name, email, new ArrayList<Task>(),begin,end, new Project());
 								//ADD TO LIST
-								projectCounter = listIC.get(ICCounter).getPeople().size()-1;
-								listIC.get(ICCounter).getPeople().add(phd);
+								projectCounter = IC.getPeople().size()-1;
+								IC.getPeople().add(phd);
 							}
 						}catch(Exception e){
 							System.out.println("Invalid line format: "+line); 
@@ -196,8 +191,8 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//int x=frame.getWidth();
 		//int y=frame.getHeight();
-		MainGUI mainGUI = new MainGUI(frame,listIC);
-		mainGUI.initialize();
+		InvestigationCenterGUI main = new InvestigationCenterGUI(frame,IC);
+		main.initialize();
 		/*TODO: put it everywhere
 		 * WRITE OBJECT FILE
 		 */

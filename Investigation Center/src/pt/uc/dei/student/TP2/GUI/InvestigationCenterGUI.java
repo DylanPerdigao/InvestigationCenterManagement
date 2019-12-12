@@ -18,11 +18,6 @@ public class InvestigationCenterGUI {
 	//Constraints
 	GridBagConstraints c = new GridBagConstraints();
 	// Buttons
-	private JButton buttonPersonTeacherCREATE;
-	private JButton buttonPersonBachelorCREATE;
-	private JButton buttonPersonMasterCREATE;
-	private JButton buttonPersonPhDCREATE;
-	private JButton buttonPersonREMOVE;
 	private JButton buttonProjectCREATE;
 	private JButton buttonProjectREMOVE;
 	private JButton buttonADDPeopleToProject;
@@ -112,61 +107,6 @@ public class InvestigationCenterGUI {
 		/*
 		 * PEOPLE
 		 */
-
-		setButtonPersonBachelorCREATE(new JButton("Add Bachelor"));
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 3;       	//posiçao celula x
-		c.gridy = 2; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonPersonBachelorCREATE(), c);
-
-		setButtonPersonMasterCREATE(new JButton("Add Master Student"));
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 3;       	//posiçao celula x
-		c.gridy = 3; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonPersonMasterCREATE(), c);
-
-		setButtonPersonPhDCREATE(new JButton("Add PhD Student"));
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 3;       	//posiçao celula x
-		c.gridy = 4; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonPersonPhDCREATE(), c);
-
-		setButtonPersonTeacherCREATE(new JButton("Add Teacher"));
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 3;       	//posiçao celula x
-		c.gridy = 5; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(getButtonPersonTeacherCREATE(), c);
-
-		setButtonPersonREMOVE(new JButton("Remove Person"));
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0;
-		c.ipady = 0;
-		c.gridx = 3;
-		c.gridy = 6;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(getButtonPersonREMOVE(), c);
 		
 		emptyLabel3 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
@@ -308,11 +248,6 @@ public class InvestigationCenterGUI {
 		//Listeners
 		InvestigationCenterGUI.Listener actionListener = new InvestigationCenterGUI.Listener();
 		buttonENTER.addActionListener(actionListener);
-		buttonPersonTeacherCREATE.addActionListener(actionListener);
-		buttonPersonBachelorCREATE.addActionListener(actionListener);
-		buttonPersonMasterCREATE.addActionListener(actionListener);
-		buttonPersonPhDCREATE.addActionListener(actionListener);
-		buttonPersonREMOVE.addActionListener(actionListener);
 		buttonProjectCREATE.addActionListener(actionListener);
 		buttonProjectREMOVE.addActionListener(actionListener);
 		buttonADDPeopleToProject.addActionListener(actionListener);
@@ -334,55 +269,7 @@ public class InvestigationCenterGUI {
 	private class Listener implements ActionListener, MouseListener {
 
 		public void actionPerformed(ActionEvent e){
-			if(e.getSource()== buttonPersonTeacherCREATE){
-				try{
-					TeacherGUI teacherGUI = new TeacherGUI(frame,investigationCenter);
-					close();
-					teacherGUI.initialize();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonPersonBachelorCREATE) {
-				try {
-					AdvisedStudentGUI advisedStudentGUI = new AdvisedStudentGUI(frame,investigationCenter,"Bachelor");
-					close();
-					advisedStudentGUI.initialize();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonPersonMasterCREATE) {
-				try {
-					AdvisedStudentGUI advisedStudentGUI = new AdvisedStudentGUI(frame,investigationCenter,"Master");
-					close();
-					advisedStudentGUI.initialize();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonPersonPhDCREATE) {
-				try {
-					PhDGUI phDGUI = new PhDGUI(frame,investigationCenter);
-					close();
-					phDGUI.initialize();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonPersonREMOVE) {
-				try {
-					if (listPeople.getSelectedValue() != null) {
-						ArrayList<Person> persons = investigationCenter.getPeople();
-						persons.remove(listPeople.getSelectedValue());
-						investigationCenter.setPeople(persons);;
-						update();
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			else if(e.getSource() == buttonProjectCREATE) {
+			if(e.getSource() == buttonProjectCREATE) {
 				try {
 					ProjectGUI projectGUI = new ProjectGUI(frame,investigationCenter);
 					close();
@@ -520,14 +407,6 @@ public class InvestigationCenterGUI {
 		setListScrollerProjects(new JScrollPane(listProjects));
 	}
 
-	public JButton getButtonPersonREMOVE() {
-		return buttonPersonREMOVE;
-	}
-
-	public void setButtonPersonREMOVE(JButton buttonPersonREMOVE) {
-		this.buttonPersonREMOVE = buttonPersonREMOVE;
-	}
-
 	public JButton getButtonProjectCREATE() {
 		return buttonProjectCREATE;
 	}
@@ -565,30 +444,6 @@ public class InvestigationCenterGUI {
 	}
 
 	public void setListScrollerProjects(JScrollPane listScrollerProjects) { this.listScrollerProjects = listScrollerProjects; }
-
-	public JButton getButtonPersonTeacherCREATE() {
-		return buttonPersonTeacherCREATE;
-	}
-
-	public void setButtonPersonTeacherCREATE(JButton buttonPersonTeacherCREATE) { this.buttonPersonTeacherCREATE = buttonPersonTeacherCREATE; }
-
-	public JButton getButtonPersonBachelorCREATE() {
-		return buttonPersonBachelorCREATE;
-	}
-
-	public void setButtonPersonBachelorCREATE(JButton buttonPersonBachelorCREATE) { this.buttonPersonBachelorCREATE = buttonPersonBachelorCREATE; }
-
-	public JButton getButtonPersonMasterCREATE() {
-		return buttonPersonMasterCREATE;
-	}
-
-	public void setButtonPersonMasterCREATE(JButton buttonPersonMasterCREATE) { this.buttonPersonMasterCREATE = buttonPersonMasterCREATE; }
-
-	public JButton getButtonPersonPhDCREATE() {
-		return buttonPersonPhDCREATE;
-	}
-
-	public void setButtonPersonPhDCREATE(JButton buttonPersonPhDCREATE) { this.buttonPersonPhDCREATE = buttonPersonPhDCREATE; }
 
 	public JButton getButtonRETURN() {
 		return buttonRETURN;
