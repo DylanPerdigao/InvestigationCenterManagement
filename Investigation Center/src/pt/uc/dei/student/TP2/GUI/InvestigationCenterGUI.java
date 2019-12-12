@@ -271,7 +271,7 @@ public class InvestigationCenterGUI {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == buttonProjectCREATE) {
 				try {
-					ProjectGUI projectGUI = new ProjectGUI(frame,investigationCenter);
+					ProjectCreatorGUI projectGUI = new ProjectCreatorGUI(frame,investigationCenter);
 					close();
 					projectGUI.initialize();
 				} catch (Exception ex) {

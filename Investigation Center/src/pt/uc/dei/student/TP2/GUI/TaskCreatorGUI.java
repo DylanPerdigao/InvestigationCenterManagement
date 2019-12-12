@@ -5,71 +5,66 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
-import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
-public class AdvisedStudentGUI{
+public class TaskCreatorGUI{
 
 	// Constraints
-	GridBagConstraints c = new GridBagConstraints();
+	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
 	// Label
-	JLabel title;
-	JLabel emptyLabel1;
-	JLabel emptyLabel2;
-	JLabel emptyLabel3;
-	JLabel labelName;
-	JLabel labelEmail;
-	JLabel labelGrantBegin;
-	JLabel labelGrantEnd;
-	JLabel labelAdvisors;
+	private JLabel title;
+	private JLabel emptyLabel1;
+	private JLabel emptyLabel2;
+	private JLabel emptyLabel3;
+	private JLabel labelName;
+	private JLabel labelTaskType;
+	private JLabel labelBegin,labelEnd;
+	private JLabel labelDuration;
 	// Text
 	private JTextField textName;
-	private JTextField textEmail;
-	private JTextField textGrantBeginDay;
-	private JTextField textGrantBeginMonth;
-	private JTextField textGrantBeginYear;
-	private JTextField textGrantEndDay;
-	private JTextField textGrantEndMonth;
-	private JTextField textGrantEndYear;
+	private JTextField textDuration;
+	//Combo Box
+	private JComboBox<String> tasksTypeList;
+	private String[] tasksType = {"Documentation","Design","Development"};
+	private JComboBox<String> beginDayList,beginMonthList,beginYearList;
+	private JComboBox<String> endDayList,endMonthList,endYearList;
+	private String[] days = new String[31];
+	private String[] months = new String[12];
+	private String[] years = new String[LocalDate.now().getYear()-1970+1];
 
-	// List
-	DefaultListModel<Teacher> listValues;
-	private JList<Teacher> list;
-	private JScrollPane listScroller;
-
-	private int x;
-	private int y;
 	private JFrame frame;
 	private InvestigationCenter investigationCenter;
-	private String type;
 
-	public AdvisedStudentGUI(JFrame frame, InvestigationCenter investigationCenter, String type) {
+	public TaskCreatorGUI(JFrame frame, InvestigationCenter investigationCenter) {
 		super();
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
-		this.type=type;
 
-		// List
-		listValues = new DefaultListModel<Teacher>();
-		list = new JList<Teacher>(listValues);
-		setListScroller(new JScrollPane(list));
-		// Buttons
-		/*
-		 * buttonCREATE.addActionListener(this); buttonREMOVE.addActionListener(this);
-		 * buttonENTER.addActionListener(this);
-		 */
-		 
 	}
 	public void initialize(){
 		frame.setLayout(new GridBagLayout());
+		for(int d=1;d<=31;d++) {
+			days[d-1]=String.valueOf(d);
+		}
+		for(int m=1;m<=12;m++) {
+			months[m-1]=String.valueOf(m);
+		}
+		for(int y=1970;y<=LocalDate.now().getYear();y++) {
+			years[y-1970]=String.valueOf(y);
+		}
 
-		title = new JLabel("Add a new "+type);
+		title = new JLabel("Add a new Task");
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -128,9 +123,9 @@ public class AdvisedStudentGUI{
 		c.gridy = 1;
 		c.gridheight = 1;
 		c.gridwidth = 6;
-		frame.add(getTextName(), c);
+		frame.add(textName, c);
 
-		labelEmail = new JLabel("Email");
+		labelTaskType = new JLabel("Task Type");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -138,19 +133,19 @@ public class AdvisedStudentGUI{
 		c.gridy = 2;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		frame.add(labelEmail, c);
+		frame.add(labelTaskType, c);
 
-		textEmail = new JTextField(10);
+		tasksTypeList = new JComboBox<String>(tasksType);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
 		c.gridx = 2;
 		c.gridy = 2;
 		c.gridheight = 1;
-		c.gridwidth = 6;
-		frame.add(getTextEmail(), c);
+		c.gridwidth = 1;
+		frame.add(tasksTypeList, c);
 
-		labelGrantBegin = new JLabel("Grant Begin");
+		labelBegin = new JLabel("Begin Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -158,9 +153,9 @@ public class AdvisedStudentGUI{
 		c.gridy = 3;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		frame.add(labelGrantBegin, c);
+		frame.add(labelBegin, c);
 
-		textGrantBeginDay = new JTextField(10);
+		beginDayList = new JComboBox<String>(days);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
@@ -168,9 +163,9 @@ public class AdvisedStudentGUI{
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantBeginDay(), c);
+		frame.add(beginDayList, c);
 
-		textGrantBeginMonth = new JTextField(10);
+		beginMonthList = new JComboBox<String>(months);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
@@ -178,9 +173,9 @@ public class AdvisedStudentGUI{
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantBeginMonth(), c);
+		frame.add(beginMonthList, c);
 
-		textGrantBeginYear = new JTextField(10);
+		beginYearList = new JComboBox<String>(years);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
@@ -188,9 +183,9 @@ public class AdvisedStudentGUI{
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantBeginYear(), c);
+		frame.add(beginYearList, c);
 
-		labelGrantEnd = new JLabel("Grant End");
+		labelEnd = new JLabel("End Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -198,9 +193,9 @@ public class AdvisedStudentGUI{
 		c.gridy = 4;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		frame.add(labelGrantEnd, c);
+		frame.add(labelEnd, c);
 
-		textGrantEndDay = new JTextField(10);
+		endDayList = new JComboBox<String>(days);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -208,9 +203,9 @@ public class AdvisedStudentGUI{
 		c.gridy = 4;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantEndDay(), c);
+		frame.add(endDayList, c);
 
-		textGrantEndMonth = new JTextField(10);
+		endMonthList = new JComboBox<String>(months);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -218,9 +213,9 @@ public class AdvisedStudentGUI{
 		c.gridy = 4;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantEndMonth(), c);
+		frame.add(endMonthList, c);
 
-		textGrantEndYear = new JTextField(10);
+		endYearList = new JComboBox<String>(years);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -228,9 +223,9 @@ public class AdvisedStudentGUI{
 		c.gridy = 4;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(getTextGrantEndYear(), c);
-
-		labelAdvisors = new JLabel("Select Advisors");
+		frame.add(endYearList, c);
+		
+		labelDuration = new JLabel("Duration");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -238,19 +233,19 @@ public class AdvisedStudentGUI{
 		c.gridy = 5;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		frame.add(labelAdvisors, c);
+		frame.add(labelDuration, c);
 
-		listScroller = new JScrollPane(list);
+		textDuration = new JTextField(10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
 		c.gridx = 2;
 		c.gridy = 5;
-		c.gridheight = 2;
-		c.gridwidth = 3;
-		frame.add(listScroller, c);
-
-		buttonCREATE = new JButton("Add Person");
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		frame.add(textDuration, c);
+		
+		buttonCREATE = new JButton("Add Project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5; // percentagem de largura celula em relacao as outras
 		c.weighty = 0; // percentagem de altura celula em relacao as outras
@@ -272,13 +267,12 @@ public class AdvisedStudentGUI{
 		c.gridwidth = 1; // quantos celulas de largura
 		frame.add(buttonCANCEL, c);
 
-
-
 		//Listeners
-		AdvisedStudentGUI.ButtonListener buttonActionListener = new AdvisedStudentGUI.ButtonListener();
+		TaskCreatorGUI.ButtonListener buttonActionListener = new TaskCreatorGUI.ButtonListener();
 
 		buttonCREATE.addActionListener(buttonActionListener);
 		buttonCANCEL.addActionListener(buttonActionListener);
+
 
 		frame.setVisible(true);
 	}
@@ -309,93 +303,5 @@ public class AdvisedStudentGUI{
 				}
 			}
 		}
-	}
-
-	public JTextField getTextName() {
-		return textName;
-	}
-
-	public void setTextName(JTextField textName) {
-		this.textName = textName;
-	}
-
-	public JTextField getTextEmail() {
-		return textEmail;
-	}
-
-	public void setTextEmail(JTextField textEmail) {
-		this.textEmail = textEmail;
-	}
-
-	public JTextField getTextGrantBeginDay() {
-		return textGrantBeginDay;
-	}
-
-	public void setTextGrantBeginDay(JTextField textGrantBeginDay) {
-		this.textGrantBeginDay = textGrantBeginDay;
-	}
-
-	public JTextField getTextGrantBeginMonth() {
-		return textGrantBeginMonth;
-	}
-
-	public void setTextGrantBeginMonth(JTextField textGrantBeginMonth) {
-		this.textGrantBeginMonth = textGrantBeginMonth;
-	}
-
-	public JTextField getTextGrantBeginYear() {
-		return textGrantBeginYear;
-	}
-
-	public void setTextGrantBeginYear(JTextField textGrantBeginYear) {
-		this.textGrantBeginYear = textGrantBeginYear;
-	}
-
-	public JTextField getTextGrantEndDay() {
-		return textGrantEndDay;
-	}
-
-	public void setTextGrantEndDay(JTextField textGrantEndDay) {
-		this.textGrantEndDay = textGrantEndDay;
-	}
-
-	public JTextField getTextGrantEndMonth() {
-		return textGrantEndMonth;
-	}
-
-	public void setTextGrantEndMonth(JTextField textGrantEndMonth) {
-		this.textGrantEndMonth = textGrantEndMonth;
-	}
-
-	public JTextField getTextGrantEndYear() {
-		return textGrantEndYear;
-	}
-
-	public void setTextGrantEndYear(JTextField textGrantEndYear) {
-		this.textGrantEndYear = textGrantEndYear;
-	}
-
-	public JButton getButtonCREATE() {
-		return buttonCREATE;
-	}
-
-	public void setButtonCREATE(JButton buttonCREATE) {
-		this.buttonCREATE = buttonCREATE;
-	}
-
-	public JButton getButtonCANCEL() {
-		return buttonCANCEL;
-	}
-
-	public void setButtonCANCEL(JButton buttonCANCEL) {
-		this.buttonCANCEL = buttonCANCEL;
-	}
-
-	public JScrollPane getListScroller() {
-		return listScroller;
-	}
-
-	public void setListScroller(JScrollPane listScroller) {
-		this.listScroller = listScroller;
 	}
 }

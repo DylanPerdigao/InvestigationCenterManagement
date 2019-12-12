@@ -5,9 +5,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,7 +22,7 @@ import pt.uc.dei.student.TP2.sourceCode.Person;
 import pt.uc.dei.student.TP2.sourceCode.Project;
 import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
-public class ProjectGUI{
+public class ProjectCreatorGUI{
 
 	private static final long serialVersionUID = 1L;
 	// Constraints
@@ -35,24 +37,24 @@ public class ProjectGUI{
 	private JLabel emptyLabel3;
 	private JLabel labelName;
 	private JLabel labelAcronym;
-	private JLabel labelGrantBegin;
-	private JLabel labelGrantEnd;
+	private JLabel labelBegin;
+	private JLabel labelEnd;
 	private JLabel labelDuration;
 	// Text
 	private JTextField textName;
 	private JTextField textAcronym;
-	private JTextField textGrantBeginDay;
-	private JTextField textGrantBeginMonth;
-	private JTextField textGrantBeginYear;
-	private JTextField textGrantEndDay;
-	private JTextField textGrantEndMonth;
-	private JTextField textGrantEndYear;
 	private JTextField textDuration;
+	//ComboBox
+	private JComboBox<String> beginDayList,beginMonthList,beginYearList;
+	private JComboBox<String> endDayList,endMonthList,endYearList;
+	private String[] days = new String[31];
+	private String[] months = new String[12];
+	private String[] years = new String[LocalDate.now().getYear()-1970+1];
 
 	private JFrame frame;
 	private InvestigationCenter investigationCenter;
 
-	public ProjectGUI(JFrame frame, InvestigationCenter investigationCenter) {
+	public ProjectCreatorGUI(JFrame frame, InvestigationCenter investigationCenter) {
 		super();
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
@@ -60,7 +62,16 @@ public class ProjectGUI{
 	}
 	public void initialize(){
 		frame.setLayout(new GridBagLayout());
-
+		for(int d=1;d<=31;d++) {
+			days[d-1]=String.valueOf(d);
+		}
+		for(int m=1;m<=12;m++) {
+			months[m-1]=String.valueOf(m);
+		}
+		for(int y=1970;y<=LocalDate.now().getYear();y++) {
+			years[y-1970]=String.valueOf(y);
+		}
+		
 		title = new JLabel("Add a new Project");
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -142,7 +153,7 @@ public class ProjectGUI{
 		c.gridwidth = 1;
 		frame.add(textAcronym, c);
 
-		labelGrantBegin = new JLabel("Begin Date");
+		labelBegin = new JLabel("Begin Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -150,9 +161,9 @@ public class ProjectGUI{
 		c.gridy = 3;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		frame.add(labelGrantBegin, c);
+		frame.add(labelBegin, c);
 
-		textGrantBeginDay = new JTextField(10);
+		beginDayList = new JComboBox<String>(days);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
@@ -160,9 +171,9 @@ public class ProjectGUI{
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(textGrantBeginDay, c);
+		frame.add(beginDayList, c);
 
-		textGrantBeginMonth = new JTextField(10);
+		beginMonthList = new JComboBox<String>(months);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
@@ -170,9 +181,9 @@ public class ProjectGUI{
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(textGrantBeginMonth, c);
+		frame.add(beginMonthList, c);
 
-		textGrantBeginYear = new JTextField(10);
+		beginYearList = new JComboBox<String>(years);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.weighty = 0.5;
@@ -180,9 +191,9 @@ public class ProjectGUI{
 		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(textGrantBeginYear, c);
+		frame.add(beginYearList, c);
 
-		labelGrantEnd = new JLabel("End Date");
+		labelEnd = new JLabel("End Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -190,9 +201,9 @@ public class ProjectGUI{
 		c.gridy = 4;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		frame.add(labelGrantEnd, c);
+		frame.add(labelEnd, c);
 
-		textGrantEndDay = new JTextField(10);
+		endDayList = new JComboBox<String>(days);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -200,9 +211,9 @@ public class ProjectGUI{
 		c.gridy = 4;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(textGrantEndDay, c);
+		frame.add(endDayList, c);
 
-		textGrantEndMonth = new JTextField(10);
+		endMonthList = new JComboBox<String>(months);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -210,9 +221,9 @@ public class ProjectGUI{
 		c.gridy = 4;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(textGrantEndMonth, c);
+		frame.add(endMonthList, c);
 
-		textGrantEndYear = new JTextField(10);
+		endYearList = new JComboBox<String>(years);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -220,7 +231,7 @@ public class ProjectGUI{
 		c.gridy = 4;
 		c.gridheight = 1;
 		c.gridwidth = 1;
-		frame.add(textGrantEndYear, c);
+		frame.add(endYearList, c);
 		
 		labelDuration = new JLabel("Duration");
 		c.fill = GridBagConstraints.BOTH;
@@ -265,7 +276,7 @@ public class ProjectGUI{
 		frame.add(buttonCANCEL, c);
 
 		//Listeners
-		ProjectGUI.ButtonListener buttonActionListener = new ProjectGUI.ButtonListener();
+		ProjectCreatorGUI.ButtonListener buttonActionListener = new ProjectCreatorGUI.ButtonListener();
 
 		buttonCREATE.addActionListener(buttonActionListener);
 		buttonCANCEL.addActionListener(buttonActionListener);
