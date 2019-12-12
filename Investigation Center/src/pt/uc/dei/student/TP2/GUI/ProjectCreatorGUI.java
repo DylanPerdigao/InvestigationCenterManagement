@@ -5,19 +5,26 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.time.LocalDate;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
+import pt.uc.dei.student.TP2.sourceCode.Person;
+import pt.uc.dei.student.TP2.sourceCode.Project;
+import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
 public class ProjectCreatorGUI{
+
+	private static final long serialVersionUID = 1L;
 	// Constraints
 	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
@@ -269,9 +276,11 @@ public class ProjectCreatorGUI{
 		frame.add(buttonCANCEL, c);
 
 		//Listeners
-		ProjectCreatorGUI.Listener listener = new ProjectCreatorGUI.Listener();
-		buttonCREATE.addActionListener(listener);
-		buttonCANCEL.addActionListener(listener);
+		ProjectCreatorGUI.ButtonListener buttonActionListener = new ProjectCreatorGUI.ButtonListener();
+
+		buttonCREATE.addActionListener(buttonActionListener);
+		buttonCANCEL.addActionListener(buttonActionListener);
+
 
 		frame.setVisible(true);
 	}
@@ -280,7 +289,8 @@ public class ProjectCreatorGUI{
 		frame.getContentPane().removeAll();
 		frame.repaint();
 	}
-	private class Listener implements ActionListener, MouseListener{
+
+	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonCREATE){
@@ -301,15 +311,5 @@ public class ProjectCreatorGUI{
 				}
 			}
 		}
-		@Override
-		public void mouseClicked(MouseEvent e) {}
-		@Override
-		public void mousePressed(MouseEvent e) {}
-		@Override
-		public void mouseReleased(MouseEvent e) {}
-		@Override
-		public void mouseEntered(MouseEvent e) {}
-		@Override
-		public void mouseExited(MouseEvent e) {}
 	}
 }
