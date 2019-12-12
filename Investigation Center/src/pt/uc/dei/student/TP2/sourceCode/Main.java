@@ -198,20 +198,24 @@ public class Main {
 
 		InvestigationCenterGUI main = new InvestigationCenterGUI(frame,IC);
 		main.initialize();
-		/* TODO: put it everywhere
+
+	}
+
+	public static void save(InvestigationCenter IC){
+		/*
 		 * WRITE OBJECT FILE
 		 */
-		
+
 		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
 		try {
-			FileOutputStream fos = new FileOutputStream(outputObjFile); 
+			FileOutputStream fos = new FileOutputStream(outputObjFile);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(IC);
 			oos.close();
 		} catch (FileNotFoundException ex) {
-			System.out.println("Error creating file"); 
+			System.out.println("Error creating file");
 		} catch (IOException ex) {
-			System.out.println("Error writing file: "+ ex); 
+			System.out.println("Error writing file: "+ ex);
 		}
 	}
 }
