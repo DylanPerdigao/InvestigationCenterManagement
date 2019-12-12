@@ -30,7 +30,7 @@ import pt.uc.dei.student.TP2.sourceCode.*;
  */
 
 public class InvestigationCenterGUI {
-	
+
 	//Constraints
 	GridBagConstraints c = new GridBagConstraints();
 	// Buttons
@@ -39,19 +39,19 @@ public class InvestigationCenterGUI {
 	private JButton buttonADDPeopleToProject;
 	private JButton buttonREMOVEPeopleFromProject;
 	private JButton buttonENTER;
-	private JButton buttonRETURN;
+	private JButton buttonINFO;
 	// Label
-	JLabel title;
-	JLabel emptyLabel1;
-	JLabel emptyLabel2;
-	JLabel emptyLabel3;
-	JLabel labelPeople;
-	JLabel labelProjects;
-	JLabel labelProjectMembers;
+	private JLabel title;
+	private JLabel emptyLabel1;
+	private JLabel emptyLabel2;
+	private JLabel emptyLabel3;
+	private JLabel labelPeople;
+	private JLabel labelProjects;
+	private JLabel labelProjectMembers;
 	// List
-	DefaultListModel<Person> listValuesPeople;
+	private DefaultListModel<Person> listValuesPeople;
 	private DefaultListModel<Person> listValuesProjectMembers;
-	DefaultListModel<Project> listValuesProjects;
+	private DefaultListModel<Project> listValuesProjects;
 	private JList<Person> listPeople;
 	private JList<Person> listProjectMembers;
 	private JList<Project> listProjects;
@@ -76,7 +76,7 @@ public class InvestigationCenterGUI {
 		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		title = new JLabel(IC.getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -108,22 +108,11 @@ public class InvestigationCenterGUI {
 		c.gridwidth = 1;
 		c.gridheight= 1;
 		frame.add(emptyLabel2, c);
-		
-		buttonRETURN = new JButton("Return");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 2;       	//posiçao celula x
-		c.gridy = 9; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(buttonRETURN, c);
-		
+
 		/*
 		 * PEOPLE
 		 */
-		
+
 		emptyLabel3 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -134,7 +123,7 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(emptyLabel3, c);
-		
+
 		labelPeople = new JLabel("People List");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -157,6 +146,16 @@ public class InvestigationCenterGUI {
 		c.gridwidth = 1;
 		frame.add(listScrollerPeople, c);
 
+		buttonINFO = new JButton("Show Person Informations");
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
+		c.weighty = 0;		//percentagem de altura celula em relacao as outras
+		c.ipady = 10;		//altura celula
+		c.gridx = 2;       	//posiçao celula x
+		c.gridy = 8; 		//posiçao celula y
+		c.gridheight = 1;   //quantos celulas de altura
+		c.gridwidth = 1;	//quantos celulas de largura
+		frame.add(buttonINFO, c);
 		/*
 		 * PROJECTS
 		 */
@@ -182,7 +181,7 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(buttonProjectREMOVE, c);
-		
+
 		buttonADDPeopleToProject = new JButton("Add selected person to selected project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
@@ -204,7 +203,7 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(buttonREMOVEPeopleFromProject, c);
-		
+
 		labelProjects = new JLabel("Project Members");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -227,7 +226,7 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(listScrollerProjectMembers, c);
-		
+
 		buttonENTER = new JButton("Enter in Project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -268,11 +267,11 @@ public class InvestigationCenterGUI {
 		buttonProjectREMOVE.addActionListener(actionListener);
 		buttonADDPeopleToProject.addActionListener(actionListener);
 		buttonREMOVEPeopleFromProject.addActionListener(actionListener);
-		buttonRETURN.addActionListener(actionListener);
-		
+		buttonINFO.addActionListener(actionListener);
+
 		listPeople.addMouseListener(actionListener);
 		listProjects.addMouseListener(actionListener);
-		
+
 		frame.addWindowListener(actionListener);
 
 		frame.setVisible(true);
@@ -289,7 +288,7 @@ public class InvestigationCenterGUI {
 		listValuesPeople.addAll(IC.getPeople());
 		listPeople = new JList<Person>(listValuesPeople);
 		listScrollerPeople = new JScrollPane(listPeople);
-		
+
 		listValuesProjectMembers = new DefaultListModel<Person>();
 		listProjectMembers = new JList<Person>(listValuesProjectMembers);
 		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
@@ -311,7 +310,7 @@ public class InvestigationCenterGUI {
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(IC);
 			oos.close();
-			} catch (FileNotFoundException ex) {
+		} catch (FileNotFoundException ex) {
 			System.out.println("Error creating file");
 		} catch (IOException ex) {
 			System.out.println("Error writing file");
@@ -329,8 +328,7 @@ public class InvestigationCenterGUI {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonProjectREMOVE) {
+			}else if(e.getSource() == buttonProjectREMOVE) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
 						ArrayList<Project> projects= IC.getProjects();
@@ -341,8 +339,7 @@ public class InvestigationCenterGUI {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonENTER) {
+			}else if(e.getSource() == buttonENTER) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
 						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
@@ -353,8 +350,7 @@ public class InvestigationCenterGUI {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonADDPeopleToProject) {
+			}else if(e.getSource() == buttonADDPeopleToProject) {
 				try {
 					if (listPeople.getSelectedValue() != null && listProjects.getSelectedValue() != null) {
 						Project project = listProjects.getSelectedValue();
@@ -369,23 +365,46 @@ public class InvestigationCenterGUI {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonREMOVEPeopleFromProject) {
+			}else if(e.getSource() == buttonREMOVEPeopleFromProject) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
 						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
 						close();
 						projectManagementGUI.initialize();
 					}
-				} catch (Exception ex) {
+				}catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonRETURN) {
+			}else if(e.getSource() == buttonINFO) {
 				try {
-					save();
-					close();
-					frame.dispose();
+					Person p = listPeople.getSelectedValue();
+					//listPeople.clearSelection();
+					String message = "Name:\t"+p.getName()+"\nE-mail:\t"+p.getEmail();
+					if(p instanceof Bachelor) {
+						Bachelor bachelorStudent = (Bachelor) p;
+						message += "\nBACHELOR STUDENT";
+						message += "\nGrant begin:\t"+bachelorStudent.getGrantBegin();
+						message += "\nGrant end:\t"+bachelorStudent.getGrantEnd();
+						message += "\nCost per month:\t"+bachelorStudent.getCost()+"€";
+					}if(p instanceof Master) {
+						Master masterStudent = (Master) p;
+						message += "\nMASTER STUDENT";
+						message += "\nGrant begin:\t"+masterStudent.getGrantBegin();
+						message += "\nGrant end:\t"+masterStudent.getGrantEnd();
+						message += "\nCost per month:\t"+masterStudent.getCost()+"€";
+					}if(p instanceof PhD) {
+						PhD PhDStudent = (PhD) p;
+						message += "\nPhD STUDENT";
+						message += "\nGrant begin:\t"+PhDStudent.getGrantBegin();
+						message += "\nGrant end:\t"+PhDStudent.getGrantEnd();
+						message += "\nCost per month:\t"+PhDStudent.getCost()+"€";
+					}if(p instanceof Teacher) {
+						Teacher teacher = (Teacher) p;
+						message += "\nTEACHER";
+						message += "\nMecanographic Number:\t"+teacher.getMecanographicNumber();
+						message += "\nInvestigation Area:\t"+teacher.getInvestigationArea();
+					}
+					JOptionPane.showMessageDialog(null, message,"People Description", JOptionPane.PLAIN_MESSAGE);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -400,36 +419,7 @@ public class InvestigationCenterGUI {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			if(e.getSource() == listPeople) {
-				Person p = listPeople.getSelectedValue();
-				//listPeople.clearSelection();
-				String message = "Name:\t"+p.getName()+"\nE-mail:\t"+p.getEmail();
-				if(p instanceof Bachelor) {
-					Bachelor bachelorStudent = (Bachelor) p;
-					message += "\nBACHELOR STUDENT";
-					message += "\nGrant begin:\t"+bachelorStudent.getGrantBegin();
-					message += "\nGrant end:\t"+bachelorStudent.getGrantEnd();
-					message += "\nCost per month:\t"+bachelorStudent.getCost()+"€";
-				}if(p instanceof Master) {
-					Master masterStudent = (Master) p;
-					message += "\nMASTER STUDENT";
-					message += "\nGrant begin:\t"+masterStudent.getGrantBegin();
-					message += "\nGrant end:\t"+masterStudent.getGrantEnd();
-					message += "\nCost per month:\t"+masterStudent.getCost()+"€";
-				}if(p instanceof PhD) {
-					PhD PhDStudent = (PhD) p;
-					message += "\nPhD STUDENT";
-					message += "\nGrant begin:\t"+PhDStudent.getGrantBegin();
-					message += "\nGrant end:\t"+PhDStudent.getGrantEnd();
-					message += "\nCost per month:\t"+PhDStudent.getCost()+"€";
-				}if(p instanceof Teacher) {
-					Teacher teacher = (Teacher) p;
-					message += "\nTEACHER";
-					message += "\nMecanographic Number:\t"+teacher.getMecanographicNumber();
-					message += "\nInvestigation Area:\t"+teacher.getInvestigationArea();
-				}
-				JOptionPane.showMessageDialog(null, message,"People Description", JOptionPane.PLAIN_MESSAGE);
-			}else if(e.getSource() == listProjects) {
+			if(e.getSource() == listProjects) {
 				listProjectMembers.removeAll();
 				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 				//TODO TIPO APAGAR E ATUALIZAR ESSA LISTA CADA VEZ QUE SE MUDA DE SELECAO NO PROJETO
@@ -440,23 +430,11 @@ public class InvestigationCenterGUI {
 		public void mouseEntered(MouseEvent e) {}
 		@Override
 		public void mouseExited(MouseEvent e) {}
-        @Override
-        public void windowClosing(WindowEvent e) {
-        	File outputObjFile = new File("ressources/InvestigationsCenter.obj");
-    		try {
-    			FileOutputStream fos = new FileOutputStream(outputObjFile); 
-    			ObjectOutputStream oos = new ObjectOutputStream(fos);
-    			oos.writeObject(IC);
-    			oos.close();
-    			JOptionPane.showMessageDialog(null, "Work saved successfully","Save", JOptionPane.PLAIN_MESSAGE);
-    		} catch (FileNotFoundException ex) {
-    			System.out.println("Error creating file"); 
-    		} catch (IOException ex) {
-    			System.out.println("Error writing file"); 
-    		}
-        	
-            System.exit(0);
-        }
+		@Override
+		public void windowClosing(WindowEvent e) {
+			save();
+			System.exit(0);
+		}
 		@Override
 		public void windowOpened(WindowEvent e) {}
 		@Override
