@@ -334,9 +334,7 @@ public class InvestigationCenterGUI {
 			else if(e.getSource() == buttonProjectREMOVE) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
-						ArrayList<Project> projects= IC.getProjects();
-						projects.remove(listProjects.getSelectedValue());
-						IC.setProjects(projects);
+						IC.removeProject(listProjects.getSelectedValue());
 						update();
 					}
 				} catch (Exception ex) {
@@ -346,8 +344,8 @@ public class InvestigationCenterGUI {
 			else if(e.getSource() == buttonENTER) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
-						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
 						close();
+						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
 						projectManagementGUI.initialize();
 					}
 
@@ -359,11 +357,10 @@ public class InvestigationCenterGUI {
 				try {
 					if (listPeople.getSelectedValue() != null && listProjects.getSelectedValue() != null) {
 						Project project = listProjects.getSelectedValue();
-						ArrayList<Project> projects= IC.getProjects();
-						projects.remove(project);
+						IC.removeProject(project);
 						project.addMember(listPeople.getSelectedValue());
-						projects.add(project);
-						IC.setProjects(projects);
+						IC.addProject(project);
+						listValuesProjectMembers.removeAllElements();
 						listValuesProjectMembers.addAll(project.getMembers());
 						update();
 					}
@@ -427,7 +424,7 @@ public class InvestigationCenterGUI {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			if(e.getSource() == listProjects) {
-				listProjectMembers.removeAll();
+				listValuesProjectMembers.removeAllElements();
 				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 				//TODO TIPO APAGAR E ATUALIZAR ESSA LISTA CADA VEZ QUE SE MUDA DE SELECAO NO PROJETO
 			}

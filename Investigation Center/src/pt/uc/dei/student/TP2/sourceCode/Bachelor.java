@@ -14,8 +14,6 @@ import java.util.ArrayList;
  */
 public class Bachelor extends AdvisedStudent implements Serializable{
 	private static final long serialVersionUID = 1L;
-    //Variables
-    private final double COST = 800;
 
     /**
      * This is the constructor of the bachelor student object.
@@ -39,7 +37,8 @@ public class Bachelor extends AdvisedStudent implements Serializable{
      * @since 05-12-2019
      */
     public double getCost() {
-        return COST;
+        //Variables
+        return 800;
     }
 
     /**
@@ -49,7 +48,6 @@ public class Bachelor extends AdvisedStudent implements Serializable{
      */
     @Override
     public String toString() {
-        String out = "[Bachelor]\t"+this.getName();
-        return out;
+        return "[Bachelor]\t"+ this.getName();
     }
 }

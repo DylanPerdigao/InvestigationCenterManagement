@@ -136,7 +136,7 @@ public class Main {
 								String email = bachelorInfo[1];
 								LocalDate begin = LocalDate.parse(bachelorInfo[2],formatter);
 								LocalDate end = LocalDate.parse(bachelorInfo[3],formatter);
-								Bachelor bachelor = new Bachelor(name, email, new ArrayList<Task>(),begin,end, new Project(), new ArrayList<Teacher>());
+								Bachelor bachelor = new Bachelor(name, email, new ArrayList<Task>(),begin,end, null, new ArrayList<Teacher>());
 								//ADD TO LIST
 								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(bachelor);
@@ -150,7 +150,7 @@ public class Main {
 								String email = masterInfo[1];
 								LocalDate begin = LocalDate.parse(masterInfo[2],formatter);
 								LocalDate end = LocalDate.parse(masterInfo[3],formatter);
-								Master master = new Master(name, email, new ArrayList<Task>(),begin,end, new Project(), new ArrayList<Teacher>());
+								Master master = new Master(name, email, new ArrayList<Task>(),begin,end, null, new ArrayList<Teacher>());
 								//ADD TO LIST
 								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(master);
@@ -164,7 +164,7 @@ public class Main {
 								String email = phdInfo[1];
 								LocalDate begin = LocalDate.parse(phdInfo[2],formatter);
 								LocalDate end = LocalDate.parse(phdInfo[3],formatter);
-								PhD phd = new PhD(name, email, new ArrayList<Task>(),begin,end, new Project());
+								PhD phd = new PhD(name, email, new ArrayList<Task>(),begin,end, null);
 								//ADD TO LIST
 								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(phd);

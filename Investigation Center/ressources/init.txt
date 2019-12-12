@@ -1,4 +1,4 @@
-==================================================================
+﻿==================================================================
 INVESTIGATION CENTER:	CISUC
 ==================================================================
 PROJECT:	ROBOT/ROB/01-10-2019/30-10-2019/1/100
@@ -27,9 +27,10 @@ PROJECT:	ROBOT2/ROB2/01-12-2019/30-12-2019/1/0
 	
 PEOPLE:
 	TEACHER:	Abílio dos Santos/abilio@dei.uc.pt/10000000/Computer/Science
-	TEACHER:	Joaquim Alberto/quimalberto@dei.uc.pt/10000001/Jardinagem
+	TEACHER:	Joaquim Alberto/quimquim@dei.uc.pt/10000001/Jardinagem
+	TEACHER:	Zara Alberta Uva/zau@dei.uc.pt/10000010/Ewletro
 	BACHELOR:	Dylan Perdigão/dpg@student.dei.uc.pt/01-10-2018/10-07-2020
-	BACHELOR:	Bruno Faria/etufarias@student.dei.uc.pt/01-10-2018/10-07-2020
+	BACHELOR:	Bruno Faria/brunofaria@student.dei.uc.pt/01-10-2018/10-07-2020
 	MASTER:	Antonio Mendes/mendes@student.dei.uc.pt/01-10-2018/10-07-2020
 	MASTER:	Fernando Magalhaes/fern.mag@student.dei.uc.pt/01-10-2018/10-07-2020
 	PhD:	Jorge Sousa/sousa@student.dei.uc.pt/01-10-2018/10-07-2020

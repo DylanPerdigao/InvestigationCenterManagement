@@ -36,7 +36,7 @@ public class Project implements Serializable{
      * @param status	This is the status of the project.
      * @since 09-12-2019 
      */
-    Project(String name, String acronym, LocalDate beginDate, LocalDate endDate, int duration, Teacher principalInvestigator,ArrayList<Person> members,ArrayList<Task> tasks, boolean status){
+    public Project(String name, String acronym, LocalDate beginDate, LocalDate endDate, int duration, Teacher principalInvestigator, ArrayList<Person> members, ArrayList<Task> tasks, boolean status){
         setName(name);
         setAcronym(acronym);
         setBeginDate(beginDate);
@@ -52,17 +52,6 @@ public class Project implements Serializable{
      * 
      * @since 10-12-2019 
      */
-    Project() {
-        setName(null);
-        setAcronym(null);
-        setBeginDate(null);
-        setEndDate(null);
-        setDuration(-1);
-        setPrincipalInvestigator(null);
-        setMembers(null);
-        setTasks(null);
-        setStatus(false);
-	}
 
 	/**
      * This method gets the name of the project.

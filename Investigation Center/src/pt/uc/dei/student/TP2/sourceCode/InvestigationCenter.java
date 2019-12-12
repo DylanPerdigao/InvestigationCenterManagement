@@ -83,19 +83,26 @@ public class InvestigationCenter implements Serializable{
 	}
     /**
      * This method creates a project for the investigation center.
-     * @param project	This is the project who is added to the investigation center.
-     * @return Project added to the investigation center.
+     * @param project    This is the project who is added to the investigation center.
      * @since 09-12-2019
      */
-	public Project addProject(Project project){
+	public void addProject(Project project){
 		projects.add(project);
-		return project;
+	}
+	/**
+	 * This method removes a project for the investigation center.
+	 * @param project	This is the project who is going to be removed from the investigation center.
+	 * @since 09-12-2019
+	 */
+	public void removeProject(Project project){
+		projects.remove(project);
 	}
     /**
      * This method search in the list of projects which are completed after that, it will returns the completed projects of the investigation center.
      * @return Completed tasks of the project.
      * @since 09-12-2019
      */
+
 	public ArrayList<Project> showCompleted(){
 		ArrayList<Project> completed = new ArrayList<Project>();
 		for(Project project:projects) {

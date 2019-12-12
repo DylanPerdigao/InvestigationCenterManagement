@@ -40,22 +40,22 @@ public class ProjectCreatorGUI{
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
 	// Label
-	private JLabel title;
-	private JLabel emptyLabel1;
-	private JLabel emptyLabel2;
-	private JLabel emptyLabel3;
-	private JLabel labelName;
-	private JLabel labelAcronym;
-	private JLabel labelBegin;
-	private JLabel labelEnd;
-	private JLabel labelDuration;
+	JLabel title;
+	JLabel emptyLabel1;
+	JLabel emptyLabel2;
+	JLabel emptyLabel3;
+	JLabel labelName;
+	JLabel labelAcronym;
+	JLabel labelBegin;
+	JLabel labelEnd;
+	JLabel labelDuration;
 	// Text
-	private JTextField textName;
-	private JTextField textAcronym;
-	private JTextField textDuration;
+	JTextField textName;
+	JTextField textAcronym;
+	JTextField textDuration;
 	//ComboBox
-	private JComboBox<String> beginDayList,beginMonthList,beginYearList;
-	private JComboBox<String> endDayList,endMonthList,endYearList;
+	JComboBox<String> beginDayList,beginMonthList,beginYearList;
+	JComboBox<String> endDayList,endMonthList,endYearList;
 	private String[] days = new String[31];
 	private String[] months = new String[12];
 	private String[] years = new String[LocalDate.now().getYear()-1970+1];
@@ -241,7 +241,7 @@ public class ProjectCreatorGUI{
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(endYearList, c);
-		
+
 		labelDuration = new JLabel("Duration");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
@@ -304,8 +304,15 @@ public class ProjectCreatorGUI{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonCREATE){
 				try{
-					//não é importante para ja
-					System.out.println("não é importante para ja\n");
+					if (!textName.getText().equals("") && !textAcronym.getText().equals("") && !textDuration.getText().equals("")) {
+						String strBegin = beginYearList.getSelectedItem() + "-" + beginMonthList.getSelectedItem() + "-" + beginDayList.getSelectedItem();
+						LocalDate begin = LocalDate.parse(strBegin);
+						String strEnd = endYearList.getSelectedItem() + "-" + endMonthList.getSelectedItem() + "-" + endDayList.getSelectedItem();
+						LocalDate end = LocalDate.parse(strEnd);
+						int dur= Integer.parseInt(textDuration.getText());
+						Project project = new Project(textName.getText(), textAcronym.getText(), begin, end, dur,null,null,null,false);
+						investigationCenter.addProject(project);
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
