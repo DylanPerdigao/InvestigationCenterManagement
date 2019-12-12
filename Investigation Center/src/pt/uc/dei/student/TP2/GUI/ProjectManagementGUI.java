@@ -5,14 +5,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
@@ -160,7 +158,7 @@ public class ProjectManagementGUI{
 		c.gridwidth = 1;	//quantos celulas de largura
 		getFrame().add(buttonRETURN, c);
 		
-		buttonProjectEND = new JButton("End Project");
+		buttonProjectEND = new JButton("Archive Project");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
