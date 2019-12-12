@@ -136,33 +136,33 @@ public class ProjectManagementGUI{
 		placeComponent(new JLabel("Unstarted Tasks"),2,1,1,1,0.5,0.5, 0, 0);
 		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks);
 		placeComponent(listScrollerUnstartedTasks,2,2,1,2,0.5,5,100, 10);
-		
+
 		placeComponent(new JLabel("Uncompleted Tasks in Estimated Time"),2,4,1,1,0.5,0.5,0, 0);
 		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET);
 		placeComponent(listScrollerUnstartedTasksIET,2,5,1,2,0.5,5,100, 10);
-		
+
 		placeComponent(new JLabel("Completed Tasks"),2,8,1,1,0.5,0.5,0,0);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks);
 		placeComponent(listScrollerCompletedTasks,2,9,1,1,0.5,5,100, 10);
-		
+
 		placeComponent(new JLabel("Principal Investigator"),4,1,1,1,0.5,0.5,0, 0);
 		labelPRINCIPALINVESTIGATOR = new JLabel("NO PRINCIPAL INVESTIGATOR");
 		placeComponent(labelPRINCIPALINVESTIGATOR,5,1,1,1,0.5,0.5,0,0);
-		
+
 		buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
 		placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);
-		
+
 		placeComponent(new JLabel("Members"),4,2,2,1,0.5,0.5,0,0);
 		listScrollerMembers = new JScrollPane(listMembers);
 		placeComponent(listScrollerMembers,4,3,2,1,0.5,10,100,10);
-		
+
 		buttonPersonASSIGN = new JButton("Assign Member to Task");
 		placeComponent(buttonPersonASSIGN,6,3,1,1,0.5,0.5,0,0);
 
 		placeComponent(new JLabel("Tasks"),4,4,2,1,0.5,0.5,0,0);
 		listScrollerTasks = new JScrollPane(listTasks);
 		placeComponent(listScrollerTasks,4,5,3,1,0.5,10,100,10);
-		
+
 		buttonTaskCREATE = new JButton("Add Task");
 		placeComponent(buttonTaskCREATE,4,6,1,1,0.5,0, 0, 10);
 
@@ -226,15 +226,18 @@ public class ProjectManagementGUI{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonTaskCREATE){
 				try{
-					//não é importante para ja
-					System.out.println("não é importante para ja\n");
+					close();
+					TaskCreatorGUI taskCreatorGUI = new TaskCreatorGUI(frame,investigationCenter,project);
+					taskCreatorGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}else if(e.getSource() == buttonTaskREMOVE) {
 				try {
-
-					//frame.dispose();
+					if(listTasks.getSelectedValue()!=null){
+						project.deleteTask(listTasks.getSelectedValue());
+						//update();
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -267,6 +270,11 @@ public class ProjectManagementGUI{
 				}
 			}
 		}
+
+		/*private void update(){
+
+		}*/
+
 		@Override
 		public void windowClosing(WindowEvent e) {
 			save();

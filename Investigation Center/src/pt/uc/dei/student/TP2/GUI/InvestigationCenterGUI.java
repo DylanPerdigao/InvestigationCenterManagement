@@ -40,18 +40,11 @@ public class InvestigationCenterGUI {
 	private JButton buttonREMOVEPeopleFromProject;
 	private JButton buttonENTER;
 	private JButton buttonINFO;
-	// Label
-	JLabel title;
-	JLabel emptyLabel1;
-	JLabel emptyLabel2;
-	JLabel emptyLabel3;
-	JLabel labelPeople;
-	JLabel labelProjects;
-	JLabel labelProjectMembers;
+	private JLabel labelProjectMembers;
 	// List
-	DefaultListModel<Person> listValuesPeople;
+	private DefaultListModel<Person> listValuesPeople;
 	private DefaultListModel<Person> listValuesProjectMembers;
-	DefaultListModel<Project> listValuesProjects;
+	private DefaultListModel<Project> listValuesProjects;
 	private JList<Person> listPeople;
 	private JList<Person> listProjectMembers;
 	private JList<Project> listProjects;
@@ -89,8 +82,9 @@ public class InvestigationCenterGUI {
 		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		title = new JLabel(IC.getName());
+
+		// Label
+		JLabel title = new JLabel(IC.getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -102,7 +96,7 @@ public class InvestigationCenterGUI {
 		frame.add(title, c);
 
 
-		emptyLabel1 = new JLabel("");
+		JLabel emptyLabel1 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -112,7 +106,7 @@ public class InvestigationCenterGUI {
 		c.gridheight= 1;
 		frame.add(emptyLabel1, c);
 
-		emptyLabel2 = new JLabel("");
+		JLabel emptyLabel2 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -125,8 +119,8 @@ public class InvestigationCenterGUI {
 		/*
 		 * PEOPLE
 		 */
-		
-		emptyLabel3 = new JLabel("");
+
+		JLabel emptyLabel3 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -136,8 +130,8 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(emptyLabel3, c);
-		
-		labelPeople = new JLabel("People List");
+
+		JLabel labelPeople = new JLabel("People List");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -216,8 +210,8 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(buttonREMOVEPeopleFromProject, c);
-		
-		labelProjects = new JLabel("Project Members");
+
+		JLabel labelProjects = new JLabel("Project Members");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -357,13 +351,18 @@ public class InvestigationCenterGUI {
 			else if(e.getSource() == buttonADDPeopleToProject) {
 				try {
 					if (listPeople.getSelectedValue() != null && listProjects.getSelectedValue() != null) {
-						Project project = listProjects.getSelectedValue();
-						IC.removeProject(project);
-						project.addMember(listPeople.getSelectedValue());
-						IC.addProject(project);
-						listValuesProjectMembers.removeAllElements();
-						listValuesProjectMembers.addAll(project.getMembers());
-						update();
+						if (listProjects.getSelectedValue().getMembers().contains(listPeople.getSelectedValue())) {
+							JOptionPane.showMessageDialog(null, "This person already belongs to this project","", JOptionPane.PLAIN_MESSAGE);
+						}
+						else{
+							Project project = listProjects.getSelectedValue();
+							IC.removeProject(project);
+							project.addMember(listPeople.getSelectedValue());
+							IC.addProject(project);
+							listValuesProjectMembers.removeAllElements();
+							listValuesProjectMembers.addAll(project.getMembers());
+							update();
+						}
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -372,8 +371,8 @@ public class InvestigationCenterGUI {
 			else if(e.getSource() == buttonREMOVEPeopleFromProject) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
-						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
 						close();
+						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
 						projectManagementGUI.initialize();
 					}
 				} catch (Exception ex) {

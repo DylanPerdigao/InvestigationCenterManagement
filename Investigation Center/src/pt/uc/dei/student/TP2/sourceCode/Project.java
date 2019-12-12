@@ -207,13 +207,11 @@ public class Project implements Serializable{
     }
     /**
      * This method creates a task for the project.
-     * @param task	This is the task who is added to the project.
-     * @return Task added to the project.
+     * @param task    This is the task who is added to the project.
      * @since 09-12-2019
      */
-    public Task createTask(Task task){
+    public void createTask(Task task){
         tasks.add(task);
-        return task;
     }
     /**
      * This method deletes a task of the project.
