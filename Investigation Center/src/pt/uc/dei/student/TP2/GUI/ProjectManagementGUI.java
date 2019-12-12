@@ -5,12 +5,20 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
@@ -33,6 +41,7 @@ public class ProjectManagementGUI{
 	// Buttons
 	private JButton buttonTaskCREATE;
 	private JButton buttonTaskREMOVE;
+	private JButton buttonTaskSTATUS;
 	private JButton buttonRETURN;
 	private JButton buttonProjectEND;
 	// Label
@@ -326,7 +335,7 @@ public class ProjectManagementGUI{
 		c.gridwidth = 1;	//quantos celulas de largura
 		getFrame().add(buttonTaskREMOVE, c);
 		
-		buttonTaskREMOVE= new JButton("Remove Task");
+		buttonTaskSTATUS = new JButton("Update status");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
 		c.weighty = 0;		//percentagem de altura celula em relacao as outras
@@ -335,7 +344,7 @@ public class ProjectManagementGUI{
 		c.gridy = 6; 		//posiçao celula y
 		c.gridheight = 1;   //quantos celulas de altura
 		c.gridwidth = 1;	//quantos celulas de largura
-		getFrame().add(buttonTaskREMOVE, c);
+		getFrame().add(buttonTaskSTATUS, c);
 
 		labelCost = new JLabel("Project Cost");
 		c.fill = GridBagConstraints.BOTH;
@@ -358,12 +367,14 @@ public class ProjectManagementGUI{
 		getFrame().add(labelCOST, c);
 
 		//Listeners
-		ProjectManagementGUI.ButtonListener buttonActionListener = new ProjectManagementGUI.ButtonListener();
+		ProjectManagementGUI.Listener listener = new ProjectManagementGUI.Listener();
 
-		buttonTaskCREATE.addActionListener(buttonActionListener);
-		buttonTaskREMOVE.addActionListener(buttonActionListener);
-		buttonRETURN.addActionListener(buttonActionListener);
-		buttonProjectEND.addActionListener(buttonActionListener);
+		buttonTaskCREATE.addActionListener(listener);
+		buttonTaskREMOVE.addActionListener(listener);
+		buttonRETURN.addActionListener(listener);
+		buttonProjectEND.addActionListener(listener);
+		
+		frame.addWindowListener(listener);
 
 		getFrame().setVisible(true);
 	}
@@ -372,8 +383,23 @@ public class ProjectManagementGUI{
 		getFrame().getContentPane().removeAll();
 		getFrame().repaint();
 	}
-
-	private class ButtonListener implements ActionListener {
+	
+	private void save() {
+		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
+		try {
+			FileOutputStream fos = new FileOutputStream(outputObjFile);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(getInvestigationCenter());
+			oos.close();
+			JOptionPane.showMessageDialog(null, "Work saved successfully","Save", JOptionPane.PLAIN_MESSAGE);
+			} catch (FileNotFoundException ex) {
+			System.out.println("Error creating file");
+		} catch (IOException ex) {
+			System.out.println("Error writing file");
+		}
+	}
+	
+	private class Listener implements ActionListener, WindowListener {
 
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonTaskCREATE){
@@ -383,16 +409,14 @@ public class ProjectManagementGUI{
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonTaskREMOVE) {
+			}else if(e.getSource() == buttonTaskREMOVE) {
 				try {
 
 					//frame.dispose();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonRETURN) {
+			}else if(e.getSource() == buttonRETURN) {
 				try {
 					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(getFrame(),investigationCenter);
 					close();
@@ -400,8 +424,7 @@ public class ProjectManagementGUI{
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else if(e.getSource() == buttonProjectEND) {
+			}else if(e.getSource() == buttonProjectEND) {
 				try {
 
 					//frame.dispose();
@@ -410,6 +433,23 @@ public class ProjectManagementGUI{
 				}
 			}
 		}
+		@Override
+		public void windowClosing(WindowEvent e) {
+			save();
+			frame.dispose();
+		}
+		@Override
+		public void windowOpened(WindowEvent e) {}
+		@Override
+		public void windowClosed(WindowEvent e) {}
+		@Override
+		public void windowIconified(WindowEvent e) {}
+		@Override
+		public void windowDeiconified(WindowEvent e) {}
+		@Override
+		public void windowActivated(WindowEvent e) {}
+		@Override
+		public void windowDeactivated(WindowEvent e) {}
 	}
 
 	public InvestigationCenter getInvestigationCenter() {
