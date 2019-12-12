@@ -51,7 +51,6 @@ public class Main {
 					BufferedReader br = new BufferedReader(fr);
 					String line;
 					String token = null;
-					int projectCounter=0;
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 					while((line = br.readLine()) != null) {
 						try {
@@ -87,7 +86,7 @@ public class Main {
 								int duration = Integer.parseInt(taskInfo[4]);
 								double completion = Double.parseDouble(taskInfo[5]);
 								//ADD TO LIST
-								projectCounter = IC.getProjects().size()-1;
+								int projectCounter = IC.getProjects().size()-1;
 								if(effortRate==0.25) {		
 									Task task = new Documentation(name,begin, end, duration,new Person(),completion);
 									IC.getProjects().get(projectCounter).createTask(task);
@@ -112,7 +111,6 @@ public class Main {
 								String investigationArea = teacherInfo[3];
 								Teacher teacher = new Teacher(name,email,mecanographicNumber,investigationArea,new ArrayList<Task>(), new ArrayList<Project>());
 								//ADD TO LIST
-								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(teacher);
 							}
 							else if(line.startsWith("\tBACHELOR:\t")) {
@@ -125,7 +123,6 @@ public class Main {
 								LocalDate end = LocalDate.parse(bachelorInfo[3],formatter);
 								Bachelor bachelor = new Bachelor(name, email, new ArrayList<Task>(),begin,end, null, new ArrayList<Teacher>());
 								//ADD TO LIST
-								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(bachelor);
 							}
 							else if(line.startsWith("\tMASTER:\t")) {
@@ -138,7 +135,6 @@ public class Main {
 								LocalDate end = LocalDate.parse(masterInfo[3],formatter);
 								Master master = new Master(name, email, new ArrayList<Task>(),begin,end, null, new ArrayList<Teacher>());
 								//ADD TO LIST
-								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(master);
 							}
 							else if(line.startsWith("\tPhD:\t")) {
@@ -151,7 +147,6 @@ public class Main {
 								LocalDate end = LocalDate.parse(phdInfo[3],formatter);
 								PhD phd = new PhD(name, email, new ArrayList<Task>(),begin,end, null);
 								//ADD TO LIST
-								projectCounter = IC.getPeople().size()-1;
 								IC.getPeople().add(phd);
 							}
 						}catch(Exception e){

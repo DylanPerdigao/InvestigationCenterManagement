@@ -303,8 +303,6 @@ public class InvestigationCenterGUI {
 		listValuesProjects.removeAllElements();
 		listValuesProjects.addAll(IC.getProjects());
 
-		//porque??
-		listValuesProjectMembers.removeAllElements();
 	}
 
 	private void save() {
@@ -427,15 +425,15 @@ public class InvestigationCenterGUI {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			if(e.getSource() == listProjects) {
-				//listValuesProjectMembers.removeAllElements();
-				//listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
+				listValuesProjectMembers.removeAllElements();
+				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 				//era o que eu tinha na minha
 
-				listProjectMembers.removeAll();
+				/*listProjectMembers.removeAll();
 				listScrollerProjectMembers.removeAll();
 				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 				//listProjectMembers = new.addAll(listValuesProjectMembers);
-				listScrollerProjectMembers.add(listProjectMembers);
+				listScrollerProjectMembers.add(listProjectMembers);*/
 				//TODO TIPO APAGAR E ATUALIZAR ESSA LISTA CADA VEZ QUE SE MUDA DE SELECAO NO PROJETO
 			}
 		}
