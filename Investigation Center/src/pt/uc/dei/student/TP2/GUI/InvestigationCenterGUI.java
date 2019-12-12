@@ -292,15 +292,14 @@ public class InvestigationCenterGUI {
 	private void save() {
 		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
 		try {
-			FileOutputStream fos = new FileOutputStream(outputObjFile); 
+			FileOutputStream fos = new FileOutputStream(outputObjFile);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(IC);
 			oos.close();
-			JOptionPane.showMessageDialog(null, "Work saved successfully","Save", JOptionPane.PLAIN_MESSAGE);
-		} catch (FileNotFoundException ex) {
-			System.out.println("Error creating file"); 
+			} catch (FileNotFoundException ex) {
+			System.out.println("Error creating file");
 		} catch (IOException ex) {
-			System.out.println("Error writing file"); 
+			System.out.println("Error writing file");
 		}
 	}
 	private class Listener implements ActionListener, MouseListener,WindowListener {
@@ -368,9 +367,9 @@ public class InvestigationCenterGUI {
 			}
 			else if(e.getSource() == buttonRETURN) {
 				try {
-					/*MainGUI mainGUI = new MainGUI(frame, listaIC);
+					save();
 					close();
-					mainGUI.initialize();*/
+					frame.dispose();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
