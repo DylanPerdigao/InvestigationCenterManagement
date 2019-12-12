@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * This class represent a person.
  * 
  * @author	Dylan Gonçalves Perdigão
- * @author	Bruno Leitão Faria
+ * @author	Bruno Ricardo Leitão Faria
  * @since	05-12-2019
  * @version	1.0
  */
