@@ -32,7 +32,7 @@ public class Main {
      * @since 01-12-2019 
      */
 	public static void main(String[] args){
-		InvestigationCenter IC = new InvestigationCenter(null,new ArrayList<Person>(), new ArrayList<Project>());
+		InvestigationCenter IC = new InvestigationCenter(null,new ArrayList<>(), new ArrayList<>());
 		/*
 		 * READ OBJECT FILE
 		 */
@@ -65,7 +65,8 @@ public class Main {
 							else if(line.startsWith("PROJECT:\t")) {
 								//SPLIT
 								String[] stringP = line.split("PROJECT:\t",0);
-								String[] projectInfo = stringP[1].split("/",0);
+								String[] projectInfo;
+								projectInfo = stringP[1].split("/",0);
 								//PROJECT OBJECT
 								String name = projectInfo[0];
 								String acronym = projectInfo[1];
@@ -73,7 +74,7 @@ public class Main {
 								LocalDate end = LocalDate.parse(projectInfo[3],formatter);
 								int duration = Integer.parseInt(projectInfo[4]);
 								boolean isCompleted = Boolean.parseBoolean(projectInfo[5]);
-								Project project = new Project(name, acronym,begin,end,duration,new Teacher(),new ArrayList<Person>(), new ArrayList<Task>(),isCompleted);
+								Project project = new Project(name, acronym,begin,end,duration,new Teacher(),new ArrayList<>(), new ArrayList<>(),isCompleted);
 								IC.addProject(project);
 							}
 							else if(line.startsWith("\tTASK:\t")) {
@@ -91,16 +92,16 @@ public class Main {
 								int projectCounter = IC.getProjects().size()-1;
 								switch(taskType) {	
 								case "DOC":
-									IC.getProjects().get(projectCounter).createTask(new Documentation(name,begin, end, duration,new Person(),completion));
+									IC.getProjects().get(projectCounter).createTask(new Documentation(name,begin, end, duration,null,completion));
 									break;
 								case "DES":
-									IC.getProjects().get(projectCounter).createTask(new Design(name,begin, end, duration,new Person(),completion));
+									IC.getProjects().get(projectCounter).createTask(new Design(name,begin, end, duration,null,completion));
 									break;
 								case "DEV":
-									IC.getProjects().get(projectCounter).createTask(new Development(name,begin, end, duration,new Person(),completion));
+									IC.getProjects().get(projectCounter).createTask(new Development(name,begin, end, duration,null,completion));
 									break;
 								default:
-									System.out.printf("Error reading task Type");
+									System.out.print("Error reading task Type");
 								}
 							}
 							else if(line.startsWith("\tTEACHER:\t")) {
@@ -112,7 +113,7 @@ public class Main {
 								String email = teacherInfo[1];
 								int mecanographicNumber = Integer.parseInt(teacherInfo[2]);
 								String investigationArea = teacherInfo[3];
-								Teacher teacher = new Teacher(name,email,mecanographicNumber,investigationArea,new ArrayList<Task>(), new ArrayList<Project>());
+								Teacher teacher = new Teacher(name,email,mecanographicNumber,investigationArea,new ArrayList<>(), new ArrayList<>());
 								//ADD TO LIST
 								IC.getPeople().add(teacher);
 							}
@@ -124,7 +125,7 @@ public class Main {
 								String email = bachelorInfo[1];
 								LocalDate begin = LocalDate.parse(bachelorInfo[2],formatter);
 								LocalDate end = LocalDate.parse(bachelorInfo[3],formatter);
-								Bachelor bachelor = new Bachelor(name, email, new ArrayList<Task>(),begin,end, null, new ArrayList<Teacher>());
+								Bachelor bachelor = new Bachelor(name, email, new ArrayList<>(),begin,end, null, new ArrayList<>());
 								//ADD TO LIST
 								IC.getPeople().add(bachelor);
 							}
@@ -136,7 +137,7 @@ public class Main {
 								String email = masterInfo[1];
 								LocalDate begin = LocalDate.parse(masterInfo[2],formatter);
 								LocalDate end = LocalDate.parse(masterInfo[3],formatter);
-								Master master = new Master(name, email, new ArrayList<Task>(),begin,end, null, new ArrayList<Teacher>());
+								Master master = new Master(name, email, new ArrayList<>(),begin,end, null, new ArrayList<>());
 								//ADD TO LIST
 								IC.getPeople().add(master);
 							}
@@ -148,7 +149,7 @@ public class Main {
 								String email = phdInfo[1];
 								LocalDate begin = LocalDate.parse(phdInfo[2],formatter);
 								LocalDate end = LocalDate.parse(phdInfo[3],formatter);
-								PhD phd = new PhD(name, email, new ArrayList<Task>(),begin,end, null);
+								PhD phd = new PhD(name, email, new ArrayList<>(),begin,end, null);
 								//ADD TO LIST
 								IC.getPeople().add(phd);
 							}

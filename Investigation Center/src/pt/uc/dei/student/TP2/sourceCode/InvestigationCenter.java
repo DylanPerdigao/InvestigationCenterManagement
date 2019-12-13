@@ -104,7 +104,7 @@ public class InvestigationCenter implements Serializable{
      */
 
 	public ArrayList<Project> showCompleted(){
-		ArrayList<Project> completed = new ArrayList<Project>();
+		ArrayList<Project> completed = new ArrayList<>();
 		for(Project project:projects) {
 			if(project.getStatus()==COMPLETED) {
 				completed.add(project);
@@ -118,7 +118,7 @@ public class InvestigationCenter implements Serializable{
      * @since 09-12-2019
      */
 	public ArrayList<Project> showUncompleted(){
-		ArrayList<Project> uncompleted = new ArrayList<Project>();
+		ArrayList<Project> uncompleted = new ArrayList<>();
 		for(Project project:projects) {
 			if(project.getStatus()==UNCOMPLETED) {
 				uncompleted.add(project);
@@ -127,8 +127,8 @@ public class InvestigationCenter implements Serializable{
 		return uncompleted;
 	}
     /**
-     * This method returns a string with informations about the investigation center.
-     * @return String with informations about the investigation center.
+     * This method returns a string with information about the investigation center.
+     * @return String with information about the investigation center.
      * @since 09-12-2019
      */
 	@Override

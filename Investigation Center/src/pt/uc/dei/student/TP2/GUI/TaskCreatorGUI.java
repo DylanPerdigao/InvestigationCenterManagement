@@ -89,23 +89,23 @@ public class TaskCreatorGUI{
 		placeComponent(textName,2,1,6,1,0.5,0.5,0,0);
 		//ACRONYM
 		placeComponent(new JLabel("Task Type"),1,2,1,1,0.5,0.5,0,0);
-		tasksTypeList = new JComboBox<String>(tasksType);
+		tasksTypeList = new JComboBox<>(tasksType);
 		placeComponent(tasksTypeList,2,2,1,1,0.5,0.5,0,0);
 		//BEGIN DATE
 		placeComponent(new JLabel("Begin Date"),1,3,1,1,0,0.5,0, 0);
-		beginDayList = new JComboBox<String>(days);
+		beginDayList = new JComboBox<>(days);
 		placeComponent(beginDayList,2,3,1,1,0,0.5,0, 0);
-		beginMonthList = new JComboBox<String>(months);
+		beginMonthList = new JComboBox<>(months);
 		placeComponent(beginMonthList,3,3,1,1,0,0.5,0, 0);
-		beginYearList = new JComboBox<String>(years);
+		beginYearList = new JComboBox<>(years);
 		placeComponent(beginYearList,4,3,1,1,0,0.5,0, 0);
 		//END DATE
 		placeComponent(new JLabel("End Date"),1,4,1,1,0.5,0.5,0, 0);
-		endDayList = new JComboBox<String>(days);
+		endDayList = new JComboBox<>(days);
 		placeComponent(endDayList,2,4,1,1,0.5,0.5,0, 0);
-		endMonthList = new JComboBox<String>(months);
+		endMonthList = new JComboBox<>(months);
 		placeComponent(endMonthList,3,4,1,1,0.5,0.5,0, 0);
-		endYearList = new JComboBox<String>(years);
+		endYearList = new JComboBox<>(years);
 		placeComponent(endYearList,4,4,1,1,0.5,0.5,0, 0);
 		//DURATION
 		placeComponent(new JLabel("Duration"),1,5,1,1,0.5,0.5,0, 0);
@@ -200,7 +200,7 @@ public class TaskCreatorGUI{
 
 						close();
 						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame,IC,project);
-						projectManagementGUI.initialize();;
+						projectManagementGUI.initialize();
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Insert an end date greater than the starter","", JOptionPane.PLAIN_MESSAGE);

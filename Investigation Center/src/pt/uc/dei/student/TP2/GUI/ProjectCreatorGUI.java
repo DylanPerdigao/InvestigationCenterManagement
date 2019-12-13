@@ -94,19 +94,19 @@ public class ProjectCreatorGUI{
 		placeComponent(textAcronym,2,2,1,1,0.5,0.5,0,0);
 		//BEGIN DATE
 		placeComponent(new JLabel("Begin Date"),1,3,1,1,0,0.5,0, 0);
-		beginDayList = new JComboBox<String>(days);
+		beginDayList = new JComboBox<>(days);
 		placeComponent(beginDayList,2,3,1,1,0,0.5,0, 0);
-		beginMonthList = new JComboBox<String>(months);
+		beginMonthList = new JComboBox<>(months);
 		placeComponent(beginMonthList,3,3,1,1,0,0.5,0, 0);
-		beginYearList = new JComboBox<String>(years);
+		beginYearList = new JComboBox<>(years);
 		placeComponent(beginYearList,4,3,1,1,0,0.5,0, 0);
 		//END DATE
 		placeComponent(new JLabel("End Date"),1,4,1,1,0.5,0.5,0, 0);
-		endDayList = new JComboBox<String>(days);
+		endDayList = new JComboBox<>(days);
 		placeComponent(endDayList,2,4,1,1,0.5,0.5,0, 0);
-		endMonthList = new JComboBox<String>(months);
+		endMonthList = new JComboBox<>(months);
 		placeComponent(endMonthList,3,4,1,1,0.5,0.5,0, 0);
-		endYearList = new JComboBox<String>(years);
+		endYearList = new JComboBox<>(years);
 		placeComponent(endYearList,4,4,1,1,0.5,0.5,0, 0);
 		//DURATION
 		placeComponent(new JLabel("Duration"),1,5,1,1,0.5,0.5,0, 0);
@@ -151,7 +151,7 @@ public class ProjectCreatorGUI{
 	 * @param iy	This specifies the internal padding in axis Y
 	 * @since 13-12-2019
 	 */
-	public void placeComponent(JComponent component,int gx, int gy,int gw,int gh,double wx,double wy, int ix, int iy) {
+	private void placeComponent(JComponent component,int gx, int gy,int gw,int gh,double wx,double wy, int ix, int iy) {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = gx;       	//posiçao celula x
 		c.gridy = gy; 			//posiçao celula y
@@ -179,7 +179,8 @@ public class ProjectCreatorGUI{
 					if (!textName.getText().equals("") && !textAcronym.getText().equals("") && !textDuration.getText().equals("")) {
 						int dur= Integer.parseInt(textDuration.getText());
 						//maybe chekar estas proximas 2 linhas mais tarde
-						LocalDate begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
+						LocalDate begin;
+						begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
 						LocalDate end = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(endYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endDayList.getSelectedItem())));
 
 						if (end.isAfter(begin)) {

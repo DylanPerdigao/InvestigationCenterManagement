@@ -35,7 +35,6 @@ public class Development extends Task implements Serializable{
      */
     @Override
     public String toString() {
-        String out = "[DEV] "+this.getName()+" ("+this.getStatus()+"%)";
-        return out;
+        return "[DEV] "+ this.getName()+" ("+ this.getStatus()+"%)";
     }
 }

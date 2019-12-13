@@ -41,28 +41,8 @@ public class Task implements Serializable{
         setResponsible(responsible);
         setStatus(status);
     }
-    /**
-     * This is the constructor of the task object with the responsible person initialized to null;
-     * 
-     * @param name	This is the name of the task.
-     * @param effortRate	This is the effort rate of the task.
-     * @param beginDate	This is date when begins the task.
-     * @param endDate	This is date when ends the task.
-     * @param duration	This is the duration of the task.
-     * @param status	This is the status of the task.
-     * @since 09-12-2019 
-     */
-    Task(String name, double effortRate, LocalDate beginDate, LocalDate endDate, int duration, double status) {
-        setName(name);
-        setBeginDate(beginDate);
-        setEndDate(endDate);
-        setDuration(duration);
-        setEffortRate(effortRate);
-        setResponsible(new Person());
-        setStatus(status);
-	}
 
-	/**
+    /**
      * This method gets the name of the task.
      * @return Name of the task.
      * @since 09-12-2019
@@ -181,8 +161,7 @@ public class Task implements Serializable{
      */
     @Override
     public String toString() {
-        String out = this.getName()+" ("+this.getStatus()+"%) ---> " + this.getResponsible();
-        return out;
+        return this.getName()+" ("+ this.getStatus()+"%) ---> " + this.getResponsible();
     }
 
 

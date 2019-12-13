@@ -92,11 +92,7 @@ public class Person implements Serializable{
     	for(Task task: tasks) {
     		effort+=task.getEffortRate();
     	}
-    	if(effort>1) {
-    		return true;
-    	}else {
-    		return false;
-    	}
+        return effort > 1;
     }
 
     /**
@@ -106,8 +102,7 @@ public class Person implements Serializable{
      */
     @Override
     public String toString() {
-        String out = this.getName();
-        return out;
+        return this.getName();
     }
 }
 

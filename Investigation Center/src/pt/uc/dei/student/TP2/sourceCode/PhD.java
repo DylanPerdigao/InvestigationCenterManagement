@@ -14,8 +14,6 @@ import java.util.ArrayList;
  */
 public class PhD extends Grantee implements Serializable{
 	private static final long serialVersionUID = 1L;
-    //Variables
-    private final double COST = 1200;
 
     /**
      * This is the constructor of the PhD (Philosophiæ Doctor) object.
@@ -37,17 +35,17 @@ public class PhD extends Grantee implements Serializable{
      * @since 05-12-2019
      */
 	public double getCost() {
-		return COST;
+        //Variables
+        return 1200;
 	}
     /**
-     * This method returns a string with informations about the PhD.
-     * @return String with informations about the PhD.
+     * This method returns a string with information about the PhD.
+     * @return String with information about the PhD.
      * @since 05-12-2019
      */
     @Override
     public String toString() {
-        String out = "[PhD]\t\t" +this.getName();
-        return out;
+        return "[PhD]\t\t" + this.getName();
     }
 
 }
