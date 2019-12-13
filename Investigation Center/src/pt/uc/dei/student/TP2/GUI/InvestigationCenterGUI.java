@@ -91,8 +91,9 @@ public class InvestigationCenterGUI{
 		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		// Label
+		/*
+		 * LABELS AND TITLE
+		 */
 		JLabel title = new JLabel(IC.getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -103,7 +104,6 @@ public class InvestigationCenterGUI{
 		c.gridy = 0;
 		c.gridwidth = 7;
 		frame.add(title, c);
-
 		placeComponent(new JLabel(""),0,10,1,1,0.5,10,0,0);
 		placeComponent(new JLabel(""),7,10,1,1,0.5,10,0,0);
 		placeComponent(new JLabel(""),3,7,1,1,0.5,0.5,0,0);
@@ -111,7 +111,6 @@ public class InvestigationCenterGUI{
 		/*
 		 * PEOPLE
 		 */
-
 		placeComponent(new JLabel("People List"),2,1,1,1,0.5,0.5,0,0);
 		listScrollerPeople = new JScrollPane(listPeople);
 		placeComponent(listScrollerPeople,2,2,1,6,0.5,10,10,100);
@@ -121,7 +120,6 @@ public class InvestigationCenterGUI{
 		/*
 		 * PROJECTS
 		 */
-
 		buttonProjectCREATE = new JButton("Add Project");
 		placeComponent(buttonProjectCREATE,6,2,1,1,0.5,0,0,10);
 
@@ -134,18 +132,21 @@ public class InvestigationCenterGUI{
 		buttonREMOVEPeopleFromProject = new JButton("Remove Person to Project");
 		placeComponent(buttonREMOVEPeopleFromProject,6,5,1,1,0.5,0,0,10);
 		
-		placeComponent(new JLabel("Project Members"),6,6,1,1,0.5,0.5,0,0);
-		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
-		placeComponent(listScrollerProjectMembers,6,7,1,1,0.5,10,100,10);
-		
 		buttonENTER = new JButton("Enter in Project");
 		placeComponent(buttonENTER,4,8,1,1,0.5,0.5,0,10);
 
 		placeComponent(new JLabel("Projects List"),4,1,1,1,0.5,0.5,0,0);
 		listScrollerProjects = new JScrollPane(listProjects);
 		placeComponent(listScrollerProjects,4,2,1,6,0.5,10, 100, 10);
-
-		//Listeners
+		/*
+		 * MEMBERS
+		 */
+		placeComponent(new JLabel("Project Members"),6,6,1,1,0.5,0.5,0,0);
+		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
+		placeComponent(listScrollerProjectMembers,6,7,1,1,0.5,10,100,10);
+		/*
+		 * LISTENERS
+		 */
 		InvestigationCenterGUI.Listener actionListener = new InvestigationCenterGUI.Listener();
 		buttonENTER.addActionListener(actionListener);
 		buttonProjectCREATE.addActionListener(actionListener);
