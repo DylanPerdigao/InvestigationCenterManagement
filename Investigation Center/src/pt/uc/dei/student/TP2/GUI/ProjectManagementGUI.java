@@ -97,13 +97,15 @@ public class ProjectManagementGUI{
 		listScrollerMembers = new JScrollPane(listMembers); 
 	}
 
-
+    /**
+     * This method initialize the Graphical User Interface with all components 
+     * @since 13-12-2019
+     */
 	public void initialize(){
-
 		frame.setLayout(new GridBagLayout());
-
-		// Label
-		// Label
+		/*
+		 * LABELS AND TITLE
+		 */
 		JLabel title = new JLabel(getProject().getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -114,7 +116,7 @@ public class ProjectManagementGUI{
 		c.gridy = 0;
 		c.gridwidth = 7;
 		frame.add(title, c);
-
+		
 		placeComponent(new JLabel(""),0,12,1,1,0.5,10, 0, 0);
 		placeComponent(new JLabel(""),7,15,1,1,0.5,50, 0, 0);
 		placeComponent(new JLabel(""),3,14,1,1,0.5,50, 0, 0);
@@ -126,7 +128,6 @@ public class ProjectManagementGUI{
 		/*
 		 * TASKS
 		 */
-
 		placeComponent(new JLabel("Unstarted Tasks"),2,1,1,1,0.5,0.5, 0, 0);
 		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks);
 		placeComponent(listScrollerUnstartedTasks,2,2,1,3,0.5,5,100, 10);
@@ -138,7 +139,16 @@ public class ProjectManagementGUI{
 		placeComponent(new JLabel("Completed Tasks"),2,10,1,1,0.5,0.5,0,0);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks);
 		placeComponent(listScrollerCompletedTasks,2,11,1,1,0.5,5,100, 10);
+		
+		placeComponent(new JLabel("Tasks"),4,5,2,1,0.5,0.5,0,0);
+		listScrollerTasks = new JScrollPane(listTasks);
+		placeComponent(listScrollerTasks,4,6,2,2,0.5,10,100,10);
 
+		buttonTaskINFO = new JButton("Show Task Information");
+		placeComponent(buttonTaskINFO,6,6,1,2,0.5,0, 0, 10);
+		/*
+		 * PEOPLE
+		 */
 		placeComponent(new JLabel("Principal Investigator"),4,1,1,1,0.5,0.5,0, 0);
 		if(project.getPrincipalInvestigator()!=null) {
 			labelPRINCIPALINVESTIGATOR = new JLabel(project.getPrincipalInvestigator().getName());
@@ -154,21 +164,17 @@ public class ProjectManagementGUI{
 
 		buttonPersonINFO = new JButton("Show Member Information");
 		placeComponent(buttonPersonINFO,6,3,1,1,0.5,0.5,0,0);
-
-		placeComponent(new JLabel("Tasks"),4,5,2,1,0.5,0.5,0,0);
-		listScrollerTasks = new JScrollPane(listTasks);
-		placeComponent(listScrollerTasks,4,6,2,2,0.5,10,100,10);
-
-		buttonTaskINFO = new JButton("Show Task Information");
-		placeComponent(buttonTaskINFO,6,6,1,2,0.5,0, 0, 10);
-
+		/*
+		 * PROJECT
+		 */
 		placeComponent(new JLabel("Project Cost"),4,12,1,1,0.5,0.5, 0, 0);
 		JLabel labelCOST = new JLabel(String.valueOf(getProject().projectCost()) + "€");
 		placeComponent(labelCOST,5,12,1,1,0.5,0.5, 0, 0);
 
-		//Listeners
+		/*
+		 * LISTENERS AND OTHER BUTTONS
+		 */
 		ProjectManagementGUI.Listener listener = new ProjectManagementGUI.Listener();
-
 		buttonRETURN.addActionListener(listener);
 		buttonPersonINFO.addActionListener(listener);
 		buttonTaskINFO.addActionListener(listener);
@@ -193,7 +199,6 @@ public class ProjectManagementGUI{
 
 			buttonTaskREMOVE = new JButton("Remove Task");
 			placeComponent(buttonTaskREMOVE,5,8,1,1,0.5,0, 0, 10);
-
 
 			buttonProjectEND.addActionListener(listener);
 			buttonPersonASSIGN.addActionListener(listener);
