@@ -53,6 +53,8 @@ public class Main {
 					FileReader fr = new FileReader(f); 
 					BufferedReader br = new BufferedReader(fr);
 					String line;
+					double completion = 0;
+					boolean isCompleted = false;
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 					while((line = br.readLine()) != null) {
 						try {
@@ -71,10 +73,8 @@ public class Main {
 								String name = projectInfo[0];
 								String acronym = projectInfo[1];
 								LocalDate begin = LocalDate.parse(projectInfo[2],formatter);
-								LocalDate end = LocalDate.parse(projectInfo[3],formatter);
-								int duration = Integer.parseInt(projectInfo[4]);
-								boolean isCompleted = Boolean.parseBoolean(projectInfo[5]);
-								Project project = new Project(name, acronym,begin,end,duration,new Teacher(),new ArrayList<>(), new ArrayList<>(),isCompleted);
+								int duration = Integer.parseInt(projectInfo[3]);
+								Project project = new Project(name, acronym,begin,null,duration,new Teacher(),new ArrayList<>(), new ArrayList<>(),isCompleted);
 								IC.addProject(project);
 							}
 							else if(line.startsWith("\tTASK:\t")) {
@@ -85,20 +85,18 @@ public class Main {
 								String name = taskInfo[0];
 								String taskType = taskInfo[1];
 								LocalDate begin = LocalDate.parse(taskInfo[2],formatter);
-								LocalDate end = LocalDate.parse(taskInfo[3],formatter);
-								int duration = Integer.parseInt(taskInfo[4]);
-								double completion = Double.parseDouble(taskInfo[5]);
+								int duration = Integer.parseInt(taskInfo[3]);
 								//ADD TO LIST
 								int projectCounter = IC.getProjects().size()-1;
 								switch(taskType) {	
 								case "DOC":
-									IC.getProjects().get(projectCounter).createTask(new Documentation(name,begin, end, duration,null,completion));
+									IC.getProjects().get(projectCounter).createTask(new Documentation(name,begin, null, duration,null,completion));
 									break;
 								case "DES":
-									IC.getProjects().get(projectCounter).createTask(new Design(name,begin, end, duration,null,completion));
+									IC.getProjects().get(projectCounter).createTask(new Design(name,begin, null, duration,null,completion));
 									break;
 								case "DEV":
-									IC.getProjects().get(projectCounter).createTask(new Development(name,begin, end, duration,null,completion));
+									IC.getProjects().get(projectCounter).createTask(new Development(name,begin, null, duration,null,completion));
 									break;
 								default:
 									System.out.print("Error reading task Type");
