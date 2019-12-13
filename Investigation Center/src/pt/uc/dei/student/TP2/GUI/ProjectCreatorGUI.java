@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.swing.*;
@@ -325,12 +326,11 @@ public class ProjectCreatorGUI{
 						LocalDate end = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(endYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endDayList.getSelectedItem())));
 
 						if (end.isAfter(begin)) {
-							Project project = new Project(textName.getText(), textAcronym.getText(), begin, end, dur, null, null, null, false);
+							Project project = new Project(textName.getText(), textAcronym.getText(), begin, end, dur, null, new ArrayList<>(), new ArrayList<>(), false);
 							IC.addProject(project);
 
-
-							InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, IC);
 							close();
+							InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, IC);
 							investigationCenterGUI.initialize();
 						}
 						else{
@@ -347,6 +347,7 @@ public class ProjectCreatorGUI{
 				try {
 					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,IC);
 					close();
+					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,investigationCenter);
 					investigationCenterGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();

@@ -331,13 +331,13 @@ public class TaskCreatorGUI{
 						//checkar o switch
 						switch ((String) Objects.requireNonNull(tasksTypeList.getSelectedItem())) {
 							case "Documentation":
-								task = new Documentation(name, begin, end, duration, new Person(), 0);
+								task = new Documentation(name, begin, end, duration, null, 0);
 								break;
 							case "Design":
-								task = new Design(name, begin, end, duration, new Person(), 0);
+								task = new Design(name, begin, end, duration, null, 0);
 								break;
 							case "Development":
-								task = new Development(name, begin, end, duration, new Person(), 0);
+								task = new Development(name, begin, end, duration, null, 0);
 								break;
 						}
 
@@ -360,7 +360,8 @@ public class TaskCreatorGUI{
 				try {
 					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,IC);
 					close();
-					investigationCenterGUI.initialize();
+					ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame,investigationCenter,project);
+					projectManagementGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

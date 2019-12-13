@@ -221,7 +221,7 @@ public class InvestigationCenterGUI{
 			oos.writeObject(IC);
 			oos.close();
 			JOptionPane.showMessageDialog(null, "Work saved successfully","Save", JOptionPane.PLAIN_MESSAGE);
-			} catch (FileNotFoundException ex) {
+		} catch (FileNotFoundException ex) {
 			System.out.println("Error creating file");
 		} catch (IOException ex) {
 			System.out.println("Error writing file");
