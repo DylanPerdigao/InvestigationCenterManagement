@@ -458,7 +458,7 @@ public class ProjectManagementGUI{
 				else if(e.getSource() == buttonPersonASSIGN) {
 					try {
 						if(listTasks.getSelectedValue()!=null && listMembers.getSelectedValue()!=null ){
-							if(!listMembers.getSelectedValue().isSurcharged(listTasks.getSelectedValue())) {
+							if(listMembers.getSelectedValue().isSurcharged(listTasks.getSelectedValue())) {
 								//if grantee end date >= task end date
 								if (!(listMembers.getSelectedValue() instanceof Grantee) || !(((Grantee) listMembers.getSelectedValue()).getGrantEnd()).isAfter(listTasks.getSelectedValue().getBeginDate().plusDays(listTasks.getSelectedValue().getDuration()))) {
 									//add responsible to task
