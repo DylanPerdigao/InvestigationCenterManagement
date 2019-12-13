@@ -103,7 +103,7 @@ public class TaskCreatorGUI{
 		textDuration = new JTextField(10);
 		placeComponent(textDuration,2,5,1,1,0.5,0.5,0, 0);
 		//CREATE
-		buttonCREATE = new JButton("Add Project");
+		buttonCREATE = new JButton("Add Task");
 		placeComponent(buttonCREATE,4,8,4,1,0.5,0,0, 10);
 		//CANCEL
 		buttonCANCEL = new JButton("Cancel");

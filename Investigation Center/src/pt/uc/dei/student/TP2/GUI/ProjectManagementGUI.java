@@ -426,7 +426,7 @@ public class ProjectManagementGUI{
 							for (Person tea : project.getTeachers()){
 								choices.add(tea.getName());
 							}
-							String teacher = (String) JOptionPane.showInputDialog(null, "Choose teacher.", "Coi", JOptionPane.QUESTION_MESSAGE, null, choices.toArray(), choices.toArray()[0]);
+							String teacher = (String) JOptionPane.showInputDialog(null, "Choose teacher.", "Choose", JOptionPane.QUESTION_MESSAGE, null, choices.toArray(), choices.toArray()[0]);
 							for (Teacher tea : project.getTeachers()){
 								if (tea.getName().equals(teacher)){
 									if(((AdvisedStudent) listMembers.getSelectedValue()).getAdvisors().contains(tea)){
