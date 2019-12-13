@@ -66,18 +66,18 @@ public class InvestigationCenterGUI{
 		this.IC=IC;
 
 		// Lists
-		listValuesPeople = new DefaultListModel<Person>();
+		listValuesPeople = new DefaultListModel<>();
 		listValuesPeople.addAll(IC.getPeople());
-		listPeople = new JList<Person>(listValuesPeople);
+		listPeople = new JList<>(listValuesPeople);
 		listScrollerPeople = new JScrollPane(listPeople);
 
-		listValuesProjectMembers = new DefaultListModel<Person>();
-		listProjectMembers = new JList<Person>(listValuesProjectMembers);
+		listValuesProjectMembers = new DefaultListModel<>();
+		listProjectMembers = new JList<>(listValuesProjectMembers);
 		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
 
-		listValuesProjects = new DefaultListModel<Project>();
+		listValuesProjects = new DefaultListModel<>();
 		listValuesProjects.addAll(IC.getProjects());
-		listProjects = new JList<Project>(listValuesProjects);
+		listProjects = new JList<>(listValuesProjects);
 		listScrollerProjects = new JScrollPane(listProjects);
 	}
 

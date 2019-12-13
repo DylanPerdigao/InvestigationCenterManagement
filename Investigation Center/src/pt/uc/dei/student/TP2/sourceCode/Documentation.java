@@ -35,7 +35,6 @@ public class Documentation extends Task implements Serializable{
      */
     @Override
     public String toString() {
-        String out = "[DOC] "+this.getName()+" ("+this.getStatus()+"%)";
-        return out;
+        return "[DOC] "+ this.getName()+" ("+ this.getStatus()+"%)";
     }
 }

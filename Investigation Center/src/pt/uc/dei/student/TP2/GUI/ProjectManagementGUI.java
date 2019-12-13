@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.DefaultListModel;
@@ -83,29 +84,29 @@ public class ProjectManagementGUI{
 		this.IC=IC;
 		this.project=project;
 		// List UNSTARTED TASK
-		listValuesUnstartedTasks = new DefaultListModel<Task>();
+		listValuesUnstartedTasks = new DefaultListModel<>();
 		listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
-		listUnstartedTasks = new JList<Task>(listValuesUnstartedTasks);
+		listUnstartedTasks = new JList<>(listValuesUnstartedTasks);
 		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks); 
 		// List UNSTARTED TASK IN ESTIMATED TIME
-		listValuesUnstartedTasksIET = new DefaultListModel<Task>();
+		listValuesUnstartedTasksIET = new DefaultListModel<>();
 		listValuesUnstartedTasksIET.addAll(project.getUncompletedTasksIET());
-		listUnstartedTasksIET = new JList<Task>(listValuesUnstartedTasksIET);
+		listUnstartedTasksIET = new JList<>(listValuesUnstartedTasksIET);
 		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET); 
 		// List COMPLETED TASK
-		listValuesCompletedTasks = new DefaultListModel<Task>();
+		listValuesCompletedTasks = new DefaultListModel<>();
 		listValuesCompletedTasks.addAll(project.getCompletedTasks());
-		listCompletedTasks = new JList<Task>(listValuesCompletedTasks);
+		listCompletedTasks = new JList<>(listValuesCompletedTasks);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks); 
 		// List TASK
-		listValuesTasks = new DefaultListModel<Task>();
+		listValuesTasks = new DefaultListModel<>();
 		listValuesTasks.addAll(project.getTasks());
-		listTasks = new JList<Task>(listValuesTasks);
+		listTasks = new JList<>(listValuesTasks);
 		listScrollerTasks = new JScrollPane(listTasks); 
 		// List Members
-		listValuesMembers = new DefaultListModel<Person>();
+		listValuesMembers = new DefaultListModel<>();
 		listValuesMembers.addAll(project.getMembers());
-		listMembers = new JList<Person>(listValuesMembers);
+		listMembers = new JList<>(listValuesMembers);
 		listScrollerMembers = new JScrollPane(listMembers); 
 	}
 
@@ -180,7 +181,7 @@ public class ProjectManagementGUI{
 		 * PROJECT
 		 */
 		placeComponent(new JLabel("Project Cost"),4,12,1,1,0.5,0.5, 0, 0);
-		JLabel labelCOST = new JLabel(String.valueOf(project.projectCost()) + "€");
+		JLabel labelCOST = new JLabel(project.projectCost() + "€");
 		placeComponent(labelCOST,5,12,1,1,0.5,0.5, 0, 0);
 		/*
 		 * LISTENERS AND OTHER BUTTONS
@@ -386,8 +387,20 @@ public class ProjectManagementGUI{
 				else if(e.getSource() == buttonPersonASSIGN) {
 					try {
 						if(listTasks.getSelectedValue()!=null && listMembers.getSelectedValue()!=null ){
-							listTasks.getSelectedValue().setResponsible(listMembers.getSelectedValue());
-							update();
+							if(listMembers.getSelectedValue().isSurcharged(listTasks.getSelectedValue())) {
+								//if grantee end date >= task end date
+								if (!(listMembers.getSelectedValue() instanceof Grantee) || !(((Grantee) listMembers.getSelectedValue()).getGrantEnd()).isAfter(listTasks.getSelectedValue().getBeginDate().plusDays(listTasks.getSelectedValue().getDuration()))) {
+									listTasks.getSelectedValue().setResponsible(listMembers.getSelectedValue());
+									listMembers.getSelectedValue().addTask(listTasks.getSelectedValue());
+									update();
+								}
+								else {
+									JOptionPane.showMessageDialog(null, "Grantee scholarship deadline is less than task end date", "Error", JOptionPane.PLAIN_MESSAGE);
+								}
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "That person would be overcharged", "Error", JOptionPane.PLAIN_MESSAGE);
+							}
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Select a member and a task first","Error", JOptionPane.PLAIN_MESSAGE);
@@ -419,6 +432,7 @@ public class ProjectManagementGUI{
 					try {
 						if(listTasks.getSelectedValue()!=null){
 							project.deleteTask(listTasks.getSelectedValue());
+							listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
 							update();
 						}
 						else {
@@ -432,11 +446,21 @@ public class ProjectManagementGUI{
 					try {
 						if (listTasks.getSelectedValue()!=null) {
 							String input = JOptionPane.showInputDialog("Update Conclusion of " + listTasks.getSelectedValue().getName());
-							double status = Double.parseDouble(input);
-							if (status < 0 || status > 100) {
-								JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%","Error", JOptionPane.PLAIN_MESSAGE);
-							} else {
-								listTasks.getSelectedValue().setStatus(status);
+							if (input!=null) {
+								double status = Double.parseDouble(input);
+								if (status < 0 || status > 100) {
+									JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%", "Error", JOptionPane.PLAIN_MESSAGE);
+								} else {
+									if (status == 100) {
+										listTasks.getSelectedValue().setEndDate(LocalDate.now());
+										listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
+									}
+									listTasks.getSelectedValue().setStatus(status);
+									update();
+								}
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "Nothing detected on input.","Error", JOptionPane.PLAIN_MESSAGE);
 							}
 						}
 						else{

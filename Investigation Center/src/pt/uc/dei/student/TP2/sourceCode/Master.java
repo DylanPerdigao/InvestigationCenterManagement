@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class Master extends AdvisedStudent implements Serializable{
 	private static final long serialVersionUID = 1L;
-    private final double COST = 1000;
 
     /**
      * This is the constructor of the master student object.
@@ -38,7 +37,7 @@ public class Master extends AdvisedStudent implements Serializable{
      * @since 05-12-2019
      */
     public double getCost() {
-        return COST;
+        return 1000;
     }
 
     /**
@@ -48,7 +47,6 @@ public class Master extends AdvisedStudent implements Serializable{
      */
     @Override
     public String toString() {
-        String out = "[Master]\t"+this.getName();
-        return out;
+        return "[Master]\t"+ this.getName();
     }
 }

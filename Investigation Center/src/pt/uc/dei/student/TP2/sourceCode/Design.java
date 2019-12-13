@@ -35,7 +35,6 @@ public class Design extends Task implements Serializable{
      */
     @Override
     public String toString() {
-        String out = "[DESIGN] "+this.getName()+" ("+this.getStatus()+"%)";
-        return out;
+        return "[DESIGN] "+ this.getName()+" ("+ this.getStatus()+"%)";
     }
 }

@@ -80,6 +80,22 @@ public class Person implements Serializable{
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+    /**
+     * This method adds a task to the ArrayList of tasks of the person.
+     * @param task	This is the tasks that is going to be added to the person.
+     * @since 12-12-2019
+     */
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+    /**
+     * This method removes a task from the ArrayList of tasks of the person.
+     * @param task	This is the tasks that is going to be removed from the person.
+     * @since 12-12-2019
+     */
+    public void removeTask(Task task) {
+        this.tasks.remove(task);
+    }
 
     /**
      * This method verify if the person is surcharged with his task and if he can have another one.
@@ -92,11 +108,7 @@ public class Person implements Serializable{
     	for(Task task: tasks) {
     		effort+=task.getEffortRate();
     	}
-    	if(effort>1) {
-    		return true;
-    	}else {
-    		return false;
-    	}
+        return effort > 1;
     }
 
     /**
@@ -106,8 +118,7 @@ public class Person implements Serializable{
      */
     @Override
     public String toString() {
-        String out = this.getName();
-        return out;
+        return this.getName();
     }
 }
 

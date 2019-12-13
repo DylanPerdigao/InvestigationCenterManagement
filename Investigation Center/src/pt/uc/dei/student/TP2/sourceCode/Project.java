@@ -47,13 +47,8 @@ public class Project implements Serializable{
         setTasks(tasks);
         setStatus(status);
     }
-    /**
-     * This is the constructor of the project object with all attributes initialized with null.
-     * 
-     * @since 10-12-2019 
-     */
 
-	/**
+    /**
      * This method gets the name of the project.
      * @return Name of the project.
      * @since 09-12-2019
@@ -235,7 +230,7 @@ public class Project implements Serializable{
      * @since 09-12-2019
      */
     public ArrayList<Task> getCompletedTasks(){
-    	ArrayList<Task> completed = new ArrayList<Task>();
+    	ArrayList<Task> completed = new ArrayList<>();
 		for(Task task:tasks) {
 			if(task.getStatus()==100.0) {
 				completed.add(task);
@@ -249,7 +244,7 @@ public class Project implements Serializable{
      * @since 09-12-2019
      */
     public ArrayList<Task> getUnstartedTasks(){
-    	ArrayList<Task> unstarted = new ArrayList<Task>();
+    	ArrayList<Task> unstarted = new ArrayList<>();
 		for(Task task:tasks) {
 			if(LocalDate.now().isBefore(task.getBeginDate())) {
 				unstarted.add(task);
@@ -263,7 +258,7 @@ public class Project implements Serializable{
      * @since 09-12-2019
      */
     public ArrayList<Task> getUncompletedTasks(){
-    	ArrayList<Task> uncompleted = new ArrayList<Task>();
+    	ArrayList<Task> uncompleted = new ArrayList<>();
 		for(Task task:tasks) {
 			if(task.getStatus()<100.0) {
 				uncompleted.add(task);
@@ -277,9 +272,9 @@ public class Project implements Serializable{
      * @since 09-12-2019
      */
     public ArrayList<Task> getUncompletedTasksIET(){
-    	ArrayList<Task> uncompleted = new ArrayList<Task>();
+    	ArrayList<Task> uncompleted = new ArrayList<>();
 		for(Task task:tasks) {
-			if(task.getStatus()<100.0 && LocalDate.now().isAfter(task.getEndDate())) {
+			if(task.getStatus()<100.0 && LocalDate.now().isAfter(task.getBeginDate().plusDays(duration))) {
 				uncompleted.add(task);
 			}
 		}
@@ -314,14 +309,13 @@ public class Project implements Serializable{
         this.status=true;
     }
     /**
-     * This method returns a string with informations about the project.
-     * @return String with informations about the project.
+     * This method returns a string with information about the project.
+     * @return String with information about the project.
      * @since 09-12-2019
      */
     @Override
     public String toString() {
-        String out = this.getName()+"\t("+this.getAcronym()+")";
-		return out;
+        return this.getName()+"\t("+ this.getAcronym()+")";
     }
 
 

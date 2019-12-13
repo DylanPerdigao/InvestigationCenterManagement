@@ -96,13 +96,12 @@ public class Teacher extends Person implements Serializable{
         this.projects = projects;
     }
     /**
-     * This method returns a string with informations about the teacher.
-     * @return String with informations about the teacher.
+     * This method returns a string with information about the teacher.
+     * @return String with information about the teacher.
      * @since 09-12-2019
      */
     @Override
     public String toString() {
-        String out = "[Teacher]\t"+this.getName();
-        return out;
+        return "[Teacher]\t"+ this.getName();
     }
 }
