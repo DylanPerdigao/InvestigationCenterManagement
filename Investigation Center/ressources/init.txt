@@ -1,7 +1,7 @@
 ﻿==================================================================
 INVESTIGATION CENTER:	CISUC
 ==================================================================
-PROJECT:	ROBOT/ROB/01-10-2019/1
+PROJECT:	ROBOT/ROB/01-10-2019/8
 	TASK:	Programing/DEV/01-10-2019/20
 	TASK:	Conect Cables/DEV/01-10-2019/10
 	TASK:	Conect LEDS/DEV/11-10-2019/10
@@ -13,7 +13,7 @@ PROJECT:	ROBOT/ROB/01-10-2019/1
 	TASK:	Javadoc/DES/22-10-2019/2
 	TASK:	Debug/DEV/24-10-2019/3
 	
-PROJECT:	ROBOT2/ROB2/01-12-2019/1
+PROJECT:	ROBOT2/ROB2/01-12-2019/4
 	TASK:	Programing2/DEV/01-12-2019/20
 	TASK:	Conect Cables2/DEV/01-12-2019/10
 	TASK:	Conect LEDS2/DEV/11-12-2019/10
@@ -24,9 +24,9 @@ PROJECT:	ROBOT2/ROB2/01-12-2019/1
 	TASK:	Paint Robot2/DES/26-12-2019/5
 	TASK:	Javadoc2/DES/22-12-2019/2
 	TASK:	Debug2/DEV/24-12-2019/3
-	
+
 PEOPLE:
-	TEACHER:	Abílio dos Santos/abilio@dei.uc.pt/10000000/Computer/Science
+	TEACHER:	Abílio dos Santos/abilio@dei.uc.pt/10000000/Computer Science
 	TEACHER:	Joaquim Alberto/quimquim@dei.uc.pt/10000001/Jardinagem
 	TEACHER:	Zara Alberta Uva/zau@dei.uc.pt/10000010/Eletro
 	BACHELOR:	Dylan Perdigão/dpg@student.dei.uc.pt/01-10-2018/10-07-2020

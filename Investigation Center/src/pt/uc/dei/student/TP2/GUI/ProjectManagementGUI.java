@@ -114,7 +114,7 @@ public class ProjectManagementGUI{
 		 * LABELS AND TITLE
 		 */
 		JLabel title = new JLabel(project.getName());
-		Font font = new Font("impact", 0, 50);
+		Font font = new Font("impact", Font.PLAIN, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
 		c.weightx = 0.5;
@@ -307,32 +307,95 @@ public class ProjectManagementGUI{
 					if (listMembers.getSelectedValue()!=null) {
 						Person p = listMembers.getSelectedValue();
 
-						String message = "Name:\t" + p.getName() + "\nE-mail:\t" + p.getEmail();
+						StringBuilder message = new StringBuilder("Name:\t" + p.getName() + "\nE-mail:\t" + p.getEmail());
 						if (p instanceof Bachelor) {
 							Bachelor bachelorStudent = (Bachelor) p;
-							message = "BACHELOR STUDENT\n" + message;
-							message += "\nGrant begin:\t" + bachelorStudent.getGrantBegin().format(formatter);
-							message += "\nGrant end:\t" + bachelorStudent.getGrantEnd().format(formatter);
-							message += "\nCost per month:\t" + bachelorStudent.getCost() + "€";
-						} else if (p instanceof Master) {
-							Master masterStudent = (Master) p;
-							message = "MASTER STUDENT\n" + message;
-							message += "\nGrant begin:\t" + masterStudent.getGrantBegin().format(formatter);
-							message += "\nGrant end:\t" + masterStudent.getGrantEnd().format(formatter);
-							message += "\nCost per month:\t" + masterStudent.getCost() + "€";
-						} else if (p instanceof PhD) {
-							PhD PhDStudent = (PhD) p;
-							message = "PhD STUDENT\n" + message;
-							message += "\nGrant begin:\t" + PhDStudent.getGrantBegin().format(formatter);
-							message += "\nGrant end:\t" + PhDStudent.getGrantEnd().format(formatter);
-							message += "\nCost per month:\t" + PhDStudent.getCost() + "€";
-						} else if (p instanceof Teacher) {
-							Teacher teacher = (Teacher) p;
-							message = "TEACHER\n" + message;
-							message += "\nMecanographic Number:\t" + teacher.getMecanographicNumber();
-							message += "\nInvestigation Area:\t" + teacher.getInvestigationArea();
+							message.insert(0, "BACHELOR STUDENT\n");
+							message.append("\nGrant begin:\t").append(bachelorStudent.getGrantBegin().format(formatter));
+							message.append("\nGrant end:\t").append(bachelorStudent.getGrantEnd().format(formatter));
+							message.append("\nCost per month:\t").append(bachelorStudent.getCost()).append("€");
+							//show tasks
+							if (!bachelorStudent.getTasks().isEmpty()){
+								message.append("\nTasks:");
+								for (Task task : bachelorStudent.getTasks()){
+									message.append("\n\t---").append(task.getName());
+								}
+							}
+							else {
+								message.append("\nProject:\tNo tasks yet.");
+							}
+							//show Advisors
+							if (!bachelorStudent.getAdvisors().isEmpty()){
+								message.append("\nAdvisors:");
+								for (Teacher teacher : bachelorStudent.getAdvisors()){
+									message.append("\n\t---").append(teacher.getName());
+								}
+							}
+							else {
+								message.append("\nAdvisors:\tNo advisors yet.");
+							}
 						}
-						JOptionPane.showMessageDialog(null, message, "People Description", JOptionPane.PLAIN_MESSAGE);
+						else if (p instanceof Master) {
+							Master masterStudent = (Master) p;
+							message.insert(0, "MASTER STUDENT\n");
+							message.append("\nGrant begin:\t").append(masterStudent.getGrantBegin().format(formatter));
+							message.append("\nGrant end:\t").append(masterStudent.getGrantEnd().format(formatter));
+							message.append("\nCost per month:\t").append(masterStudent.getCost()).append("€");
+							//show tasks
+							if (!masterStudent.getTasks().isEmpty()){
+								message.append("\nTasks:");
+								for (Task task : masterStudent.getTasks()){
+									message.append("\n\t--").append(task.getName());
+								}
+							}
+							else {
+								message.append("\nProject:\tNo tasks yet.");
+							}
+							//show Advisors
+							if (!masterStudent.getAdvisors().isEmpty()){
+								message.append("\nAdvisors:");
+								for (Teacher teacher : masterStudent.getAdvisors()){
+									message.append("\n\t---").append(teacher.getName());
+								}
+							}
+							else {
+								message.append("\nAdvisors:\tNo advisors yet.");
+							}
+						}
+						else if (p instanceof PhD) {
+							PhD PhDStudent = (PhD) p;
+							message.insert(0, "PhD STUDENT\n");
+							message.append("\nGrant begin:\t").append(PhDStudent.getGrantBegin().format(formatter));
+							message.append("\nGrant end:\t").append(PhDStudent.getGrantEnd().format(formatter));
+							message.append("\nCost per month:\t").append(PhDStudent.getCost()).append("€");
+							//show tasks
+							if (!PhDStudent.getTasks().isEmpty()){
+								message.append("\nTasks:");
+								for (Task task : PhDStudent.getTasks()){
+									message.append("\n\t---").append(task.getName());
+								}
+							}
+							else {
+								message.append("\nProject:\tNo tasks yet.");
+							}
+						}
+						else if (p instanceof Teacher) {
+							Teacher teacher = (Teacher) p;
+							message.insert(0, "TEACHER\n");
+							message.append("\nMechanographic Number:\t").append(teacher.getMecanographicNumber());
+							message.append("\nInvestigation Area:\t").append(teacher.getInvestigationArea());
+							//show tasks
+							if (!teacher.getTasks().isEmpty()){
+								message.append("\nTasks:");
+								for (Task task : teacher.getTasks()){
+									message.append("\n\t---").append(task.getName());
+								}
+							}
+							else {
+								message.append("\nProject:\tNo tasks yet.");
+							}
+						}
+						JOptionPane.showMessageDialog(null, message.toString(), "People Description", JOptionPane.PLAIN_MESSAGE);
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Select a member first.","Error", JOptionPane.PLAIN_MESSAGE);
@@ -395,9 +458,9 @@ public class ProjectManagementGUI{
 				else if(e.getSource() == buttonPersonASSIGN) {
 					try {
 						if(listTasks.getSelectedValue()!=null && listMembers.getSelectedValue()!=null ){
-							if(listMembers.getSelectedValue().isSurcharged(listTasks.getSelectedValue())) {
+							if(!listMembers.getSelectedValue().isSurcharged(listTasks.getSelectedValue())) {
 								//if grantee end date >= task end date
-								if (!(listMembers.getSelectedValue() instanceof Grantee) || !(((Grantee) listMembers.getSelectedValue()).getGrantEnd()).isAfter(listTasks.getSelectedValue().getBeginDate().plusDays(listTasks.getSelectedValue().getDuration()))) {
+								if (!(listMembers.getSelectedValue() instanceof Grantee) || (((Grantee) listMembers.getSelectedValue()).getGrantEnd()).isAfter(listTasks.getSelectedValue().getBeginDate().plusDays(listTasks.getSelectedValue().getDuration()))) {
 									//add responsible to task
 									listTasks.getSelectedValue().setResponsible(listMembers.getSelectedValue());
 									//add task to member
@@ -426,7 +489,7 @@ public class ProjectManagementGUI{
 							for (Person tea : project.getTeachers()){
 								choices.add(tea.getName());
 							}
-							String teacher = (String) JOptionPane.showInputDialog(null, "Choose teacher.", "Choose", JOptionPane.QUESTION_MESSAGE, null, choices.toArray(), choices.toArray()[0]);
+							String teacher = (String) JOptionPane.showInputDialog(null, "Choose teacher.", "", JOptionPane.QUESTION_MESSAGE, null, choices.toArray(), choices.toArray()[0]);
 							for (Teacher tea : project.getTeachers()){
 								if (tea.getName().equals(teacher)){
 									if(((AdvisedStudent) listMembers.getSelectedValue()).getAdvisors().contains(tea)){

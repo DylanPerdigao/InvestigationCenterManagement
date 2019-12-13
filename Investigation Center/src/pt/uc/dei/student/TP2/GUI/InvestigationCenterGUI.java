@@ -95,7 +95,7 @@ public class InvestigationCenterGUI{
 		 * LABELS AND TITLE
 		 */
 		JLabel title = new JLabel(IC.getName());
-		Font font = new Font("impact", 0, 50);
+		Font font = new Font("impact", Font.PLAIN, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
 		c.weightx = 0.5;
@@ -359,32 +359,59 @@ public class InvestigationCenterGUI{
 					if(listPeople.getSelectedValue()!=null) {
 						Person p = listPeople.getSelectedValue();
 						//listPeople.clearSelection();
-						String message = "Name:\t" + p.getName() + "\nE-mail:\t" + p.getEmail();
+						StringBuilder message = new StringBuilder("Name:\t" + p.getName() + "\nE-mail:\t" + p.getEmail());
 						if (p instanceof Bachelor) {
 							Bachelor bachelorStudent = (Bachelor) p;
-							message = "BACHELOR STUDENT\n" + message;
-							message += "\nGrant begin:\t" + bachelorStudent.getGrantBegin().format(formatter);
-							message += "\nGrant end:\t" + bachelorStudent.getGrantEnd().format(formatter);
-							message += "\nCost per month:\t" + bachelorStudent.getCost() + "€";
+							message.insert(0, "BACHELOR STUDENT\n");
+							message.append("\nGrant begin:\t").append(bachelorStudent.getGrantBegin().format(formatter));
+							message.append("\nGrant end:\t").append(bachelorStudent.getGrantEnd().format(formatter));
+							message.append("\nCost per month:\t").append(bachelorStudent.getCost()).append("€");
+							if (bachelorStudent.getProject()!=null){
+								message.append("\nProject:\t").append(bachelorStudent.getProject().getName());
+							}
+							else {
+								message.append("\nProject:\tNot in a project yet.");
+							}
 						} else if (p instanceof Master) {
 							Master masterStudent = (Master) p;
-							message = "MASTER STUDENT\n" + message;
-							message += "\nGrant begin:\t" + masterStudent.getGrantBegin().format(formatter);
-							message += "\nGrant end:\t" + masterStudent.getGrantEnd().format(formatter);
-							message += "\nCost per month:\t" + masterStudent.getCost() + "€";
+							message.insert(0, "MASTER STUDENT\n");
+							message.append("\nGrant begin:\t").append(masterStudent.getGrantBegin().format(formatter));
+							message.append("\nGrant end:\t").append(masterStudent.getGrantEnd().format(formatter));
+							message.append("\nCost per month:\t").append(masterStudent.getCost()).append("€");
+							if (masterStudent.getProject()!=null){
+								message.append("\nProject:\t").append(masterStudent.getProject().getName());
+							}
+							else {
+								message.append("\nProject:\tNot in a project yet.");
+							}
 						} else if (p instanceof PhD) {
 							PhD PhDStudent = (PhD) p;
-							message = "PhD STUDENT\n" + message;
-							message += "\nGrant begin:\t" + PhDStudent.getGrantBegin().format(formatter);
-							message += "\nGrant end:\t" + PhDStudent.getGrantEnd().format(formatter);
-							message += "\nCost per month:\t" + PhDStudent.getCost() + "€";
+							message.insert(0, "PhD STUDENT\n");
+							message.append("\nGrant begin:\t").append(PhDStudent.getGrantBegin().format(formatter));
+							message.append("\nGrant end:\t").append(PhDStudent.getGrantEnd().format(formatter));
+							message.append("\nCost per month:\t").append(PhDStudent.getCost()).append("€");
+							if (PhDStudent.getProject()!=null){
+								message.append("\nProject:\t").append(PhDStudent.getProject().getName());
+							}
+							else {
+								message.append("\nProject:\tNot in a project yet.");
+							}
 						} else if (p instanceof Teacher) {
 							Teacher teacher = (Teacher) p;
-							message = "TEACHER\n" + message;
-							message += "\nMecanographic Number:\t" + teacher.getMecanographicNumber();
-							message += "\nInvestigation Area:\t" + teacher.getInvestigationArea();
+							message.insert(0, "TEACHER\n");
+							message.append("\nMechanographic Number:\t").append(teacher.getMecanographicNumber());
+							message.append("\nInvestigation Area:\t").append(teacher.getInvestigationArea());
+							if (!teacher.getProjects().isEmpty()){
+								message.append("\nProject:");
+								for (Project project : teacher.getProjects()){
+									message.append("\n\t---").append(project.getName());
+								}
+							}
+							else {
+								message.append("\nProject:\tNot in a project yet.");
+							}
 						}
-						JOptionPane.showMessageDialog(null, message, "People Description", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showMessageDialog(null, message.toString(), "People Description", JOptionPane.PLAIN_MESSAGE);
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Select a person first.","Error", JOptionPane.PLAIN_MESSAGE);
