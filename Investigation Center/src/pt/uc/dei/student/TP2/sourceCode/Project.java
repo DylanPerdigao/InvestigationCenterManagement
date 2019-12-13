@@ -274,7 +274,7 @@ public class Project implements Serializable{
     public ArrayList<Task> getUncompletedTasksIET(){
     	ArrayList<Task> uncompleted = new ArrayList<>();
 		for(Task task:tasks) {
-			if(task.getStatus()<100.0 && LocalDate.now().isAfter(task.getEndDate())) {
+			if(task.getStatus()<100.0 && LocalDate.now().isAfter(task.getBeginDate().plusDays(duration))) {
 				uncompleted.add(task);
 			}
 		}

@@ -385,8 +385,9 @@ public class ProjectManagementGUI{
 						if(listTasks.getSelectedValue()!=null && listMembers.getSelectedValue()!=null ){
 							if(listMembers.getSelectedValue().isSurcharged(listTasks.getSelectedValue())) {
 								//if grantee end date >= task end date
-								if (!(listMembers.getSelectedValue() instanceof Grantee) || !(((Grantee) listMembers.getSelectedValue()).getGrantEnd()).isAfter(listTasks.getSelectedValue().getEndDate())) {
+								if (!(listMembers.getSelectedValue() instanceof Grantee) || !(((Grantee) listMembers.getSelectedValue()).getGrantEnd()).isAfter(listTasks.getSelectedValue().getBeginDate().plusDays(listTasks.getSelectedValue().getDuration()))) {
 									listTasks.getSelectedValue().setResponsible(listMembers.getSelectedValue());
+									listMembers.getSelectedValue().addTask(listTasks.getSelectedValue());
 									update();
 								}
 								else {
@@ -427,6 +428,7 @@ public class ProjectManagementGUI{
 					try {
 						if(listTasks.getSelectedValue()!=null){
 							project.deleteTask(listTasks.getSelectedValue());
+							listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
 							update();
 						}
 						else {
@@ -440,14 +442,21 @@ public class ProjectManagementGUI{
 					try {
 						if (listTasks.getSelectedValue()!=null) {
 							String input = JOptionPane.showInputDialog("Update Conclusion of " + listTasks.getSelectedValue().getName());
-							double status = Double.parseDouble(input);
-							if (status < 0 || status > 100) {
-								JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%","Error", JOptionPane.PLAIN_MESSAGE);
-							} else {
-								if (status==100){
-									listTasks.getSelectedValue().setEndDate(LocalDate.now());
+							if (input!=null) {
+								double status = Double.parseDouble(input);
+								if (status < 0 || status > 100) {
+									JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%", "Error", JOptionPane.PLAIN_MESSAGE);
+								} else {
+									if (status == 100) {
+										listTasks.getSelectedValue().setEndDate(LocalDate.now());
+										listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
+									}
+									listTasks.getSelectedValue().setStatus(status);
+									update();
 								}
-								listTasks.getSelectedValue().setStatus(status);
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "Nothing detected on input.","Error", JOptionPane.PLAIN_MESSAGE);
 							}
 						}
 						else{
