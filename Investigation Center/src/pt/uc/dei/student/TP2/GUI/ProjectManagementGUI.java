@@ -130,12 +130,12 @@ public class ProjectManagementGUI{
 		c.gridwidth = 7;
 		frame.add(title, c);
 		//SET BLANK SPACES
-		placeComponent(new JLabel(""),0,12,1,1,0.5,10, 0, 0);
-		placeComponent(new JLabel(""),7,15,1,1,0.5,50, 0, 0);
-		placeComponent(new JLabel(""),3,14,1,1,0.5,50, 0, 0);
+		placeComponent(new JLabel(""),0,16,1,1,0.5,10, 0, 0);
+		placeComponent(new JLabel(""),7,19,1,1,0.5,50, 0, 0);
+		placeComponent(new JLabel(""),3,18,1,1,0.5,50, 0, 0);
 		//RETURN
 		buttonRETURN = new JButton("Return");
-		placeComponent(buttonRETURN,2,13,1,1,0.5,0, 0, 10);
+		placeComponent(buttonRETURN,2,17,1,1,0.5,0, 0, 10);
 		/*
 		 * TASKS
 		 */
@@ -150,7 +150,7 @@ public class ProjectManagementGUI{
 		//COMPLETED
 		placeComponent(new JLabel("Completed Tasks"),2,10,1,1,0.5,0.5,0,0);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks);
-		placeComponent(listScrollerCompletedTasks,2,11,1,1,0.5,5,100, 10);
+		placeComponent(listScrollerCompletedTasks,2,11,1,4,0.5,5,100, 10);
 		//TASKS
 		placeComponent(new JLabel("Tasks"),4,5,2,1,0.5,0.5,0,0);
 		listScrollerTasks = new JScrollPane(listTasks);
@@ -180,9 +180,15 @@ public class ProjectManagementGUI{
 		/*
 		 * PROJECT
 		 */
-		placeComponent(new JLabel("Project Cost"),4,12,1,1,0.5,0.5, 0, 0);
-		JLabel labelCOST = new JLabel(project.projectCost() + "€");
-		placeComponent(labelCOST,5,12,1,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel("Begin"),4,11,2,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel(String.valueOf(project.getBeginDate())),5,11,2,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel("Duration"),4,12,2,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel(project.getDuration()+ " Month(s)"),5,12,2,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel("End"),4,13,2,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel(String.valueOf(project.getEndDate())),5,13,2,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel("Cost\t"),4,14,2,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel(project.projectCost() + "€"),5,14,2,1,0.5,0.5, 0, 0);
+
 		/*
 		 * LISTENERS AND OTHER BUTTONS
 		 */
@@ -198,7 +204,7 @@ public class ProjectManagementGUI{
 			placeComponent(buttonTaskUPDATE,6,8,1,2,0.5,0, 0, 10);
 
 			buttonProjectEND = new JButton("Archive Project");
-			placeComponent(buttonProjectEND,4,13,2,1,0.5,0, 0, 10);
+			placeComponent(buttonProjectEND,4,16,2,1,0.5,0, 0, 10);
 
 			buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
 			placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);

@@ -290,13 +290,13 @@ public class Project implements Serializable{
 		for(Person member:members) {
 			if(member instanceof Bachelor) {
 				Bachelor bachelorStudent = (Bachelor) member;
-				cost += bachelorStudent.getCost();
+				cost += bachelorStudent.getCost()*duration;
 			}if(member instanceof Master) {
 				Master master = (Master) member;
-				cost += master.getCost();
+				cost += master.getCost()*duration;
 			}if(member instanceof PhD) {
 				PhD PhDStudent = (PhD) member;
-				cost += PhDStudent.getCost();
+				cost += PhDStudent.getCost()*duration;
 			}
 		}
         return cost;
