@@ -43,22 +43,17 @@ public class ProjectManagementGUI{
 	private JButton buttonTaskSTATUS;
 	private JButton buttonRETURN;
 	private JButton buttonProjectEND;
-
 	private JButton buttonPRINCIPALINVESTIGATOR;
 	private JButton buttonPersonASSIGN;
 	private JButton buttonPersonINFO;
 	private JButton buttonTaskINFO;
-	// Label
-	JLabel title;
-	JLabel labelPRINCIPALINVESTIGATOR;
-	JLabel labelCOST;
 
 	// List
 	private DefaultListModel<Task> listValuesTasks;
 	private DefaultListModel<Task> listValuesUnstartedTasks;
 	private DefaultListModel<Task> listValuesUnstartedTasksIET;
-	private DefaultListModel<Task> listValuesCompletedTasks = new DefaultListModel<Task>();
-	private DefaultListModel<Person> listValuesMembers = new DefaultListModel<Person>();
+	private DefaultListModel<Task> listValuesCompletedTasks ;
+	private DefaultListModel<Person> listValuesMembers ;
 
 	private JList<Task> listTasks;
 	private JList<Task> listUnstartedTasks;
@@ -70,6 +65,9 @@ public class ProjectManagementGUI{
 	private JScrollPane listScrollerUnstartedTasksIET;
 	private JScrollPane listScrollerCompletedTasks;
 	private JScrollPane listScrollerMembers;
+
+	//Labels
+	private JLabel labelPRINCIPALINVESTIGATOR;
 
 	private JFrame frame;
 	private InvestigationCenter investigationCenter;
@@ -113,6 +111,7 @@ public class ProjectManagementGUI{
 		getFrame().setLayout(new GridBagLayout());
 
 		// Label
+		// Label
 		JLabel title = new JLabel(getProject().getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -130,9 +129,7 @@ public class ProjectManagementGUI{
 		
 		buttonRETURN = new JButton("Return");
 		placeComponent(buttonRETURN,2,13,1,1,0.5,0, 0, 10);
-		
-		buttonProjectEND = new JButton("Archive Project");
-		placeComponent(buttonProjectEND,4,13,2,1,0.5,0, 0, 10);
+		;
 		
 		/*
 		 * TASKS
@@ -151,11 +148,13 @@ public class ProjectManagementGUI{
 		placeComponent(listScrollerCompletedTasks,2,11,1,1,0.5,5,100, 10);
 
 		placeComponent(new JLabel("Principal Investigator"),4,1,1,1,0.5,0.5,0, 0);
-		JLabel labelPRINCIPALINVESTIGATOR = new JLabel("NO PRINCIPAL INVESTIGATOR");
+		if(project.getPrincipalInvestigator()!=null) {
+			labelPRINCIPALINVESTIGATOR = new JLabel(project.getPrincipalInvestigator().getName());
+		}
+		else{
+			labelPRINCIPALINVESTIGATOR = new JLabel("NO PRINCIPAL INVESTIGATOR");
+		}
 		placeComponent(labelPRINCIPALINVESTIGATOR,5,1,1,1,0.5,0.5,0,0);
-
-		JButton buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
-		placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);
 
 		placeComponent(new JLabel("Members"),4,2,2,1,0.5,0.5,0,0);
 		listScrollerMembers = new JScrollPane(listMembers);
@@ -164,9 +163,6 @@ public class ProjectManagementGUI{
 		buttonPersonINFO = new JButton("Show Member Information");
 		placeComponent(buttonPersonINFO,6,3,1,1,0.5,0.5,0,0);
 
-		buttonPersonASSIGN = new JButton("Assign Member to Task");
-		placeComponent(buttonPersonASSIGN,6,4,1,1,0.5,0.5,0,0);
-
 		placeComponent(new JLabel("Tasks"),4,5,2,1,0.5,0.5,0,0);
 		listScrollerTasks = new JScrollPane(listTasks);
 		placeComponent(listScrollerTasks,4,6,2,2,0.5,10,100,10);
@@ -174,44 +170,37 @@ public class ProjectManagementGUI{
 		buttonTaskINFO = new JButton("Show Task Information");
 		placeComponent(buttonTaskINFO,6,6,1,2,0.5,0, 0, 10);
 
-		buttonTaskSTATUS = new JButton("Update Completion");
-		placeComponent(buttonTaskSTATUS,6,8,1,2,0.5,0, 0, 10);
-
-		buttonTaskCREATE = new JButton("Add Task");
-		placeComponent(buttonTaskCREATE,4,8,1,1,0.5,0, 0, 10);
-
-		buttonTaskREMOVE = new JButton("Remove Task");
-		placeComponent(buttonTaskREMOVE,5,8,1,1,0.5,0, 0, 10);
-
 		placeComponent(new JLabel("Project Cost"),4,12,1,1,0.5,0.5, 0, 0);
-		labelCOST = new JLabel(String.valueOf(getProject().projectCost())+"€");
+		JLabel labelCOST = new JLabel(String.valueOf(getProject().projectCost()) + "€");
 		placeComponent(labelCOST,5,12,1,1,0.5,0.5, 0, 0);
 
 		//Listeners
 		ProjectManagementGUI.Listener listener = new ProjectManagementGUI.Listener();
 
 		buttonRETURN.addActionListener(listener);
+		buttonPersonINFO.addActionListener(listener);
+		buttonTaskINFO.addActionListener(listener);
 
 		//if project not terminated
 		if (!project.getStatus()){
 
 			buttonTaskSTATUS = new JButton("Update Completion");
-			placeComponent(buttonTaskSTATUS,6,6,1,1,0.5,0, 0, 10);
+			placeComponent(buttonTaskSTATUS,6,8,1,2,0.5,0, 0, 10);
 
 			buttonProjectEND = new JButton("Archive Project");
-			placeComponent(buttonProjectEND,4,11,2,1,0.5,0, 0, 10);
+			placeComponent(buttonProjectEND,4,13,2,1,0.5,0, 0, 10);
 
 			buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
 			placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);
 
 			buttonPersonASSIGN = new JButton("Assign Member to Task");
-			placeComponent(buttonPersonASSIGN,6,3,1,1,0.5,0.5,0,0);
+			placeComponent(buttonPersonASSIGN,6,4,1,1,0.5,0.5,0,0);
 
 			buttonTaskCREATE = new JButton("Add Task");
-			placeComponent(buttonTaskCREATE,4,6,1,1,0.5,0, 0, 10);
+			placeComponent(buttonTaskCREATE,4,8,1,1,0.5,0, 0, 10);
 
 			buttonTaskREMOVE = new JButton("Remove Task");
-			placeComponent(buttonTaskREMOVE,5,6,1,1,0.5,0, 0, 10);
+			placeComponent(buttonTaskREMOVE,5,8,1,1,0.5,0, 0, 10);
 
 
 			buttonProjectEND.addActionListener(listener);
@@ -253,14 +242,28 @@ public class ProjectManagementGUI{
 					ex.printStackTrace();
 				}
 			}
+			else if(e.getSource() == buttonPersonINFO) {
+				try {
+					//TODO: show person info
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			else if(e.getSource() == buttonTaskINFO) {
+				try {
+					//TODO: show task info
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
 			else if (!project.getStatus()){
 			 	if(e.getSource() == buttonPRINCIPALINVESTIGATOR) {
 					try {
 						if(listMembers.getSelectedValue()!=null){
 							if (listMembers.getSelectedValue() instanceof Teacher) {
-
 								project.setPrincipalInvestigator((Teacher) listMembers.getSelectedValue());
-								update();
+								labelPRINCIPALINVESTIGATOR.setText(project.getPrincipalInvestigator().getName());
 							}
 							else {
 								JOptionPane.showMessageDialog(null, "Only Teachers can be a Principal Investigator","Error", JOptionPane.PLAIN_MESSAGE);
