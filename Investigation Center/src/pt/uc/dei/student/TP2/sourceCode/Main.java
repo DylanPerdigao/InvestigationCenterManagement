@@ -2,22 +2,15 @@ package pt.uc.dei.student.TP2.sourceCode;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import pt.uc.dei.student.TP2.GUI.InvestigationCenterGUI;
 
@@ -57,7 +50,6 @@ public class Main {
 					FileReader fr = new FileReader(f); 
 					BufferedReader br = new BufferedReader(fr);
 					String line;
-					String token = null;
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 					while((line = br.readLine()) != null) {
 						try {

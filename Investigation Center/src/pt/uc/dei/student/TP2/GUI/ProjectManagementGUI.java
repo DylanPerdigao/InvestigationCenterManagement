@@ -123,39 +123,39 @@ public class ProjectManagementGUI{
 		c.gridy = 0;
 		c.gridwidth = 7;
 		frame.add(title, c);
-		
+		//SET BLANK SPACES
 		placeComponent(new JLabel(""),0,12,1,1,0.5,10, 0, 0);
 		placeComponent(new JLabel(""),7,15,1,1,0.5,50, 0, 0);
 		placeComponent(new JLabel(""),3,14,1,1,0.5,50, 0, 0);
-		
+		//RETURN
 		buttonRETURN = new JButton("Return");
 		placeComponent(buttonRETURN,2,13,1,1,0.5,0, 0, 10);
-		;
-		
 		/*
 		 * TASKS
 		 */
+		//UNSTARTED
 		placeComponent(new JLabel("Unstarted Tasks"),2,1,1,1,0.5,0.5, 0, 0);
 		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks);
 		placeComponent(listScrollerUnstartedTasks,2,2,1,3,0.5,5,100, 10);
-
+		//UNCOMPLETED IN ESTIMATED TIME
 		placeComponent(new JLabel("Uncompleted Tasks in Estimated Time"),2,5,1,1,0.5,0.5,0, 0);
 		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET);
 		placeComponent(listScrollerUnstartedTasksIET,2,6,1,3,0.5,5,100, 10);
-
+		//COMPLETED
 		placeComponent(new JLabel("Completed Tasks"),2,10,1,1,0.5,0.5,0,0);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks);
 		placeComponent(listScrollerCompletedTasks,2,11,1,1,0.5,5,100, 10);
-		
+		//TASKS
 		placeComponent(new JLabel("Tasks"),4,5,2,1,0.5,0.5,0,0);
 		listScrollerTasks = new JScrollPane(listTasks);
 		placeComponent(listScrollerTasks,4,6,2,2,0.5,10,100,10);
-
+		//TASK INFO
 		buttonTaskINFO = new JButton("Show Task Information");
 		placeComponent(buttonTaskINFO,6,6,1,2,0.5,0, 0, 10);
 		/*
 		 * PEOPLE
 		 */
+		//PRINCIPAL INVESTIGATOR
 		placeComponent(new JLabel("Principal Investigator"),4,1,1,1,0.5,0.5,0, 0);
 		if(project.getPrincipalInvestigator()!=null) {
 			labelPRINCIPALINVESTIGATOR = new JLabel(project.getPrincipalInvestigator().getName());
@@ -164,11 +164,11 @@ public class ProjectManagementGUI{
 			labelPRINCIPALINVESTIGATOR = new JLabel("NO PRINCIPAL INVESTIGATOR");
 		}
 		placeComponent(labelPRINCIPALINVESTIGATOR,5,1,1,1,0.5,0.5,0,0);
-
+		//MEMBERS
 		placeComponent(new JLabel("Members"),4,2,2,1,0.5,0.5,0,0);
 		listScrollerMembers = new JScrollPane(listMembers);
 		placeComponent(listScrollerMembers,4,3,2,2,0.5,10,100,10);
-
+		//MEMBERS INFO
 		buttonPersonINFO = new JButton("Show Member Information");
 		placeComponent(buttonPersonINFO,6,3,1,1,0.5,0.5,0,0);
 		/*
@@ -177,7 +177,6 @@ public class ProjectManagementGUI{
 		placeComponent(new JLabel("Project Cost"),4,12,1,1,0.5,0.5, 0, 0);
 		JLabel labelCOST = new JLabel(String.valueOf(project.projectCost()) + "€");
 		placeComponent(labelCOST,5,12,1,1,0.5,0.5, 0, 0);
-
 		/*
 		 * LISTENERS AND OTHER BUTTONS
 		 */

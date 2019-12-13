@@ -80,7 +80,7 @@ public class ProjectCreatorGUI{
 		c.gridy = 0;
 		c.gridwidth = 9;
 		frame.add(title, c);
-		//RESIZE WINDOW
+		//SET BLANK SPACES
 		placeComponent(new JLabel(""),0,9,1,1,10,10,0,0);
 		placeComponent(new JLabel(""),8,9,1,1,10,10,0,0);
 		placeComponent(new JLabel(""),8,7,1,1,0.5,10,0,0);
