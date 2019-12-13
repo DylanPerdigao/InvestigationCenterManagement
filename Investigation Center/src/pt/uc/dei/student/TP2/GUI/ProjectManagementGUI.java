@@ -218,11 +218,7 @@ public class ProjectManagementGUI{
 		frame.getContentPane().removeAll();
 		frame.repaint();
 	}
-    /**
-     * This method updates lists in the frame
-     * @since 13-12-2019
-     */
-	public void update(){}
+
 	/**
 	 * This method places the component in the specified position in grid and format. 
 	 * @param component	This is the component we want to place.
@@ -256,8 +252,8 @@ public class ProjectManagementGUI{
 			if(e.getSource() == buttonRETURN) {
 				try {
 					close();
-					TaskCreatorGUI taskCreatorGUI = new TaskCreatorGUI(frame,IC,project);
-					taskCreatorGUI.initialize();
+					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,IC);
+					investigationCenterGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -366,25 +362,28 @@ public class ProjectManagementGUI{
 				}
 			}
 		}
-
-		private void update(){
-			listValuesTasks.removeAllElements();
-			listValuesTasks.addAll(project.getTasks());
-
-			listValuesUnstartedTasks.removeAllElements();
-			listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
-
-			listValuesUnstartedTasksIET.removeAllElements();
-			listValuesUnstartedTasksIET.addAll(project.getUncompletedTasksIET());
-
-			listValuesCompletedTasks.removeAllElements();
-			listValuesCompletedTasks.addAll(project.getCompletedTasks());
-
-			listValuesMembers.removeAllElements();
-			listValuesMembers.addAll(project.getMembers());
-		}
-
 	}
+	/**
+	 * This method updates lists in the frame
+	 * @since 13-12-2019
+	 */
+	private void update(){
+		listValuesTasks.removeAllElements();
+		listValuesTasks.addAll(project.getTasks());
+
+		listValuesUnstartedTasks.removeAllElements();
+		listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
+
+		listValuesUnstartedTasksIET.removeAllElements();
+		listValuesUnstartedTasksIET.addAll(project.getUncompletedTasksIET());
+
+		listValuesCompletedTasks.removeAllElements();
+		listValuesCompletedTasks.addAll(project.getCompletedTasks());
+
+		listValuesMembers.removeAllElements();
+		listValuesMembers.addAll(project.getMembers());
+	}
+
 	private Project getProject() {
 		return project;
 	}

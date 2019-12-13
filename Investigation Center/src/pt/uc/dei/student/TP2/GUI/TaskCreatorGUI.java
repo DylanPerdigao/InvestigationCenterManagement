@@ -48,6 +48,7 @@ public class TaskCreatorGUI{
 	private Project project;
 
 	public TaskCreatorGUI(JFrame frame, InvestigationCenter IC, Project project) {
+		this.frame=frame;
 		this.IC=IC;
 		this.project=project;
 
@@ -344,8 +345,8 @@ public class TaskCreatorGUI{
 						project.createTask(task);
 
 						close();
-						InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, IC);
-						investigationCenterGUI.initialize();
+						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame,IC,project);
+						projectManagementGUI.initialize();;
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Insert an end date greater than the starter","", JOptionPane.PLAIN_MESSAGE);
