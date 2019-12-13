@@ -18,11 +18,11 @@ import javax.swing.JScrollPane;
 import pt.uc.dei.student.TP2.sourceCode.*;
 
 /**
- * This class represent the advised students of a project (Bachelor and Master students)
+ * This class represent the Graphical User Interface of the menu for manage the project with his tasks.
  *
  * @author	Dylan Gonçalves Perdigão
  * @author	Bruno Ricardo Leitão Faria
- * @since	05-12-2019
+ * @since	13-12-2019
  * @version	1.0
  */
 
@@ -65,7 +65,14 @@ public class ProjectManagementGUI{
 	private JFrame frame;
 	private InvestigationCenter IC;
 	private Project project;
-
+    /**
+     * This is the constructor of the GUI for the project management.
+     * 
+     * @param frame	This is the frame of the program.
+     * @param IC	This is the investigation center object which contains all the informations for the application.
+     * @param IC	This is the project object which contains all the informations about the selected project by the user.
+     * @since 13-12-2019
+     */
 	public ProjectManagementGUI(JFrame frame,InvestigationCenter IC,Project project) {
 		this.frame = frame;
 		this.IC=IC;
@@ -106,7 +113,7 @@ public class ProjectManagementGUI{
 		/*
 		 * LABELS AND TITLE
 		 */
-		JLabel title = new JLabel(getProject().getName());
+		JLabel title = new JLabel(project.getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -168,7 +175,7 @@ public class ProjectManagementGUI{
 		 * PROJECT
 		 */
 		placeComponent(new JLabel("Project Cost"),4,12,1,1,0.5,0.5, 0, 0);
-		JLabel labelCOST = new JLabel(String.valueOf(getProject().projectCost()) + "€");
+		JLabel labelCOST = new JLabel(String.valueOf(project.projectCost()) + "€");
 		placeComponent(labelCOST,5,12,1,1,0.5,0.5, 0, 0);
 
 		/*
@@ -210,7 +217,7 @@ public class ProjectManagementGUI{
 
 		frame.setVisible(true);
 	}
-	   /**
+	/**
      * This method clears the frame
      * @since 13-12-2019
      */
@@ -218,7 +225,26 @@ public class ProjectManagementGUI{
 		frame.getContentPane().removeAll();
 		frame.repaint();
 	}
+	/**
+	 * This method updates lists in the frame
+	 * @since 13-12-2019
+	 */
+	private void update(){
+		listValuesTasks.removeAllElements();
+		listValuesTasks.addAll(project.getTasks());
 
+		listValuesUnstartedTasks.removeAllElements();
+		listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
+
+		listValuesUnstartedTasksIET.removeAllElements();
+		listValuesUnstartedTasksIET.addAll(project.getUncompletedTasksIET());
+
+		listValuesCompletedTasks.removeAllElements();
+		listValuesCompletedTasks.addAll(project.getCompletedTasks());
+
+		listValuesMembers.removeAllElements();
+		listValuesMembers.addAll(project.getMembers());
+	}
 	/**
 	 * This method places the component in the specified position in grid and format. 
 	 * @param component	This is the component we want to place.
@@ -245,9 +271,16 @@ public class ProjectManagementGUI{
 		frame.add(component, c);
 	}
 
-	
+    /**
+     * This class overrides some listeners.
+     * @since 13-12-2019
+     */
 	private class Listener implements ActionListener{
-
+	    /**
+	     * This method gets events from buttons and treat them to do some work.
+	     * @param e	This is the handled event
+	     * @since 13-12-2019
+	     */
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == buttonRETURN) {
 				try {
@@ -362,29 +395,5 @@ public class ProjectManagementGUI{
 				}
 			}
 		}
-	}
-	/**
-	 * This method updates lists in the frame
-	 * @since 13-12-2019
-	 */
-	private void update(){
-		listValuesTasks.removeAllElements();
-		listValuesTasks.addAll(project.getTasks());
-
-		listValuesUnstartedTasks.removeAllElements();
-		listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
-
-		listValuesUnstartedTasksIET.removeAllElements();
-		listValuesUnstartedTasksIET.addAll(project.getUncompletedTasksIET());
-
-		listValuesCompletedTasks.removeAllElements();
-		listValuesCompletedTasks.addAll(project.getCompletedTasks());
-
-		listValuesMembers.removeAllElements();
-		listValuesMembers.addAll(project.getMembers());
-	}
-
-	private Project getProject() {
-		return project;
 	}
 }

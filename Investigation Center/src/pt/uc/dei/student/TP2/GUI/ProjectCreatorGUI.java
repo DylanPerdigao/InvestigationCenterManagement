@@ -15,42 +15,49 @@ import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
 import pt.uc.dei.student.TP2.sourceCode.Project;
 
 /**
- * This class represent the advised students of a project (Bachelor and Master students)
+ * This class represent the Graphical User Interface of the menu for creating a new project.
  *
  * @author	Dylan Gonçalves Perdigão
  * @author	Bruno Ricardo Leitão Faria
- * @since	05-12-2019
+ * @since	13-12-2019
  * @version	1.0
  */
 
 public class ProjectCreatorGUI{
-
 	// Constraints
 	private GridBagConstraints c = new GridBagConstraints();
-
 	// Buttons
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
-
 	// Text
 	private JTextField textName;
 	private JTextField textAcronym;
 	private JTextField textDuration;
-
 	//ComboBox
 	private JComboBox<String> beginDayList,beginMonthList,beginYearList;
 	private JComboBox<String> endDayList,endMonthList,endYearList;
 	private String[] days = new String[31];
 	private String[] months = new String[12];
 	private String[] years = new String[LocalDate.now().getYear()-1970+1];
-
+	//Frame
 	private JFrame frame;
+	//Investigation center
 	private InvestigationCenter IC;
-
+    /**
+     * This is the constructor of the main GUI of the program.
+     * 
+     * @param frame	This is the frame of the program
+     * @param IC	This is the investigation center object which contains all the informations for the application
+     * @since 13-12-2019
+     */
 	public ProjectCreatorGUI(JFrame frame, InvestigationCenter IC) {
 		this.frame=frame;
 		this.IC=IC;
 	}
+    /**
+     * This method initialize the Graphical User Interface with all components 
+     * @since 13-12-2019
+     */
 	public void initialize(){
 		frame.setLayout(new GridBagLayout());
 		for(int d=1;d<=31;d++) {
@@ -314,8 +321,16 @@ public class ProjectCreatorGUI{
 		c.ipadx = ix;
 		frame.add(component, c);
 	}
+    /**
+     * This class overrides some listeners.
+     * @since 13-12-2019
+     */
 	private class ButtonListener implements ActionListener {
-
+	    /**
+	     * This method gets events from buttons and treat them to do some work.
+	     * @param e	This is the handled event
+	     * @since 13-12-2019
+	     */
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonCREATE){
 				try{

@@ -54,9 +54,8 @@ public class InvestigationCenterGUI{
 	private JFrame frame;
 	//Investigation Center
 	private InvestigationCenter IC;
-	
     /**
-     * This is the constructor of the advised students object.
+     * This is the constructor of the main GUI of the program.
      * 
      * @param frame	This is the frame of the program
      * @param IC	This is the investigation center object which contains all the informations for the application
