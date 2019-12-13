@@ -35,7 +35,6 @@ public class ProjectCreatorGUI{
 	private JTextField textDuration;
 	//ComboBox
 	private JComboBox<String> beginDayList,beginMonthList,beginYearList;
-	private JComboBox<String> endDayList,endMonthList,endYearList;
 	private String[] days = new String[31];
 	private String[] months = new String[12];
 	private String[] years = new String[LocalDate.now().getYear()-1970+1];
@@ -100,14 +99,6 @@ public class ProjectCreatorGUI{
 		placeComponent(beginMonthList,3,3,1,1,0,0.5,0, 0);
 		beginYearList = new JComboBox<>(years);
 		placeComponent(beginYearList,4,3,1,1,0,0.5,0, 0);
-		//END DATE
-		placeComponent(new JLabel("End Date"),1,4,1,1,0.5,0.5,0, 0);
-		endDayList = new JComboBox<>(days);
-		placeComponent(endDayList,2,4,1,1,0.5,0.5,0, 0);
-		endMonthList = new JComboBox<>(months);
-		placeComponent(endMonthList,3,4,1,1,0.5,0.5,0, 0);
-		endYearList = new JComboBox<>(years);
-		placeComponent(endYearList,4,4,1,1,0.5,0.5,0, 0);
 		//DURATION
 		placeComponent(new JLabel("Duration"),1,5,1,1,0.5,0.5,0, 0);
 		textDuration = new JTextField(10);
@@ -179,10 +170,9 @@ public class ProjectCreatorGUI{
 					if (!textName.getText().equals("") && !textAcronym.getText().equals("") && !textDuration.getText().equals("")) {
 						int dur= Integer.parseInt(textDuration.getText());
 
-						LocalDate begin= LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
-						LocalDate end = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(endYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endDayList.getSelectedItem())));
+						if (dur>0) {
+							LocalDate begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())), Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())), Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
 
-						if (end.isAfter(begin)) {
 							Project project = new Project(textName.getText(), textAcronym.getText(), begin, null, dur, null, new ArrayList<>(), new ArrayList<>(), false);
 							IC.addProject(project);
 
@@ -190,12 +180,12 @@ public class ProjectCreatorGUI{
 							InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, IC);
 							investigationCenterGUI.initialize();
 						}
-						else{
-							JOptionPane.showMessageDialog(null, "Insert an end date greater than the begin date","", JOptionPane.PLAIN_MESSAGE);
+						else {
+							JOptionPane.showMessageDialog(null, "Insert a duration greater than 0.","", JOptionPane.PLAIN_MESSAGE);
 						}
 					}
 				} catch (NumberFormatException nfe){
-					JOptionPane.showMessageDialog(null, "Insert only numbers in the duration box","", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Insert only numbers in the duration box.","", JOptionPane.PLAIN_MESSAGE);
 				}catch (Exception ex) {
 					ex.printStackTrace();
 				}

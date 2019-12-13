@@ -31,9 +31,8 @@ public class TaskCreatorGUI{
 	private JTextField textDuration;
 	//Combo Box
 	private JComboBox<String> tasksTypeList;
-	private String[] tasksType = {"Documentation","Design","Development"};
+	private  String[] tasksType = {"Documentation","Design","Development"};
 	private JComboBox<String> beginDayList,beginMonthList,beginYearList;
-	private JComboBox<String> endDayList,endMonthList,endYearList;
 	private String[] days = new String[31];
 	private String[] months = new String[12];
 	private String[] years = new String[LocalDate.now().getYear()-1970+1];
@@ -99,14 +98,6 @@ public class TaskCreatorGUI{
 		placeComponent(beginMonthList,3,3,1,1,0,0.5,0, 0);
 		beginYearList = new JComboBox<>(years);
 		placeComponent(beginYearList,4,3,1,1,0,0.5,0, 0);
-		//END DATE
-		placeComponent(new JLabel("End Date"),1,4,1,1,0.5,0.5,0, 0);
-		endDayList = new JComboBox<>(days);
-		placeComponent(endDayList,2,4,1,1,0.5,0.5,0, 0);
-		endMonthList = new JComboBox<>(months);
-		placeComponent(endMonthList,3,4,1,1,0.5,0.5,0, 0);
-		endYearList = new JComboBox<>(years);
-		placeComponent(endYearList,4,4,1,1,0.5,0.5,0, 0);
 		//DURATION
 		placeComponent(new JLabel("Duration"),1,5,1,1,0.5,0.5,0, 0);
 		textDuration = new JTextField(10);
@@ -131,12 +122,6 @@ public class TaskCreatorGUI{
 	public void close(){
 		frame.getContentPane().removeAll();
 		frame.repaint();
-	}
-    /**
-     * This method updates lists in the frame
-     * @since 13-12-2019
-     */
-	public void update(){
 	}
 	/**
 	 * This method places the component in the specified position in grid and format. 
@@ -177,12 +162,13 @@ public class TaskCreatorGUI{
 			if(e.getSource()== buttonCREATE){
 				try{
 					int duration = Integer.parseInt(textDuration.getText());
-					String name = textName.getText();
-					LocalDate begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
-					LocalDate end = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(endYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endDayList.getSelectedItem())));
-					if (end.isAfter(begin)) {
-						Task task=null;
-						//checkar o switch
+
+					if (duration>0) {
+
+						String name = textName.getText();
+						LocalDate begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())), Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())), Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
+						Task task = null;
+
 						switch ((String) Objects.requireNonNull(tasksTypeList.getSelectedItem())) {
 							case "Documentation":
 								task = new Documentation(name, begin, null, duration, null, 0);
@@ -198,11 +184,11 @@ public class TaskCreatorGUI{
 						project.createTask(task);
 
 						close();
-						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame,IC,project);
+						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, project);
 						projectManagementGUI.initialize();
 					}
-					else{
-						JOptionPane.showMessageDialog(null, "Insert an end date greater than the starter","", JOptionPane.PLAIN_MESSAGE);
+					else {
+						JOptionPane.showMessageDialog(null, "Insert a duration greater than 0.","", JOptionPane.PLAIN_MESSAGE);
 					}
 
 				} catch (NumberFormatException nfe){

@@ -137,15 +137,15 @@ public class Project implements Serializable{
         return members;
     }
     /**
-     * This method gets the members of the project.
-     * @return ArrayList of members of the project.
-     * @since 09-12-2019
+     * This method gets the teachers of the project.
+     * @return ArrayList of teachers of the project.
+     * @since 12-12-2019
      */
-    public ArrayList<Person> getTeachers() {
-        ArrayList<Person> teachers = new ArrayList<>();
+    public ArrayList<Teacher> getTeachers() {
+        ArrayList<Teacher> teachers = new ArrayList<>();
         for (Person person : members){
             if (person instanceof Teacher){
-                teachers.add(person);
+                teachers.add((Teacher) person);
             }
         }
         return teachers;

@@ -179,7 +179,8 @@ public class ProjectManagementGUI{
 		placeComponent(new JLabel("Duration"),4,12,2,1,0.5,0.5, 0, 0);
 		placeComponent(new JLabel(project.getDuration()+ " Month(s)"),5,12,2,1,0.5,0.5, 0, 0);
 		placeComponent(new JLabel("End"),4,13,2,1,0.5,0.5, 0, 0);
-		placeComponent(new JLabel(project.getEndDate().format(formatter)),5,13,2,1,0.5,0.5, 0, 0);
+		if (project.getEndDate()!=null) { placeComponent(new JLabel(project.getEndDate().format(formatter)), 5, 13, 2, 1, 0.5, 0.5, 0, 0);
+		} else { placeComponent(new JLabel("Project not ended yet"), 5, 13, 2, 1, 0.5, 0.5, 0, 0); }
 		placeComponent(new JLabel("Cost\t"),4,14,2,1,0.5,0.5, 0, 0);
 		placeComponent(new JLabel(project.projectCost() + "€"),5,14,2,1,0.5,0.5, 0, 0);
 
@@ -345,7 +346,13 @@ public class ProjectManagementGUI{
 					if(listTasks.getSelectedValue()!=null) {
 						Task t = listTasks.getSelectedValue();
 
-						String message = "Name:\t" + t.getName() + "\nBegin Date:\t" + t.getBeginDate().format(formatter) + "\nEnd Date:\t" + t.getEndDate().format(formatter) + "\nDuration:\t" + t.getDuration() + "\nResponsible:\t" + t.getResponsible().getName() + "\nStatus:\t" + t.getStatus();
+						String message = "Name:\t" + t.getName() + "\nBegin Date:\t" + t.getBeginDate().format(formatter);
+						if (t.getStatus()!=100){  message+= "\nEnd Date:\tTask not terminated yet" ;
+						} else { message+= "\nEnd Date:\t" + t.getEndDate().format(formatter);}
+						message+= "\nDuration:\t" + t.getDuration();
+						if(t.getResponsible()==null) { message += "\nResponsible:\tTask has no responsible yet";
+						}else{message += "\nResponsible:\t" + t.getResponsible().getName();}
+						message+= "\nStatus:\t" + t.getStatus();
 						if (t instanceof Design) {
 							message = "DESIGN\n"+message;
 							message += "\nEffort rate:\t0.50";
@@ -391,7 +398,9 @@ public class ProjectManagementGUI{
 							if(listMembers.getSelectedValue().isSurcharged(listTasks.getSelectedValue())) {
 								//if grantee end date >= task end date
 								if (!(listMembers.getSelectedValue() instanceof Grantee) || !(((Grantee) listMembers.getSelectedValue()).getGrantEnd()).isAfter(listTasks.getSelectedValue().getBeginDate().plusDays(listTasks.getSelectedValue().getDuration()))) {
+									//add responsible to task
 									listTasks.getSelectedValue().setResponsible(listMembers.getSelectedValue());
+									//add task to member
 									listMembers.getSelectedValue().addTask(listTasks.getSelectedValue());
 									update();
 								}
@@ -418,14 +427,13 @@ public class ProjectManagementGUI{
 								choices.add(tea.getName());
 							}
 							String teacher = (String) JOptionPane.showInputDialog(null, "Choose teacher.", "Coi", JOptionPane.QUESTION_MESSAGE, null, choices.toArray(), choices.toArray()[0]);
-							System.out.print(teacher);
-							for (Person tea : project.getTeachers()){
+							for (Teacher tea : project.getTeachers()){
 								if (tea.getName().equals(teacher)){
 									if(((AdvisedStudent) listMembers.getSelectedValue()).getAdvisors().contains(tea)){
 										JOptionPane.showMessageDialog(null, teacher+" is already advisor of this student!", "Error", JOptionPane.PLAIN_MESSAGE);
 									}
 									else {
-										((AdvisedStudent) listMembers.getSelectedValue()).addAdvisor((Teacher) tea);
+										((AdvisedStudent) listMembers.getSelectedValue()).addAdvisor(tea);
 									}
 									break;
 								}
@@ -451,7 +459,7 @@ public class ProjectManagementGUI{
 							if (person instanceof Grantee){
 								((Grantee) person).setProject(null);
 								if(person instanceof AdvisedStudent){
-									((AdvisedStudent) person).setAdvisors(new ArrayList<Teacher>());
+									((AdvisedStudent) person).setAdvisors(new ArrayList<>());
 								}
 							}
 							else{
@@ -476,6 +484,10 @@ public class ProjectManagementGUI{
 				else if(e.getSource() == buttonTaskREMOVE) {
 					try {
 						if(listTasks.getSelectedValue()!=null){
+							if (listTasks.getSelectedValue().getResponsible()!=null){
+								//removes task from responsible if it has one
+								listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
+							}
 							project.deleteTask(listTasks.getSelectedValue());
 							listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
 							update();
@@ -490,22 +502,25 @@ public class ProjectManagementGUI{
 				else if(e.getSource() == buttonTaskUPDATE) {
 					try {
 						if (listTasks.getSelectedValue()!=null) {
-							String input = JOptionPane.showInputDialog("Update Conclusion of " + listTasks.getSelectedValue().getName());
-							if (input!=null) {
-								double status = Double.parseDouble(input);
-								if (status < 0 || status > 100) {
-									JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%", "Error", JOptionPane.PLAIN_MESSAGE);
-								} else {
-									if (status == 100) {
-										listTasks.getSelectedValue().setEndDate(LocalDate.now());
-										listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
+							if (listTasks.getSelectedValue().getStatus()==100) {
+								String input = JOptionPane.showInputDialog("Update Conclusion of " + listTasks.getSelectedValue().getName());
+								if (input != null) {
+									double status = Double.parseDouble(input);
+									if (status < 0 || status > 100) {
+										JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%", "Error", JOptionPane.PLAIN_MESSAGE);
+									} else {
+										if (status == 100) {
+											listTasks.getSelectedValue().setEndDate(LocalDate.now());
+											listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
+										}
+										listTasks.getSelectedValue().setStatus(status);
+										update();
 									}
-									listTasks.getSelectedValue().setStatus(status);
-									update();
+								} else {
+									JOptionPane.showMessageDialog(null, "Nothing detected on input.", "Error", JOptionPane.PLAIN_MESSAGE);
 								}
-							}
-							else{
-								JOptionPane.showMessageDialog(null, "Nothing detected on input.","Error", JOptionPane.PLAIN_MESSAGE);
+							} else {
+								JOptionPane.showMessageDialog(null, "Task is already completed!", "Error", JOptionPane.PLAIN_MESSAGE);
 							}
 						}
 						else{

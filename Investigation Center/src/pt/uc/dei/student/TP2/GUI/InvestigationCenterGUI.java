@@ -260,7 +260,7 @@ public class InvestigationCenterGUI{
 							if (person instanceof Grantee){
 								((Grantee) person).setProject(null);
 								if(person instanceof AdvisedStudent){
-									((AdvisedStudent) person).setAdvisors(new ArrayList<Teacher>());
+									((AdvisedStudent) person).setAdvisors(new ArrayList<>());
 								}
 							}
 							else{
