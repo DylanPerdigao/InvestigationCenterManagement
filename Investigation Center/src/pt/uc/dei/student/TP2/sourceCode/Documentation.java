@@ -18,7 +18,6 @@ public class Documentation extends Task implements Serializable{
      * This is the constructor of the documentation task object.
      * 
      * @param name	This is the name of the  documentation task.
-     * @param effortRate	This is the effort rate of the documentation task.
      * @param beginDate	This is date when begins the documentation task.
      * @param endDate	This is date when ends the documentation task.
      * @param duration	This is the duration of the documentation task.

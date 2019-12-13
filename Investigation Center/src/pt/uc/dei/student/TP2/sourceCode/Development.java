@@ -18,7 +18,6 @@ public class Development extends Task implements Serializable{
      * This is the constructor of the development task object.
      * 
      * @param name	This is the name of the  development task.
-     * @param effortRate	This is the effort rate of the development task.
      * @param beginDate	This is date when begins the development task.
      * @param endDate	This is date when ends the development task.
      * @param duration	This is the duration of the development task.

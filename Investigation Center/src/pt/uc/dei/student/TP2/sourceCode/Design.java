@@ -18,7 +18,6 @@ public class Design extends Task implements Serializable{
      * This is the constructor of the design task object.
      * 
      * @param name	This is the name of the design task.
-     * @param effortRate	This is the effort rate of the design task.
      * @param beginDate	This is date when begins the design task.
      * @param endDate	This is date when ends the design task.
      * @param duration	This is the duration of the design task.

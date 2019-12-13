@@ -46,8 +46,9 @@ public class TaskCreatorGUI{
     /**
      * This is the constructor of the main GUI of the program.
      * 
-     * @param frame	This is the frame of the program
-     * @param IC	This is the investigation center object which contains all the informations for the application
+     * @param frame	This is the frame of the program.
+     * @param IC	This is the investigation center object which contains all the informations for the application.
+     * @param project	This is the project object which contains all the informations about the selected project by the user.
      * @since 13-12-2019
      */
 	public TaskCreatorGUI(JFrame frame, InvestigationCenter IC, Project project) {

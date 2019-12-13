@@ -70,7 +70,7 @@ public class ProjectManagementGUI{
      * 
      * @param frame	This is the frame of the program.
      * @param IC	This is the investigation center object which contains all the informations for the application.
-     * @param IC	This is the project object which contains all the informations about the selected project by the user.
+     * @param project	This is the project object which contains all the informations about the selected project by the user.
      * @since 13-12-2019
      */
 	public ProjectManagementGUI(JFrame frame,InvestigationCenter IC,Project project) {
