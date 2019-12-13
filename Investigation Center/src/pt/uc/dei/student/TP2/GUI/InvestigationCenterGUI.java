@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -250,6 +251,22 @@ public class InvestigationCenterGUI{
 			else if(e.getSource() == buttonProjectREMOVE) {
 				try {
 					if (listProjects.getSelectedValue() != null) {
+						//cleans task from person
+						for (Task task : listProjects.getSelectedValue().getTasks()){
+							task.getResponsible().removeTask(task);
+						}
+						//removes project from people and cleans Advisors of AdvisedStudents
+						for (Person person : listProjects.getSelectedValue().getMembers()){
+							if (person instanceof Grantee){
+								((Grantee) person).setProject(null);
+								if(person instanceof AdvisedStudent){
+									((AdvisedStudent) person).setAdvisors(new ArrayList<Teacher>());
+								}
+							}
+							else{
+								((Teacher) person).removeProject(listProjects.getSelectedValue());
+							}
+						}
 						IC.removeProject(listProjects.getSelectedValue());
 						update();
 					}
@@ -286,12 +303,17 @@ public class InvestigationCenterGUI{
 								JOptionPane.showMessageDialog(null, "This Grantee already belongs to a project","", JOptionPane.PLAIN_MESSAGE);
 							}
 							else {
-								Project project = listProjects.getSelectedValue();
-								IC.removeProject(project);
-								project.addMember(listPeople.getSelectedValue());
-								IC.addProject(project);
+								//add member to project
+								listProjects.getSelectedValue().addMember(listPeople.getSelectedValue());
+								//add project to member
+								if (listPeople.getSelectedValue() instanceof  Grantee){
+									((Grantee) listPeople.getSelectedValue()).setProject(listProjects.getSelectedValue());
+								}
+								else{
+									((Teacher)listPeople.getSelectedValue()).addProject(listProjects.getSelectedValue());
+								}
 								listValuesProjectMembers.removeAllElements();
-								listValuesProjectMembers.addAll(project.getMembers());
+								listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 								update();
 							}
 						}
@@ -306,8 +328,22 @@ public class InvestigationCenterGUI{
 			else if(e.getSource() == buttonREMOVEPeopleFromProject) {
 				try {
 					if (listProjects.getSelectedValue() != null && listProjectMembers.getSelectedValue() != null) {
+						//removes person from project
 						listProjects.getSelectedValue().removeMember(listProjectMembers.getSelectedValue());
-
+						//remove project from person
+						if (listPeople.getSelectedValue() instanceof  Grantee){
+							((Grantee) listPeople.getSelectedValue()).setProject(null);
+						}
+						else{
+							((Teacher)listPeople.getSelectedValue()).removeProject(listProjects.getSelectedValue());
+						}
+						//removes person from uncompleted tasks and task from person
+						for (Task task : listProjects.getSelectedValue().getUncompletedTasks()){
+							if(task.getResponsible()==listProjectMembers.getSelectedValue()){
+								task.setResponsible(null);
+								listProjectMembers.getSelectedValue().removeTask(task);
+							}
+						}
 						listValuesProjectMembers.removeAllElements();
 						listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 					}
@@ -326,25 +362,25 @@ public class InvestigationCenterGUI{
 						String message = "Name:\t" + p.getName() + "\nE-mail:\t" + p.getEmail();
 						if (p instanceof Bachelor) {
 							Bachelor bachelorStudent = (Bachelor) p;
-							message += "\nBACHELOR STUDENT";
+							message = "BACHELOR STUDENT\n" + message;
 							message += "\nGrant begin:\t" + bachelorStudent.getGrantBegin().format(formatter);
 							message += "\nGrant end:\t" + bachelorStudent.getGrantEnd().format(formatter);
 							message += "\nCost per month:\t" + bachelorStudent.getCost() + "€";
 						} else if (p instanceof Master) {
 							Master masterStudent = (Master) p;
-							message += "\nMASTER STUDENT";
+							message = "MASTER STUDENT\n" + message;
 							message += "\nGrant begin:\t" + masterStudent.getGrantBegin().format(formatter);
 							message += "\nGrant end:\t" + masterStudent.getGrantEnd().format(formatter);
 							message += "\nCost per month:\t" + masterStudent.getCost() + "€";
 						} else if (p instanceof PhD) {
 							PhD PhDStudent = (PhD) p;
-							message += "\nPhD STUDENT";
+							message = "PhD STUDENT\n" + message;
 							message += "\nGrant begin:\t" + PhDStudent.getGrantBegin().format(formatter);
 							message += "\nGrant end:\t" + PhDStudent.getGrantEnd().format(formatter);
 							message += "\nCost per month:\t" + PhDStudent.getCost() + "€";
 						} else if (p instanceof Teacher) {
 							Teacher teacher = (Teacher) p;
-							message += "\nTEACHER";
+							message = "TEACHER\n" + message;
 							message += "\nMecanographic Number:\t" + teacher.getMecanographicNumber();
 							message += "\nInvestigation Area:\t" + teacher.getInvestigationArea();
 						}

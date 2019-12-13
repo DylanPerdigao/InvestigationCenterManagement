@@ -178,13 +178,12 @@ public class ProjectCreatorGUI{
 				try{
 					if (!textName.getText().equals("") && !textAcronym.getText().equals("") && !textDuration.getText().equals("")) {
 						int dur= Integer.parseInt(textDuration.getText());
-						//maybe chekar estas proximas 2 linhas mais tarde
-						LocalDate begin;
-						begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
+
+						LocalDate begin= LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
 						LocalDate end = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(endYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endDayList.getSelectedItem())));
 
 						if (end.isAfter(begin)) {
-							Project project = new Project(textName.getText(), textAcronym.getText(), begin, end, dur, null, new ArrayList<>(), new ArrayList<>(), false);
+							Project project = new Project(textName.getText(), textAcronym.getText(), begin, null, dur, null, new ArrayList<>(), new ArrayList<>(), false);
 							IC.addProject(project);
 
 							close();

@@ -96,6 +96,22 @@ public class Teacher extends Person implements Serializable{
         this.projects = projects;
     }
     /**
+     * This method adds a project to the teacher.
+     * @param project	This is the project that will be added to the teacher.
+     * @since 12-12-2019
+     */
+    public void addProject(Project project) {
+        this.projects.add(project);
+    }
+    /**
+     * This method removes a project from the teacher.
+     * @param project	This is the project that will be removed from the teacher.
+     * @since 12-12-2019
+     */
+    public void removeProject(Project project) {
+        this.projects.remove(project);
+    }
+    /**
      * This method returns a string with information about the teacher.
      * @return String with information about the teacher.
      * @since 09-12-2019

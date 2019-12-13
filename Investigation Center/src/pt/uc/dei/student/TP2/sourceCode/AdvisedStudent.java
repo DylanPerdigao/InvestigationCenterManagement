@@ -50,7 +50,14 @@ public class AdvisedStudent extends  Grantee implements Serializable{
     public void setAdvisors(ArrayList<Teacher> advisors) {
         this.advisors = advisors;
     }
-
+    /**
+     * This method adds an advisor to the advised student.
+     * @param advisor	Advisor that wil be added to the student
+     * @since 12-12-2019
+     */
+    public void addAdvisor(Teacher advisor) {
+        this.advisors.add(advisor);
+    }
     /**
      * This method returns a string with informations about the advised student.
      * @return String with informations about the advised student.

@@ -47,8 +47,8 @@ public class TaskCreatorGUI{
      * This is the constructor of the main GUI of the program.
      * 
      * @param frame	This is the frame of the program.
-     * @param IC	This is the investigation center object which contains all the informations for the application.
-     * @param project	This is the project object which contains all the informations about the selected project by the user.
+     * @param IC	This is the investigation center object which contains all the information for the application.
+     * @param project	This is the project object which contains all the information about the selected project by the user.
      * @since 13-12-2019
      */
 	public TaskCreatorGUI(JFrame frame, InvestigationCenter IC, Project project) {
@@ -178,7 +178,6 @@ public class TaskCreatorGUI{
 				try{
 					int duration = Integer.parseInt(textDuration.getText());
 					String name = textName.getText();
-					//maybe checkar estas proximas 2 linhas mais tarde
 					LocalDate begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
 					LocalDate end = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(endYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endDayList.getSelectedItem())));
 					if (end.isAfter(begin)) {
@@ -186,13 +185,13 @@ public class TaskCreatorGUI{
 						//checkar o switch
 						switch ((String) Objects.requireNonNull(tasksTypeList.getSelectedItem())) {
 							case "Documentation":
-								task = new Documentation(name, begin, end, duration, null, 0);
+								task = new Documentation(name, begin, null, duration, null, 0);
 								break;
 							case "Design":
-								task = new Design(name, begin, end, duration, null, 0);
+								task = new Design(name, begin, null, duration, null, 0);
 								break;
 							case "Development":
-								task = new Development(name, begin, end, duration, null, 0);
+								task = new Development(name, begin, null, duration, null, 0);
 								break;
 						}
 

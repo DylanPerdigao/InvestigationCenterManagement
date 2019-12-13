@@ -7,15 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 import pt.uc.dei.student.TP2.sourceCode.*;
 
@@ -181,11 +175,11 @@ public class ProjectManagementGUI{
 		 * PROJECT
 		 */
 		placeComponent(new JLabel("Begin"),4,11,2,1,0.5,0.5, 0, 0);
-		placeComponent(new JLabel(String.valueOf(project.getBeginDate())),5,11,2,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel(project.getBeginDate().format(formatter)),5,11,2,1,0.5,0.5, 0, 0);
 		placeComponent(new JLabel("Duration"),4,12,2,1,0.5,0.5, 0, 0);
 		placeComponent(new JLabel(project.getDuration()+ " Month(s)"),5,12,2,1,0.5,0.5, 0, 0);
 		placeComponent(new JLabel("End"),4,13,2,1,0.5,0.5, 0, 0);
-		placeComponent(new JLabel(String.valueOf(project.getEndDate())),5,13,2,1,0.5,0.5, 0, 0);
+		placeComponent(new JLabel(project.getEndDate().format(formatter)),5,13,2,1,0.5,0.5, 0, 0);
 		placeComponent(new JLabel("Cost\t"),4,14,2,1,0.5,0.5, 0, 0);
 		placeComponent(new JLabel(project.projectCost() + "€"),5,14,2,1,0.5,0.5, 0, 0);
 
@@ -227,6 +221,7 @@ public class ProjectManagementGUI{
 			buttonTaskREMOVE.addActionListener(listener);
 			buttonTaskUPDATE.addActionListener(listener);
 			buttonPRINCIPALINVESTIGATOR.addActionListener(listener);
+			buttonAdvisorSET.addActionListener(listener);
 		}
 
 
@@ -314,25 +309,25 @@ public class ProjectManagementGUI{
 						String message = "Name:\t" + p.getName() + "\nE-mail:\t" + p.getEmail();
 						if (p instanceof Bachelor) {
 							Bachelor bachelorStudent = (Bachelor) p;
-							message += "\nBACHELOR STUDENT";
+							message = "BACHELOR STUDENT\n" + message;
 							message += "\nGrant begin:\t" + bachelorStudent.getGrantBegin().format(formatter);
 							message += "\nGrant end:\t" + bachelorStudent.getGrantEnd().format(formatter);
 							message += "\nCost per month:\t" + bachelorStudent.getCost() + "€";
 						} else if (p instanceof Master) {
 							Master masterStudent = (Master) p;
-							message += "\nMASTER STUDENT";
+							message = "MASTER STUDENT\n" + message;
 							message += "\nGrant begin:\t" + masterStudent.getGrantBegin().format(formatter);
 							message += "\nGrant end:\t" + masterStudent.getGrantEnd().format(formatter);
 							message += "\nCost per month:\t" + masterStudent.getCost() + "€";
 						} else if (p instanceof PhD) {
 							PhD PhDStudent = (PhD) p;
-							message += "\nPhD STUDENT";
+							message = "PhD STUDENT\n" + message;
 							message += "\nGrant begin:\t" + PhDStudent.getGrantBegin().format(formatter);
 							message += "\nGrant end:\t" + PhDStudent.getGrantEnd().format(formatter);
 							message += "\nCost per month:\t" + PhDStudent.getCost() + "€";
 						} else if (p instanceof Teacher) {
 							Teacher teacher = (Teacher) p;
-							message += "\nTEACHER";
+							message = "TEACHER\n" + message;
 							message += "\nMecanographic Number:\t" + teacher.getMecanographicNumber();
 							message += "\nInvestigation Area:\t" + teacher.getInvestigationArea();
 						}
@@ -350,7 +345,7 @@ public class ProjectManagementGUI{
 					if(listTasks.getSelectedValue()!=null) {
 						Task t = listTasks.getSelectedValue();
 
-						String message = "Name:\t" + t.getName() + "\nBegin Date:\t" + t.getBeginDate() + "\nEnd Date:\t" + t.getEndDate() + "\nDuration:\t" + t.getDuration() + "\nResponsible:\t" + t.getResponsible().getName() + "\nStatus:\t" + t.getStatus();
+						String message = "Name:\t" + t.getName() + "\nBegin Date:\t" + t.getBeginDate().format(formatter) + "\nEnd Date:\t" + t.getEndDate().format(formatter) + "\nDuration:\t" + t.getDuration() + "\nResponsible:\t" + t.getResponsible().getName() + "\nStatus:\t" + t.getStatus();
 						if (t instanceof Design) {
 							message = "DESIGN\n"+message;
 							message += "\nEffort rate:\t0.50";
@@ -415,10 +410,54 @@ public class ProjectManagementGUI{
 						ex.printStackTrace();
 					}
 				}
+				else if(e.getSource() == buttonAdvisorSET) {
+					try {
+						if(listMembers.getSelectedValue()!=null && listMembers.getSelectedValue() instanceof AdvisedStudent){
+							ArrayList<String> choices = new ArrayList<>();
+							for (Person tea : project.getTeachers()){
+								choices.add(tea.getName());
+							}
+							String teacher = (String) JOptionPane.showInputDialog(null, "Choose teacher.", "Coi", JOptionPane.QUESTION_MESSAGE, null, choices.toArray(), choices.toArray()[0]);
+							System.out.print(teacher);
+							for (Person tea : project.getTeachers()){
+								if (tea.getName().equals(teacher)){
+									if(((AdvisedStudent) listMembers.getSelectedValue()).getAdvisors().contains(tea)){
+										JOptionPane.showMessageDialog(null, teacher+" is already advisor of this student!", "Error", JOptionPane.PLAIN_MESSAGE);
+									}
+									else {
+										((AdvisedStudent) listMembers.getSelectedValue()).addAdvisor((Teacher) tea);
+									}
+									break;
+								}
+							}
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Select an advised student first","Error", JOptionPane.PLAIN_MESSAGE);
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
 				else if(e.getSource() == buttonProjectEND) {
 					try {
-						//verify if all tasks are completed???
 						project.endProject();
+						project.setEndDate(LocalDate.now());
+						//cleans task from person
+						for (Task task : project.getTasks()){
+							task.getResponsible().removeTask(task);
+						}
+						//removes project form people and cleans Advisors of AdvisedStudents
+						for (Person person : project.getMembers()){
+							if (person instanceof Grantee){
+								((Grantee) person).setProject(null);
+								if(person instanceof AdvisedStudent){
+									((AdvisedStudent) person).setAdvisors(new ArrayList<Teacher>());
+								}
+							}
+							else{
+								((Teacher) person).removeProject(project);
+							}
+						}
 						close();
 						initialize();
 					} catch (Exception ex) {
