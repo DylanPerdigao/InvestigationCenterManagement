@@ -282,13 +282,18 @@ public class InvestigationCenterGUI{
 							JOptionPane.showMessageDialog(null, "This person already belongs to this project","", JOptionPane.PLAIN_MESSAGE);
 						}
 						else{
-							Project project = listProjects.getSelectedValue();
-							IC.removeProject(project);
-							project.addMember(listPeople.getSelectedValue());
-							IC.addProject(project);
-							listValuesProjectMembers.removeAllElements();
-							listValuesProjectMembers.addAll(project.getMembers());
-							update();
+							if (listPeople.getSelectedValue() instanceof  Grantee && ((Grantee) listPeople.getSelectedValue()).getProject()!=null) {
+								JOptionPane.showMessageDialog(null, "This Grantee already belongs to a project","", JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								Project project = listProjects.getSelectedValue();
+								IC.removeProject(project);
+								project.addMember(listPeople.getSelectedValue());
+								IC.addProject(project);
+								listValuesProjectMembers.removeAllElements();
+								listValuesProjectMembers.addAll(project.getMembers());
+								update();
+							}
 						}
 					}
 					else{
