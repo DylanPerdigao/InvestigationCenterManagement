@@ -14,27 +14,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
 
 import javax.swing.*;
 
 import pt.uc.dei.student.TP2.sourceCode.*;
 
 /**
- * This class represent the advised students of a project (Bachelor and Master students)
+ * This class represent the Graphical User Interface of the main menu of the application
  *
  * @author	Dylan Gonçalves Perdigão
  * @author	Bruno Ricardo Leitão Faria
- * @since	05-12-2019
+ * @since	13-12-2019
  * @version	1.0
  */
 
-public class InvestigationCenterGUI {
-
+public class InvestigationCenterGUI{
 	//Formatter
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
 	//Constraints
 	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
@@ -44,7 +40,6 @@ public class InvestigationCenterGUI {
 	private JButton buttonREMOVEPeopleFromProject;
 	private JButton buttonENTER;
 	private JButton buttonINFO;
-	private JLabel labelProjectMembers;
 	// List
 	private DefaultListModel<Person> listValuesPeople;
 	private DefaultListModel<Person> listValuesProjectMembers;
@@ -55,12 +50,20 @@ public class InvestigationCenterGUI {
 	private JScrollPane listScrollerPeople;
 	private JScrollPane listScrollerProjectMembers;
 	private JScrollPane listScrollerProjects;
-
+	//Frame
 	private JFrame frame;
+	//Investigation Center
 	private InvestigationCenter IC;
-
+	
+    /**
+     * This is the constructor of the advised students object.
+     * 
+     * @param frame	This is the frame of the program
+     * @param IC	This is the investigation center object which contains all the informations for the application
+     * @since 13-12-2019
+     */
 	public InvestigationCenterGUI(JFrame frame,InvestigationCenter IC) {
-		this.frame=frame;
+		this.frame = frame;
 		this.IC=IC;
 
 		// Lists
@@ -79,9 +82,11 @@ public class InvestigationCenterGUI {
 		listScrollerProjects = new JScrollPane(listProjects);
 	}
 
-
+    /**
+     * This method initialize the Graphical User Interface with all components 
+     * @since 13-12-2019
+     */
 	public void initialize(){
-
 		frame.setLayout(new GridBagLayout());
 		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -96,180 +101,49 @@ public class InvestigationCenterGUI {
 		c.weighty = 10;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridwidth = 6;
+		c.gridwidth = 7;
 		frame.add(title, c);
 
-
-		JLabel emptyLabel1 = new JLabel("");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.gridx = 0;
-		c.gridy = 10;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		frame.add(emptyLabel1, c);
-
-		JLabel emptyLabel2 = new JLabel("");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.gridx = 6;
-		c.gridy = 10;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		frame.add(emptyLabel2, c);
-
+		placeComponent(new JLabel(""),0,10,1,1,0.5,10,0,0);
+		placeComponent(new JLabel(""),7,10,1,1,0.5,10,0,0);
+		placeComponent(new JLabel(""),3,7,1,1,0.5,0.5,0,0);
+		placeComponent(new JLabel(""),5,7,1,1,0.5,0.5,0,0);
 		/*
 		 * PEOPLE
 		 */
 
-		JLabel emptyLabel3 = new JLabel("");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.ipady = 0;
-		c.gridx = 3;
-		c.gridy = 7;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(emptyLabel3, c);
-
-		JLabel labelPeople = new JLabel("People List");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 2;
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		frame.add(labelPeople, c);
-
+		placeComponent(new JLabel("People List"),2,1,1,1,0.5,0.5,0,0);
 		listScrollerPeople = new JScrollPane(listPeople);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.ipady = 10;
-		c.ipadx = 100;
-		c.gridx = 2;
-		c.gridy = 2;
-		c.gridheight = 6;
-		c.gridwidth = 1;
-		frame.add(listScrollerPeople, c);
+		placeComponent(listScrollerPeople,2,2,1,6,0.5,10,10,100);
 
 		buttonINFO = new JButton("Show Person Informations");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 2;       	//posiçao celula x
-		c.gridy = 8; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(buttonINFO, c);
+		placeComponent(buttonINFO,2,8,1,1,0.5,0,0,10);
 		/*
 		 * PROJECTS
 		 */
 
 		buttonProjectCREATE = new JButton("Add Project");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 5;       	//posiçao celula x
-		c.gridy = 2; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(buttonProjectCREATE, c);
+		placeComponent(buttonProjectCREATE,6,2,1,1,0.5,0,0,10);
 
 		buttonProjectREMOVE = new JButton("Remove Project");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0;
-		c.ipady = 10;
-		c.gridx = 5;
-		c.gridy = 3;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(buttonProjectREMOVE, c);
+		placeComponent(buttonProjectREMOVE,6,3,1,1,0.5,0,0,10);
 		
-		buttonADDPeopleToProject = new JButton("Add selected person to selected project");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;	//percentagem de largura celula em relacao as outras
-		c.weighty = 0;		//percentagem de altura celula em relacao as outras
-		c.ipady = 10;		//altura celula
-		c.gridx = 5;       	//posiçao celula x
-		c.gridy = 4; 		//posiçao celula y
-		c.gridheight = 1;   //quantos celulas de altura
-		c.gridwidth = 1;	//quantos celulas de largura
-		frame.add(buttonADDPeopleToProject, c);
+		buttonADDPeopleToProject = new JButton("Add Person to Project");
+		placeComponent(buttonADDPeopleToProject,6,4,1,1,0.5,0,0,10);
 
-		buttonREMOVEPeopleFromProject = new JButton("Remove selected person to selected project");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0;
-		c.ipady = 10;
-		c.gridx = 5;
-		c.gridy = 5;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(buttonREMOVEPeopleFromProject, c);
-
-		JLabel labelProjects = new JLabel("Project Members");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 5;
-		c.gridy = 6;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		frame.add(labelProjects, c);
-
-
+		buttonREMOVEPeopleFromProject = new JButton("Remove Person to Project");
+		placeComponent(buttonREMOVEPeopleFromProject,6,5,1,1,0.5,0,0,10);
+		
+		placeComponent(new JLabel("Project Members"),6,6,1,1,0.5,0.5,0,0);
 		listScrollerProjectMembers = new JScrollPane(listProjectMembers);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.ipady = 10;
-		c.ipadx = 100;
-		c.gridx = 5;
-		c.gridy = 7;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(listScrollerProjectMembers, c);
+		placeComponent(listScrollerProjectMembers,6,7,1,1,0.5,10,100,10);
 		
 		buttonENTER = new JButton("Enter in Project");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.ipady = 10;
-		c.gridx = 4;
-		c.gridy = 8;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(buttonENTER, c);
+		placeComponent(buttonENTER,4,8,1,1,0.5,0.5,0,10);
 
-		labelProjects = new JLabel("Projects List");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 4;
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.gridheight= 1;
-		frame.add(labelProjects, c);
-
+		placeComponent(new JLabel("Projects List"),4,1,1,1,0.5,0.5,0,0);
 		listScrollerProjects = new JScrollPane(listProjects);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.ipady = 10;
-		c.ipadx = 100;
-		c.gridx = 4;
-		c.gridy = 2;
-		c.gridheight = 6;
-		c.gridwidth = 1;
-		frame.add(listScrollerProjects, c);
+		placeComponent(listScrollerProjects,4,2,1,6,0.5,10, 100, 10);
 
 		//Listeners
 		InvestigationCenterGUI.Listener actionListener = new InvestigationCenterGUI.Listener();
@@ -283,25 +157,62 @@ public class InvestigationCenterGUI {
 		listProjects.addMouseListener(actionListener);
 		frame.setVisible(true);
 	}
-	public void listenWindow() {
-		frame.addWindowListener(new InvestigationCenterGUI.Listener());
-	}
-
-	private void close(){
+    /**
+     * This method clears the frame
+     * @since 13-12-2019
+     */
+	public void close(){
 		frame.getContentPane().removeAll();
 		frame.repaint();
 	}
-
-	private void update() {
-		// Lists
+    /**
+     * This method updates lists in the frame
+     * @since 13-12-2019
+     */
+	public void update(){
+		// List People
 		listValuesPeople.removeAllElements();
 		listValuesPeople.addAll(IC.getPeople());
-
+		// List Project
 		listValuesProjects.removeAllElements();
 		listValuesProjects.addAll(IC.getProjects());
-
 	}
-
+	/**
+	 * This method places the component in the specified position in grid and format. 
+	 * @param component	This is the component we want to place.
+	 * @param gx	This is the grid position in axis X.
+	 * @param gy	This is the grid position in axis Y.
+	 * @param gw	This specify the number of columns in the component's display area.
+	 * @param gh	This specify the number of rows in the component's display area.
+	 * @param wx	This determine how to distribute space among columns.
+	 * @param wy	This determine how to distribute space among rows
+	 * @param ix	This specifies the internal padding in axis X
+	 * @param iy	This specifies the internal padding in axis Y
+	 * @since 13-12-2019
+	 */
+	public void placeComponent(JComponent component,int gx, int gy,int gw,int gh,double wx,double wy, int ix, int iy) {
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = gx;       	//posiçao celula x
+		c.gridy = gy; 			//posiçao celula y
+		c.gridwidth = gw;		//quantos celulas de largura
+		c.gridheight = gh;   	//quantos celulas de altura
+		c.weightx = wx;			//percentagem de largura celula em relacao as outras
+		c.weighty = wy;			//percentagem de altura celula em relacao as outras
+		c.ipady = iy;			//altura celula
+		c.ipadx = ix;
+		frame.add(component, c);
+	}
+    /**
+     * This method add window listener to the frame
+     * @since 13-12-2019
+     */
+	public void listenWindow() {
+		frame.addWindowListener(new InvestigationCenterGUI.Listener());
+	}
+    /**
+     * This method saves the Investigation Center Object in a ObjectFile.
+     * @since 13-12-2019
+     */
 	private void save() {
 		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
 		try {
@@ -316,9 +227,16 @@ public class InvestigationCenterGUI {
 			System.out.println("Error writing file");
 		}
 	}
-
+    /**
+     * This class overrides some listeners.
+     * @since 13-12-2019
+     */
 	private class Listener implements ActionListener, MouseListener,WindowListener {
-
+	    /**
+	     * This method gets events from buttons and treat them to do some work.
+	     * @param e	This is the handled event
+	     * @since 13-12-2019
+	     */
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == buttonProjectCREATE) {
 				try {
@@ -427,7 +345,11 @@ public class InvestigationCenterGUI {
 
 		@Override
 		public void mousePressed(MouseEvent e) {}
-
+	    /**
+	     * This method is overrided for update informations in the list
+	     * @param e	This is the handled event
+	     * @since 13-12-2019
+	     */
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			if(e.getSource() == listProjects) {
@@ -435,15 +357,18 @@ public class InvestigationCenterGUI {
 				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 			}
 		}
-
 		@Override
 		public void mouseEntered(MouseEvent e) {}
 		@Override
 		public void mouseExited(MouseEvent e) {}
+	    /**
+	     * This method is overrided for saving informations in object file when the window is closed
+	     * @param e	This is the handled event
+	     * @since 13-12-2019
+	     */
 		@Override
 		public void windowClosing(WindowEvent e) {
 			save();
-			System.out.println("WINDOH IC");
 			frame.dispose();
 		}
 		@Override

@@ -44,13 +44,11 @@ public class TaskCreatorGUI{
 	private String[] years = new String[LocalDate.now().getYear()-1970+1];
 
 	private JFrame frame;
-	private InvestigationCenter investigationCenter;
+	private InvestigationCenter IC;
 	private Project project;
 
-	public TaskCreatorGUI(JFrame frame, InvestigationCenter investigationCenter, Project project) {
-		super();
-		this.frame=frame;
-		this.investigationCenter=investigationCenter;
+	public TaskCreatorGUI(JFrame frame, InvestigationCenter IC, Project project) {
+		this.IC=IC;
 		this.project=project;
 
 	}
@@ -279,12 +277,45 @@ public class TaskCreatorGUI{
 
 		frame.setVisible(true);
 	}
-
-	private void close(){
+	   /**
+     * This method clears the frame
+     * @since 13-12-2019
+     */
+	public void close(){
 		frame.getContentPane().removeAll();
 		frame.repaint();
 	}
-
+    /**
+     * This method updates lists in the frame
+     * @since 13-12-2019
+     */
+	public void update(){
+	}
+	/**
+	 * This method places the component in the specified position in grid and format. 
+	 * @param component	This is the component we want to place.
+	 * @param gx	This is the grid position in axis X.
+	 * @param gy	This is the grid position in axis Y.
+	 * @param gw	This specify the number of columns in the component's display area.
+	 * @param gh	This specify the number of rows in the component's display area.
+	 * @param wx	This determine how to distribute space among columns.
+	 * @param wy	This determine how to distribute space among rows
+	 * @param ix	This specifies the internal padding in axis X
+	 * @param iy	This specifies the internal padding in axis Y
+	 * @since 13-12-2019
+	 */
+	public void placeComponent(JComponent component,int gx, int gy,int gw,int gh,double wx,double wy, int ix, int iy) {
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = gx;       	//posiçao celula x
+		c.gridy = gy; 			//posiçao celula y
+		c.gridwidth = gw;		//quantos celulas de largura
+		c.gridheight = gh;   	//quantos celulas de altura
+		c.weightx = wx;			//percentagem de largura celula em relacao as outras
+		c.weighty = wy;			//percentagem de altura celula em relacao as outras
+		c.ipady = iy;			//altura celula
+		c.ipadx = ix;
+		frame.add(component, c);
+	}
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e){
@@ -313,7 +344,7 @@ public class TaskCreatorGUI{
 						project.createTask(task);
 
 						close();
-						InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, investigationCenter);
+						InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, IC);
 						investigationCenterGUI.initialize();
 					}
 					else{
@@ -327,7 +358,7 @@ public class TaskCreatorGUI{
 				}
 			}else if(e.getSource() == buttonCANCEL) {
 				try {
-					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,investigationCenter);
+					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,IC);
 					close();
 					investigationCenterGUI.initialize();
 				} catch (Exception ex) {

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class AdvisedStudent extends  Grantee implements Serializable{
 	private static final long serialVersionUID = 1L;
-    //Variables
     private ArrayList<Teacher> advisors;
 
     /**

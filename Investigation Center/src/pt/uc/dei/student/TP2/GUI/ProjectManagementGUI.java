@@ -5,13 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -69,14 +62,13 @@ public class ProjectManagementGUI{
 	private JScrollPane listScrollerMembers;
 
 	private JFrame frame;
-	private InvestigationCenter investigationCenter;
+	private InvestigationCenter IC;
 	private Project project;
 
-	public ProjectManagementGUI(JFrame frame,InvestigationCenter investigationCenter,Project project) {
-		super();
-		setFrame(frame);
-		setInvestigationCenter(investigationCenter);
-		setProject(project);
+	public ProjectManagementGUI(JFrame frame,InvestigationCenter IC,Project project) {
+		this.frame = frame;
+		this.IC=IC;
+		this.project=project;
 		// List UNSTARTED TASK
 		DefaultListModel<Task> listValuesUnstartedTasks = new DefaultListModel<Task>();
 		listUnstartedTasks = new JList<Task>(listValuesUnstartedTasks);
@@ -106,7 +98,7 @@ public class ProjectManagementGUI{
 
 	public void initialize(){
 
-		getFrame().setLayout(new GridBagLayout());
+		frame.setLayout(new GridBagLayout());
 
 		// Label
 		JLabel title = new JLabel(getProject().getName());
@@ -118,7 +110,7 @@ public class ProjectManagementGUI{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 7;
-		getFrame().add(title, c);
+		frame.add(title, c);
 
 		placeComponent(new JLabel(""),0,12,1,1,0.5,10, 0, 0);
 		placeComponent(new JLabel(""),7,15,1,1,0.5,50, 0, 0);
@@ -192,24 +184,47 @@ public class ProjectManagementGUI{
 		buttonRETURN.addActionListener(listener);
 		buttonProjectEND.addActionListener(listener);
 
-		getFrame().setVisible(true);
+		frame.setVisible(true);
 	}
-	private void placeComponent(JComponent component,int gx, int gy,int gw,int gh,double wx,double wy, int ix, int iy) {
+	   /**
+     * This method clears the frame
+     * @since 13-12-2019
+     */
+	public void close(){
+		frame.getContentPane().removeAll();
+		frame.repaint();
+	}
+    /**
+     * This method updates lists in the frame
+     * @since 13-12-2019
+     */
+	public void update(){}
+	/**
+	 * This method places the component in the specified position in grid and format. 
+	 * @param component	This is the component we want to place.
+	 * @param gx	This is the grid position in axis X.
+	 * @param gy	This is the grid position in axis Y.
+	 * @param gw	This specify the number of columns in the component's display area.
+	 * @param gh	This specify the number of rows in the component's display area.
+	 * @param wx	This determine how to distribute space among columns.
+	 * @param wy	This determine how to distribute space among rows
+	 * @param ix	This specifies the internal padding in axis X
+	 * @param iy	This specifies the internal padding in axis Y
+	 * @since 13-12-2019
+	 */
+	public void placeComponent(JComponent component,int gx, int gy,int gw,int gh,double wx,double wy, int ix, int iy) {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = gx;       	//posiçao celula x
-		c.gridy = gy; 		//posiçao celula y
-		c.gridwidth = gw;	//quantos celulas de largura
-		c.gridheight = gh;   //quantos celulas de altura
-		c.weightx = wx;	//percentagem de largura celula em relacao as outras
-		c.weighty = wy;		//percentagem de altura celula em relacao as outras
-		c.ipady = iy;		//altura celula
+		c.gridy = gy; 			//posiçao celula y
+		c.gridwidth = gw;		//quantos celulas de largura
+		c.gridheight = gh;   	//quantos celulas de altura
+		c.weightx = wx;			//percentagem de largura celula em relacao as outras
+		c.weighty = wy;			//percentagem de altura celula em relacao as outras
+		c.ipady = iy;			//altura celula
 		c.ipadx = ix;
-		getFrame().add(component, c);
+		frame.add(component, c);
 	}
-	private void close(){
-		getFrame().getContentPane().removeAll();
-		getFrame().repaint();
-	}
+
 	
 	private class Listener implements ActionListener{
 
@@ -217,7 +232,7 @@ public class ProjectManagementGUI{
 			if(e.getSource()== buttonTaskCREATE){
 				try{
 					close();
-					TaskCreatorGUI taskCreatorGUI = new TaskCreatorGUI(frame,investigationCenter,project);
+					TaskCreatorGUI taskCreatorGUI = new TaskCreatorGUI(frame,IC,project);
 					taskCreatorGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -233,7 +248,7 @@ public class ProjectManagementGUI{
 				}
 			}else if(e.getSource() == buttonRETURN) {
 				try {
-					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(getFrame(),investigationCenter);
+					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,IC);
 					close();
 					investigationCenterGUI.initialize();
 				} catch (Exception ex) {
@@ -261,30 +276,7 @@ public class ProjectManagementGUI{
 			}
 		}
 	}
-
-	public InvestigationCenter getInvestigationCenter() {
-		return investigationCenter;
-	}
-
-	public void setInvestigationCenter(InvestigationCenter investigationCenter) { 
-		this.investigationCenter = investigationCenter; 
-	}
-
-	private JFrame getFrame() {
-		return frame;
-	}
-
-	private void setFrame(JFrame frame) {
-		this.frame = frame;
-	}
-
-
 	private Project getProject() {
 		return project;
-	}
-
-
-	private void setProject(Project project) {
-		this.project = project;
 	}
 }

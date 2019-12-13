@@ -11,9 +11,7 @@ import java.util.Objects;
 import javax.swing.*;
 
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
-import pt.uc.dei.student.TP2.sourceCode.Person;
 import pt.uc.dei.student.TP2.sourceCode.Project;
-import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
 /**
  * This class represent the advised students of a project (Bachelor and Master students)
@@ -46,13 +44,11 @@ public class ProjectCreatorGUI{
 	private String[] years = new String[LocalDate.now().getYear()-1970+1];
 
 	private JFrame frame;
-	private InvestigationCenter investigationCenter;
+	private InvestigationCenter IC;
 
-	public ProjectCreatorGUI(JFrame frame, InvestigationCenter investigationCenter) {
-		super();
+	public ProjectCreatorGUI(JFrame frame, InvestigationCenter IC) {
 		this.frame=frame;
-		this.investigationCenter=investigationCenter;
-
+		this.IC=IC;
 	}
 	public void initialize(){
 		frame.setLayout(new GridBagLayout());
@@ -279,12 +275,44 @@ public class ProjectCreatorGUI{
 
 		frame.setVisible(true);
 	}
-
-	private void close(){
+	   /**
+     * This method clears the frame
+     * @since 13-12-2019
+     */
+	public void close(){
 		frame.getContentPane().removeAll();
 		frame.repaint();
 	}
-
+    /**
+     * This method updates lists in the frame
+     * @since 13-12-2019
+     */
+	public void update(){}
+	/**
+	 * This method places the component in the specified position in grid and format. 
+	 * @param component	This is the component we want to place.
+	 * @param gx	This is the grid position in axis X.
+	 * @param gy	This is the grid position in axis Y.
+	 * @param gw	This specify the number of columns in the component's display area.
+	 * @param gh	This specify the number of rows in the component's display area.
+	 * @param wx	This determine how to distribute space among columns.
+	 * @param wy	This determine how to distribute space among rows
+	 * @param ix	This specifies the internal padding in axis X
+	 * @param iy	This specifies the internal padding in axis Y
+	 * @since 13-12-2019
+	 */
+	public void placeComponent(JComponent component,int gx, int gy,int gw,int gh,double wx,double wy, int ix, int iy) {
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = gx;       	//posiçao celula x
+		c.gridy = gy; 			//posiçao celula y
+		c.gridwidth = gw;		//quantos celulas de largura
+		c.gridheight = gh;   	//quantos celulas de altura
+		c.weightx = wx;			//percentagem de largura celula em relacao as outras
+		c.weighty = wy;			//percentagem de altura celula em relacao as outras
+		c.ipady = iy;			//altura celula
+		c.ipadx = ix;
+		frame.add(component, c);
+	}
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e){
@@ -298,15 +326,15 @@ public class ProjectCreatorGUI{
 
 						if (end.isAfter(begin)) {
 							Project project = new Project(textName.getText(), textAcronym.getText(), begin, end, dur, null, null, null, false);
-							investigationCenter.addProject(project);
+							IC.addProject(project);
 
 
-							InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, investigationCenter);
+							InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, IC);
 							close();
 							investigationCenterGUI.initialize();
 						}
 						else{
-							JOptionPane.showMessageDialog(null, "Insert an end date greater than the starter","", JOptionPane.PLAIN_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Insert an end date greater than the begin date","", JOptionPane.PLAIN_MESSAGE);
 						}
 					}
 				} catch (NumberFormatException nfe){
@@ -317,7 +345,7 @@ public class ProjectCreatorGUI{
 			}
 			else if(e.getSource() == buttonCANCEL) {
 				try {
-					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,investigationCenter);
+					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,IC);
 					close();
 					investigationCenterGUI.initialize();
 				} catch (Exception ex) {
