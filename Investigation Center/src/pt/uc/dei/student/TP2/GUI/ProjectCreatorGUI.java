@@ -70,7 +70,7 @@ public class ProjectCreatorGUI{
 		}
 		//TITLE
 		JLabel title = new JLabel("Add a new Project");
-		Font font = new Font("impact", 0, 50);
+		Font font = new Font("impact", Font.PLAIN, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
 		c.weightx = 0.5;
@@ -168,20 +168,29 @@ public class ProjectCreatorGUI{
 			if(e.getSource()== buttonCREATE){
 				try{
 					if (!textName.getText().equals("") && !textAcronym.getText().equals("") && !textDuration.getText().equals("")) {
-						int dur= Integer.parseInt(textDuration.getText());
-
-						if (dur>0) {
-							LocalDate begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())), Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())), Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
-
-							Project project = new Project(textName.getText(), textAcronym.getText(), begin, null, dur, null, new ArrayList<>(), new ArrayList<>(), false);
-							IC.addProject(project);
-
-							close();
-							InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, IC);
-							investigationCenterGUI.initialize();
+						boolean pass= true;
+						for (Project project : IC.getProjects()){
+							if (textName.getText().equals(project.getName())){
+								pass=false;
+								JOptionPane.showMessageDialog(null, "There is already a project with this name.", "", JOptionPane.PLAIN_MESSAGE);
+								break;
+							}
 						}
-						else {
-							JOptionPane.showMessageDialog(null, "Insert a duration greater than 0.","", JOptionPane.PLAIN_MESSAGE);
+						if (pass) {
+							int dur = Integer.parseInt(textDuration.getText());
+
+							if (dur > 0) {
+								LocalDate begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())), Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())), Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
+
+								Project project = new Project(textName.getText(), textAcronym.getText(), begin, null, dur, null, new ArrayList<>(), new ArrayList<>(), false);
+								IC.addProject(project);
+
+								close();
+								InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, IC);
+								investigationCenterGUI.initialize();
+							} else {
+								JOptionPane.showMessageDialog(null, "Insert a duration greater than 0.", "", JOptionPane.PLAIN_MESSAGE);
+							}
 						}
 					}
 				} catch (NumberFormatException nfe){

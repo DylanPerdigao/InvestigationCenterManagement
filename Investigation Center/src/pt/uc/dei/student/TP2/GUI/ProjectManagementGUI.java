@@ -315,20 +315,20 @@ public class ProjectManagementGUI{
 							message.append("\nGrant end:\t").append(bachelorStudent.getGrantEnd().format(formatter));
 							message.append("\nCost per month:\t").append(bachelorStudent.getCost()).append("€");
 							//show tasks
-							if (bachelorStudent.getTasks()!=null){
+							if (!bachelorStudent.getTasks().isEmpty()){
 								message.append("\nTasks:");
 								for (Task task : bachelorStudent.getTasks()){
-									message.append("\n\t").append(task.getName());
+									message.append("\n\t---").append(task.getName());
 								}
 							}
 							else {
 								message.append("\nProject:\tNo tasks yet.");
 							}
 							//show Advisors
-							if (bachelorStudent.getAdvisors()!=null){
+							if (!bachelorStudent.getAdvisors().isEmpty()){
 								message.append("\nAdvisors:");
 								for (Teacher teacher : bachelorStudent.getAdvisors()){
-									message.append("\n\t").append(teacher.getName());
+									message.append("\n\t---").append(teacher.getName());
 								}
 							}
 							else {
@@ -342,20 +342,20 @@ public class ProjectManagementGUI{
 							message.append("\nGrant end:\t").append(masterStudent.getGrantEnd().format(formatter));
 							message.append("\nCost per month:\t").append(masterStudent.getCost()).append("€");
 							//show tasks
-							if (masterStudent.getTasks()!=null){
+							if (!masterStudent.getTasks().isEmpty()){
 								message.append("\nTasks:");
 								for (Task task : masterStudent.getTasks()){
-									message.append("\n\t").append(task.getName());
+									message.append("\n\t--").append(task.getName());
 								}
 							}
 							else {
 								message.append("\nProject:\tNo tasks yet.");
 							}
 							//show Advisors
-							if (masterStudent.getAdvisors()!=null){
+							if (!masterStudent.getAdvisors().isEmpty()){
 								message.append("\nAdvisors:");
 								for (Teacher teacher : masterStudent.getAdvisors()){
-									message.append("\n\t").append(teacher.getName());
+									message.append("\n\t---").append(teacher.getName());
 								}
 							}
 							else {
@@ -369,10 +369,10 @@ public class ProjectManagementGUI{
 							message.append("\nGrant end:\t").append(PhDStudent.getGrantEnd().format(formatter));
 							message.append("\nCost per month:\t").append(PhDStudent.getCost()).append("€");
 							//show tasks
-							if (PhDStudent.getTasks()!=null){
+							if (!PhDStudent.getTasks().isEmpty()){
 								message.append("\nTasks:");
 								for (Task task : PhDStudent.getTasks()){
-									message.append("\n\t").append(task.getName());
+									message.append("\n\t---").append(task.getName());
 								}
 							}
 							else {
@@ -385,10 +385,10 @@ public class ProjectManagementGUI{
 							message.append("\nMechanographic Number:\t").append(teacher.getMecanographicNumber());
 							message.append("\nInvestigation Area:\t").append(teacher.getInvestigationArea());
 							//show tasks
-							if (teacher.getTasks()!=null){
+							if (!teacher.getTasks().isEmpty()){
 								message.append("\nTasks:");
 								for (Task task : teacher.getTasks()){
-									message.append("\n\t").append(task.getName());
+									message.append("\n\t---").append(task.getName());
 								}
 							}
 							else {
@@ -458,9 +458,9 @@ public class ProjectManagementGUI{
 				else if(e.getSource() == buttonPersonASSIGN) {
 					try {
 						if(listTasks.getSelectedValue()!=null && listMembers.getSelectedValue()!=null ){
-							if(listMembers.getSelectedValue().isSurcharged(listTasks.getSelectedValue())) {
+							if(!listMembers.getSelectedValue().isSurcharged(listTasks.getSelectedValue())) {
 								//if grantee end date >= task end date
-								if (!(listMembers.getSelectedValue() instanceof Grantee) || !(((Grantee) listMembers.getSelectedValue()).getGrantEnd()).isAfter(listTasks.getSelectedValue().getBeginDate().plusDays(listTasks.getSelectedValue().getDuration()))) {
+								if (!(listMembers.getSelectedValue() instanceof Grantee) || (((Grantee) listMembers.getSelectedValue()).getGrantEnd()).isAfter(listTasks.getSelectedValue().getBeginDate().plusDays(listTasks.getSelectedValue().getDuration()))) {
 									//add responsible to task
 									listTasks.getSelectedValue().setResponsible(listMembers.getSelectedValue());
 									//add task to member

@@ -401,10 +401,10 @@ public class InvestigationCenterGUI{
 							message.insert(0, "TEACHER\n");
 							message.append("\nMechanographic Number:\t").append(teacher.getMecanographicNumber());
 							message.append("\nInvestigation Area:\t").append(teacher.getInvestigationArea());
-							if (teacher.getProjects()!=null){
+							if (!teacher.getProjects().isEmpty()){
 								message.append("\nProject:");
 								for (Project project : teacher.getProjects()){
-									message.append("\n\t").append(project.getName());
+									message.append("\n\t---").append(project.getName());
 								}
 							}
 							else {
