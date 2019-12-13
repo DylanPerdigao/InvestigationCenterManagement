@@ -108,7 +108,7 @@ public class Person implements Serializable{
     	for(Task task: tasks) {
     		effort+=task.getEffortRate();
     	}
-        return effort > 1;
+        return (effort > 1.0);
     }
 
     /**
