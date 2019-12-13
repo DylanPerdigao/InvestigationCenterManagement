@@ -22,10 +22,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
-import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
-import pt.uc.dei.student.TP2.sourceCode.Person;
-import pt.uc.dei.student.TP2.sourceCode.Project;
-import pt.uc.dei.student.TP2.sourceCode.Task;
+import pt.uc.dei.student.TP2.sourceCode.*;
 
 /**
  * This class represent the advised students of a project (Bachelor and Master students)
@@ -46,8 +43,16 @@ public class ProjectManagementGUI{
 	private JButton buttonTaskSTATUS;
 	private JButton buttonRETURN;
 	private JButton buttonProjectEND;
+	private JButton buttonPRINCIPALINVESTIGATOR;
+	private JButton buttonPersonASSIGN;
 
 	// List
+	private DefaultListModel<Task> listValuesTasks;
+	private DefaultListModel<Task> listValuesUnstartedTasks;
+	private DefaultListModel<Task> listValuesUnstartedTasksIET;
+	private DefaultListModel<Task> listValuesCompletedTasks = new DefaultListModel<Task>();
+	private DefaultListModel<Person> listValuesMembers = new DefaultListModel<Person>();
+
 	private JList<Task> listTasks;
 	private JList<Task> listUnstartedTasks;
 	private JList<Task> listUnstartedTasksIET;
@@ -69,11 +74,12 @@ public class ProjectManagementGUI{
 		setInvestigationCenter(investigationCenter);
 		setProject(project);
 		// List UNSTARTED TASK
-		DefaultListModel<Task> listValuesUnstartedTasks = new DefaultListModel<Task>();
+		listValuesUnstartedTasks = new DefaultListModel<Task>();
+		listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
 		listUnstartedTasks = new JList<Task>(listValuesUnstartedTasks);
 		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks); 
 		// List UNSTARTED TASK IN ESTIMATED TIME
-		DefaultListModel<Task> listValuesUnstartedTasksIET = new DefaultListModel<Task>();
+		listValuesUnstartedTasksIET = new DefaultListModel<Task>();
 		listValuesUnstartedTasksIET.addAll(project.getUncompletedTasksIET());
 		listUnstartedTasksIET = new JList<Task>(listValuesUnstartedTasksIET);
 		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET); 
@@ -83,7 +89,7 @@ public class ProjectManagementGUI{
 		listCompletedTasks = new JList<Task>(listValuesCompletedTasks);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks); 
 		// List TASK
-		DefaultListModel<Task> listValuesTasks = new DefaultListModel<Task>();
+		listValuesTasks = new DefaultListModel<Task>();
 		listValuesTasks.addAll(project.getTasks());
 		listTasks = new JList<Task>(listValuesTasks);
 		listScrollerTasks = new JScrollPane(listTasks); 
@@ -118,9 +124,6 @@ public class ProjectManagementGUI{
 		buttonRETURN = new JButton("Return");
 		placeComponent(buttonRETURN,2,11,1,1,0.5,0, 0, 10);
 		
-		buttonProjectEND = new JButton("Archive Project");
-		placeComponent(buttonProjectEND,4,11,2,1,0.5,0, 0, 10);
-		
 		/*
 		 * TASKS
 		 */
@@ -141,42 +144,54 @@ public class ProjectManagementGUI{
 		JLabel labelPRINCIPALINVESTIGATOR = new JLabel("NO PRINCIPAL INVESTIGATOR");
 		placeComponent(labelPRINCIPALINVESTIGATOR,5,1,1,1,0.5,0.5,0,0);
 
-		JButton buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
-		placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);
-
 		placeComponent(new JLabel("Members"),4,2,2,1,0.5,0.5,0,0);
 		listScrollerMembers = new JScrollPane(listMembers);
 		placeComponent(listScrollerMembers,4,3,2,1,0.5,10,100,10);
-
-		JButton buttonPersonASSIGN = new JButton("Assign Member to Task");
-		placeComponent(buttonPersonASSIGN,6,3,1,1,0.5,0.5,0,0);
 
 		placeComponent(new JLabel("Tasks"),4,4,2,1,0.5,0.5,0,0);
 		listScrollerTasks = new JScrollPane(listTasks);
 		placeComponent(listScrollerTasks,4,5,3,1,0.5,10,100,10);
 
-		buttonTaskCREATE = new JButton("Add Task");
-		placeComponent(buttonTaskCREATE,4,6,1,1,0.5,0, 0, 10);
-
-		buttonTaskREMOVE = new JButton("Remove Task");
-		placeComponent(buttonTaskREMOVE,5,6,1,1,0.5,0, 0, 10);
-		
-		buttonTaskSTATUS = new JButton("Update Completion");
-		placeComponent(buttonTaskSTATUS,6,6,1,1,0.5,0, 0, 10);
-
 		placeComponent(new JLabel("Project Cost"),4,10,1,1,0.5,0.5, 0, 0);
-		JLabel labelCOST = new JLabel(String.valueOf(getProject().projectCost()) + "€");
+		JLabel labelCOST = new JLabel(getProject().projectCost() + "€");
 		placeComponent(labelCOST,5,10,1,1,0.5,0.5, 0, 0);
+
 
 		//Listeners
 		ProjectManagementGUI.Listener listener = new ProjectManagementGUI.Listener();
 
-		buttonTaskCREATE.addActionListener(listener);
-		buttonTaskREMOVE.addActionListener(listener);
-		buttonTaskSTATUS.addActionListener(listener);
 		buttonRETURN.addActionListener(listener);
-		buttonProjectEND.addActionListener(listener);
-		
+
+		//if project not terminated
+		if (!project.getStatus()){
+
+			buttonTaskSTATUS = new JButton("Update Completion");
+			placeComponent(buttonTaskSTATUS,6,6,1,1,0.5,0, 0, 10);
+
+			buttonProjectEND = new JButton("Archive Project");
+			placeComponent(buttonProjectEND,4,11,2,1,0.5,0, 0, 10);
+
+			buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
+			placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);
+
+			buttonPersonASSIGN = new JButton("Assign Member to Task");
+			placeComponent(buttonPersonASSIGN,6,3,1,1,0.5,0.5,0,0);
+
+			buttonTaskCREATE = new JButton("Add Task");
+			placeComponent(buttonTaskCREATE,4,6,1,1,0.5,0, 0, 10);
+
+			buttonTaskREMOVE = new JButton("Remove Task");
+			placeComponent(buttonTaskREMOVE,5,6,1,1,0.5,0, 0, 10);
+
+
+			buttonProjectEND.addActionListener(listener);
+			buttonPersonASSIGN.addActionListener(listener);
+			buttonTaskCREATE.addActionListener(listener);
+			buttonTaskREMOVE.addActionListener(listener);
+			buttonTaskSTATUS.addActionListener(listener);
+		}
+
+
 		frame.addWindowListener(listener);
 
 		getFrame().setVisible(true);
@@ -216,44 +231,88 @@ public class ProjectManagementGUI{
 	private class Listener implements ActionListener, WindowListener {
 
 		public void actionPerformed(ActionEvent e){
-			if(e.getSource()== buttonTaskCREATE){
-				try{
+			if(e.getSource() == buttonRETURN) {
+				try {
 					close();
-					TaskCreatorGUI taskCreatorGUI = new TaskCreatorGUI(frame,investigationCenter,project);
-					taskCreatorGUI.initialize();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}else if(e.getSource() == buttonTaskREMOVE) {
-				try {
-					if(listTasks.getSelectedValue()!=null){
-						project.deleteTask(listTasks.getSelectedValue());
-						//update();
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}else if(e.getSource() == buttonRETURN) {
-				try {
 					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(getFrame(),investigationCenter);
-					close();
 					investigationCenterGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonProjectEND) {
-				try {
+			}
+			else if (!project.getStatus()){
+			 	if(e.getSource() == buttonPRINCIPALINVESTIGATOR) {
+					try {
+						if(listMembers.getSelectedValue()!=null){
+							if (listMembers.getSelectedValue() instanceof Teacher) {
 
-					//frame.dispose();
-				} catch (Exception ex) {
-					ex.printStackTrace();
+								project.setPrincipalInvestigator((Teacher) listMembers.getSelectedValue());
+								update();
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Only Teachers can be a Principal Investigator","Error", JOptionPane.PLAIN_MESSAGE);
+							}
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Select a member of the list first","Error", JOptionPane.PLAIN_MESSAGE);
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
-			}else if(e.getSource() == buttonTaskSTATUS) {
+				else if(e.getSource() == buttonPersonASSIGN) {
+					try {
+						if(listTasks.getSelectedValue()!=null && listMembers.getSelectedValue()!=null ){
+							listTasks.getSelectedValue().setResponsible(listMembers.getSelectedValue());
+							update();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Select a member and a task first","Error", JOptionPane.PLAIN_MESSAGE);
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+				else if(e.getSource() == buttonProjectEND) {
+					try {
+						//verify if all tasks are completed???
+						project.endProject();
+						close();
+						initialize();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+				else if(e.getSource()== buttonTaskCREATE){
+					try{
+						close();
+						TaskCreatorGUI taskCreatorGUI = new TaskCreatorGUI(frame,investigationCenter,project);
+						taskCreatorGUI.initialize();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+				else if(e.getSource() == buttonTaskREMOVE) {
+					try {
+						if(listTasks.getSelectedValue()!=null){
+							project.deleteTask(listTasks.getSelectedValue());
+							update();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Select a task first","Error", JOptionPane.PLAIN_MESSAGE);
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+
+			}
+			else if(e.getSource() == buttonTaskSTATUS) {
 				try {
 					String input = JOptionPane.showInputDialog("Update Conclusion of "+listTasks.getSelectedValue().getName());
 					double status = Double.parseDouble(input);
 					if(status<0 || status>100) {
-						JOptionPane.showMessageDialog(null, "Invalid input","Error", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%","Error", JOptionPane.PLAIN_MESSAGE);
 					}else {
 						listTasks.getSelectedValue().setStatus(status);
 					}
@@ -263,9 +322,22 @@ public class ProjectManagementGUI{
 			}
 		}
 
-		/*private void update(){
+		private void update(){
+			listValuesTasks.removeAllElements();
+			listValuesTasks.addAll(project.getTasks());
 
-		}*/
+			listValuesUnstartedTasks.removeAllElements();
+			listValuesUnstartedTasks.addAll(project.getUnstartedTasks());
+
+			listValuesUnstartedTasksIET.removeAllElements();
+			listValuesUnstartedTasksIET.addAll(project.getUncompletedTasksIET());
+
+			listValuesCompletedTasks.removeAllElements();
+			listValuesCompletedTasks.addAll(project.getCompletedTasks());
+
+			listValuesMembers.removeAllElements();
+			listValuesMembers.addAll(project.getMembers());
+		}
 
 		@Override
 		public void windowClosing(WindowEvent e) {
