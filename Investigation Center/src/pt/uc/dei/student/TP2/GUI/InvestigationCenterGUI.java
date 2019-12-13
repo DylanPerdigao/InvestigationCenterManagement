@@ -374,10 +374,11 @@ public class InvestigationCenterGUI {
 			}
 			else if(e.getSource() == buttonREMOVEPeopleFromProject) {
 				try {
-					if (listProjects.getSelectedValue() != null) {
-						close();
-						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
-						projectManagementGUI.initialize();
+					if (listProjects.getSelectedValue() != null && listProjectMembers.getSelectedValue() != null) {
+						listProjects.getSelectedValue().removeMember(listProjectMembers.getSelectedValue());
+
+						listValuesProjectMembers.removeAllElements();
+						listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();

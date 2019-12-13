@@ -206,6 +206,14 @@ public class Project implements Serializable{
         members.add(person);
     }
     /**
+     * This method removes a person to the members of the project.
+     * @param person	This is the person who is going to be removed from the project.
+     * @since 10-12-2019
+     */
+    public void removeMember(Person person){
+        members.remove(person);
+    }
+    /**
      * This method creates a task for the project.
      * @param task    This is the task who is added to the project.
      * @since 09-12-2019
