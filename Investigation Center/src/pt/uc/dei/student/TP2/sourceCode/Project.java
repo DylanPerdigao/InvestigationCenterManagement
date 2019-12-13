@@ -237,12 +237,10 @@ public class Project implements Serializable{
     public ArrayList<Task> getCompletedTasks(){
     	ArrayList<Task> completed = new ArrayList<Task>();
 		for(Task task:tasks) {
-			System.out.println("TASK:"+task);
 			if(task.getStatus()==100.0) {
 				completed.add(task);
 			}
 		}
-		System.out.println(completed);
 		return completed;
     }
     /**

@@ -30,16 +30,7 @@ public class Person implements Serializable{
         setName(name);
         setEmail(email);
         setTasks(tasks);
-    }
-    /**
-     * This is the constructor of the bachelor student object, it will set all attributes of this person to null.
-     * 
-     * @since 10-12-2019 
-     */
-    public Person() {
-        setName(null);
-        setEmail(null);
-        setTasks(null);
+
 	}
 	/**
      * This method gets the name of the person.

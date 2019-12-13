@@ -125,7 +125,7 @@ public class ProjectCreatorGUI{
 		//SET VISIBLE
 		frame.setVisible(true);
 	}
-	/**
+	   /**
      * This method clears the frame
      * @since 13-12-2019
      */

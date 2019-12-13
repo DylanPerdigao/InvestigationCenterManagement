@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -30,10 +31,13 @@ public class ProjectManagementGUI{
 	//Constraints
 	private GridBagConstraints c = new GridBagConstraints();
 
+	//Formatter
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 	// Buttons
 	private JButton buttonTaskCREATE;
 	private JButton buttonTaskREMOVE;
-	private JButton buttonTaskSTATUS;
+	private JButton buttonTaskUPDATE;
 	private JButton buttonRETURN;
 	private JButton buttonProjectEND;
 	private JButton buttonPRINCIPALINVESTIGATOR;
@@ -188,8 +192,8 @@ public class ProjectManagementGUI{
 		//if project not terminated
 		if (!project.getStatus()){
 
-			buttonTaskSTATUS = new JButton("Update Completion");
-			placeComponent(buttonTaskSTATUS,6,8,1,2,0.5,0, 0, 10);
+			buttonTaskUPDATE = new JButton("Update Completion");
+			placeComponent(buttonTaskUPDATE,6,8,1,2,0.5,0, 0, 10);
 
 			buttonProjectEND = new JButton("Archive Project");
 			placeComponent(buttonProjectEND,4,13,2,1,0.5,0, 0, 10);
@@ -210,7 +214,8 @@ public class ProjectManagementGUI{
 			buttonPersonASSIGN.addActionListener(listener);
 			buttonTaskCREATE.addActionListener(listener);
 			buttonTaskREMOVE.addActionListener(listener);
-			buttonTaskSTATUS.addActionListener(listener);
+			buttonTaskUPDATE.addActionListener(listener);
+			buttonPRINCIPALINVESTIGATOR.addActionListener(listener);
 		}
 
 
@@ -292,23 +297,64 @@ public class ProjectManagementGUI{
 			}
 			else if(e.getSource() == buttonPersonINFO) {
 				try {
-					//TODO: show person info
+					if (listMembers.getSelectedValue()!=null) {
+						Person p = listMembers.getSelectedValue();
+
+						String message = "Name:\t" + p.getName() + "\nE-mail:\t" + p.getEmail();
+						if (p instanceof Bachelor) {
+							Bachelor bachelorStudent = (Bachelor) p;
+							message += "\nBACHELOR STUDENT";
+							message += "\nGrant begin:\t" + bachelorStudent.getGrantBegin().format(formatter);
+							message += "\nGrant end:\t" + bachelorStudent.getGrantEnd().format(formatter);
+							message += "\nCost per month:\t" + bachelorStudent.getCost() + "€";
+						} else if (p instanceof Master) {
+							Master masterStudent = (Master) p;
+							message += "\nMASTER STUDENT";
+							message += "\nGrant begin:\t" + masterStudent.getGrantBegin().format(formatter);
+							message += "\nGrant end:\t" + masterStudent.getGrantEnd().format(formatter);
+							message += "\nCost per month:\t" + masterStudent.getCost() + "€";
+						} else if (p instanceof PhD) {
+							PhD PhDStudent = (PhD) p;
+							message += "\nPhD STUDENT";
+							message += "\nGrant begin:\t" + PhDStudent.getGrantBegin().format(formatter);
+							message += "\nGrant end:\t" + PhDStudent.getGrantEnd().format(formatter);
+							message += "\nCost per month:\t" + PhDStudent.getCost() + "€";
+						} else if (p instanceof Teacher) {
+							Teacher teacher = (Teacher) p;
+							message += "\nTEACHER";
+							message += "\nMecanographic Number:\t" + teacher.getMecanographicNumber();
+							message += "\nInvestigation Area:\t" + teacher.getInvestigationArea();
+						}
+						JOptionPane.showMessageDialog(null, message, "People Description", JOptionPane.PLAIN_MESSAGE);
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Select a member first.","Error", JOptionPane.PLAIN_MESSAGE);
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}else if(e.getSource() == buttonRETURN) {
-				try {
-					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,IC);
-					close();
-					investigationCenterGUI.initialize();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}else if(e.getSource() == buttonProjectEND) {
 			}
 			else if(e.getSource() == buttonTaskINFO) {
 				try {
-					//TODO: show task info
+					if(listTasks.getSelectedValue()!=null) {
+						Task t = listTasks.getSelectedValue();
+
+						String message = "Name:\t" + t.getName() + "\nBegin Date:\t" + t.getBeginDate() + "\nEnd Date:\t" + t.getEndDate() + "\nDuration:\t" + t.getDuration() + "\nResponsible:\t" + t.getResponsible().getName() + "\nStatus:\t" + t.getStatus();
+						if (t instanceof Design) {
+							message = "DESIGN\n"+message;
+							message += "\nEffort rate:\t0.50";
+						} else if (t instanceof Development) {
+							message = "DEVELOPMENT\n"+message;
+							message += "\nEffort rate:\t1.00";
+						} else if (t instanceof Documentation) {
+							message = "\nDOCUMENTATION"+message;
+							message += "\nEffort rate:\t0.25";
+						}
+						JOptionPane.showMessageDialog(null, message, "People Description", JOptionPane.PLAIN_MESSAGE);
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Select a task first.","Error", JOptionPane.PLAIN_MESSAGE);
+					}
 
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -378,19 +424,25 @@ public class ProjectManagementGUI{
 						ex.printStackTrace();
 					}
 				}
-
-			}
-			else if(e.getSource() == buttonTaskSTATUS) {
-				try {
-					String input = JOptionPane.showInputDialog("Update Conclusion of "+listTasks.getSelectedValue().getName());
-					double status = Double.parseDouble(input);
-					if(status<0 || status>100) {
-						JOptionPane.showMessageDialog(null, "Invalid input","Error", JOptionPane.PLAIN_MESSAGE);
-					}else {
-						listTasks.getSelectedValue().setStatus(status);
+				else if(e.getSource() == buttonTaskUPDATE) {
+					try {
+						if (listTasks.getSelectedValue()!=null) {
+							String input = JOptionPane.showInputDialog("Update Conclusion of " + listTasks.getSelectedValue().getName());
+							double status = Double.parseDouble(input);
+							if (status < 0 || status > 100) {
+								JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%","Error", JOptionPane.PLAIN_MESSAGE);
+							} else {
+								listTasks.getSelectedValue().setStatus(status);
+							}
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Select a task first.","Error", JOptionPane.PLAIN_MESSAGE);
+						}
+					}catch (NumberFormatException nfe) {
+						JOptionPane.showMessageDialog(null, "Insert only numbers in the duration box", "", JOptionPane.PLAIN_MESSAGE);
+					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
 				}
 			}
 		}

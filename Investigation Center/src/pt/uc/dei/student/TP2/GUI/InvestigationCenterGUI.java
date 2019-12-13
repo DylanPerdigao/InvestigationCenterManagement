@@ -253,6 +253,9 @@ public class InvestigationCenterGUI{
 						IC.removeProject(listProjects.getSelectedValue());
 						update();
 					}
+					else{
+						JOptionPane.showMessageDialog(null, "Select a project first.","Error", JOptionPane.PLAIN_MESSAGE);
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -263,6 +266,9 @@ public class InvestigationCenterGUI{
 						close();
 						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
 						projectManagementGUI.initialize();
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Select a project first.","Error", JOptionPane.PLAIN_MESSAGE);
 					}
 
 				} catch (Exception ex) {
@@ -285,6 +291,9 @@ public class InvestigationCenterGUI{
 							update();
 						}
 					}
+					else{
+						JOptionPane.showMessageDialog(null, "Select a person and a project first.","Error", JOptionPane.PLAIN_MESSAGE);
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -297,43 +306,48 @@ public class InvestigationCenterGUI{
 						listValuesProjectMembers.removeAllElements();
 						listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 					}
+					else{
+						JOptionPane.showMessageDialog(null, "Select a person and a project first.","Error", JOptionPane.PLAIN_MESSAGE);
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 			else if(e.getSource() == buttonINFO) {
 				try {
-					Person p = listPeople.getSelectedValue();
-					//listPeople.clearSelection();
-					String message = "Name:\t"+p.getName()+"\nE-mail:\t"+p.getEmail();
-					if(p instanceof Bachelor) {
-						Bachelor bachelorStudent = (Bachelor) p;
-						message += "\nBACHELOR STUDENT";
-						message += "\nGrant begin:\t"+bachelorStudent.getGrantBegin().format(formatter);
-						message += "\nGrant end:\t"+bachelorStudent.getGrantEnd().format(formatter);
-						message += "\nCost per month:\t"+bachelorStudent.getCost()+"€";
+					if(listPeople.getSelectedValue()!=null) {
+						Person p = listPeople.getSelectedValue();
+						//listPeople.clearSelection();
+						String message = "Name:\t" + p.getName() + "\nE-mail:\t" + p.getEmail();
+						if (p instanceof Bachelor) {
+							Bachelor bachelorStudent = (Bachelor) p;
+							message += "\nBACHELOR STUDENT";
+							message += "\nGrant begin:\t" + bachelorStudent.getGrantBegin().format(formatter);
+							message += "\nGrant end:\t" + bachelorStudent.getGrantEnd().format(formatter);
+							message += "\nCost per month:\t" + bachelorStudent.getCost() + "€";
+						} else if (p instanceof Master) {
+							Master masterStudent = (Master) p;
+							message += "\nMASTER STUDENT";
+							message += "\nGrant begin:\t" + masterStudent.getGrantBegin().format(formatter);
+							message += "\nGrant end:\t" + masterStudent.getGrantEnd().format(formatter);
+							message += "\nCost per month:\t" + masterStudent.getCost() + "€";
+						} else if (p instanceof PhD) {
+							PhD PhDStudent = (PhD) p;
+							message += "\nPhD STUDENT";
+							message += "\nGrant begin:\t" + PhDStudent.getGrantBegin().format(formatter);
+							message += "\nGrant end:\t" + PhDStudent.getGrantEnd().format(formatter);
+							message += "\nCost per month:\t" + PhDStudent.getCost() + "€";
+						} else if (p instanceof Teacher) {
+							Teacher teacher = (Teacher) p;
+							message += "\nTEACHER";
+							message += "\nMecanographic Number:\t" + teacher.getMecanographicNumber();
+							message += "\nInvestigation Area:\t" + teacher.getInvestigationArea();
+						}
+						JOptionPane.showMessageDialog(null, message, "People Description", JOptionPane.PLAIN_MESSAGE);
 					}
-					else if(p instanceof Master) {
-						Master masterStudent = (Master) p;
-						message += "\nMASTER STUDENT";
-						message += "\nGrant begin:\t"+masterStudent.getGrantBegin().format(formatter);
-						message += "\nGrant end:\t"+masterStudent.getGrantEnd().format(formatter);
-						message += "\nCost per month:\t"+masterStudent.getCost()+"€";
+					else{
+						JOptionPane.showMessageDialog(null, "Select a person first.","Error", JOptionPane.PLAIN_MESSAGE);
 					}
-					else if(p instanceof PhD) {
-						PhD PhDStudent = (PhD) p;
-						message += "\nPhD STUDENT";
-						message += "\nGrant begin:\t"+PhDStudent.getGrantBegin().format(formatter);
-						message += "\nGrant end:\t"+PhDStudent.getGrantEnd().format(formatter);
-						message += "\nCost per month:\t"+PhDStudent.getCost()+"€";
-					}
-					else if(p instanceof Teacher) {
-						Teacher teacher = (Teacher) p;
-						message += "\nTEACHER";
-						message += "\nMecanographic Number:\t"+teacher.getMecanographicNumber();
-						message += "\nInvestigation Area:\t"+teacher.getInvestigationArea();
-					}
-					JOptionPane.showMessageDialog(null, message,"People Description", JOptionPane.PLAIN_MESSAGE);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
