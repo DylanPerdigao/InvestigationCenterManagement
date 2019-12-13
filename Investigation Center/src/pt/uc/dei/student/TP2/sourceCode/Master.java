@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class Master extends AdvisedStudent implements Serializable{
 	private static final long serialVersionUID = 1L;
-    //Variables
     private final double COST = 1000;
 
     /**

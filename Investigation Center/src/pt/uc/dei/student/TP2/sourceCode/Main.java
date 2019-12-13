@@ -24,10 +24,13 @@ import java.time.format.DateTimeFormatter;
  * @version	1.0
  * @since	05-12-2019
  */
-
-
 public class Main {
-
+    /**
+     * This is the main function of the program
+     * 
+     * @param args This is input parameters
+     * @since 01-12-2019 
+     */
 	public static void main(String[] args){
 		InvestigationCenter IC = new InvestigationCenter(null,new ArrayList<Person>(), new ArrayList<Project>());
 		/*
