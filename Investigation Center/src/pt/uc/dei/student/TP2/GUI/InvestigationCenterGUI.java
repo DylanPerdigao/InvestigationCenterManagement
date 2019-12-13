@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -30,7 +31,10 @@ import pt.uc.dei.student.TP2.sourceCode.*;
  */
 
 public class InvestigationCenterGUI {
-	
+
+	//Formatter
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 	//Constraints
 	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
@@ -387,22 +391,25 @@ public class InvestigationCenterGUI {
 					if(p instanceof Bachelor) {
 						Bachelor bachelorStudent = (Bachelor) p;
 						message += "\nBACHELOR STUDENT";
-						message += "\nGrant begin:\t"+bachelorStudent.getGrantBegin();
-						message += "\nGrant end:\t"+bachelorStudent.getGrantEnd();
+						message += "\nGrant begin:\t"+bachelorStudent.getGrantBegin().format(formatter);
+						message += "\nGrant end:\t"+bachelorStudent.getGrantEnd().format(formatter);
 						message += "\nCost per month:\t"+bachelorStudent.getCost()+"€";
-					}if(p instanceof Master) {
+					}
+					else if(p instanceof Master) {
 						Master masterStudent = (Master) p;
 						message += "\nMASTER STUDENT";
-						message += "\nGrant begin:\t"+masterStudent.getGrantBegin();
-						message += "\nGrant end:\t"+masterStudent.getGrantEnd();
+						message += "\nGrant begin:\t"+masterStudent.getGrantBegin().format(formatter);
+						message += "\nGrant end:\t"+masterStudent.getGrantEnd().format(formatter);
 						message += "\nCost per month:\t"+masterStudent.getCost()+"€";
-					}if(p instanceof PhD) {
+					}
+					else if(p instanceof PhD) {
 						PhD PhDStudent = (PhD) p;
 						message += "\nPhD STUDENT";
-						message += "\nGrant begin:\t"+PhDStudent.getGrantBegin();
-						message += "\nGrant end:\t"+PhDStudent.getGrantEnd();
+						message += "\nGrant begin:\t"+PhDStudent.getGrantBegin().format(formatter);
+						message += "\nGrant end:\t"+PhDStudent.getGrantEnd().format(formatter);
 						message += "\nCost per month:\t"+PhDStudent.getCost()+"€";
-					}if(p instanceof Teacher) {
+					}
+					else if(p instanceof Teacher) {
 						Teacher teacher = (Teacher) p;
 						message += "\nTEACHER";
 						message += "\nMecanographic Number:\t"+teacher.getMecanographicNumber();
@@ -426,14 +433,6 @@ public class InvestigationCenterGUI {
 			if(e.getSource() == listProjects) {
 				listValuesProjectMembers.removeAllElements();
 				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
-				//era o que eu tinha na minha
-
-				/*listProjectMembers.removeAll();
-				listScrollerProjectMembers.removeAll();
-				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
-				//listProjectMembers = new.addAll(listValuesProjectMembers);
-				listScrollerProjectMembers.add(listProjectMembers);*/
-				//TODO TIPO APAGAR E ATUALIZAR ESSA LISTA CADA VEZ QUE SE MUDA DE SELECAO NO PROJETO
 			}
 		}
 
