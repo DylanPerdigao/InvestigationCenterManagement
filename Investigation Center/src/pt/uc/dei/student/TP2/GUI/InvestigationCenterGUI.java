@@ -95,7 +95,7 @@ public class InvestigationCenterGUI{
 		 * LABELS AND TITLE
 		 */
 		JLabel title = new JLabel(IC.getName());
-		Font font = new Font("impact", 0, 50);
+		Font font = new Font("impact", Font.PLAIN, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
 		c.weightx = 0.5;
@@ -399,7 +399,7 @@ public class InvestigationCenterGUI{
 						} else if (p instanceof Teacher) {
 							Teacher teacher = (Teacher) p;
 							message.insert(0, "TEACHER\n");
-							message.append("\nMecanographic Number:\t").append(teacher.getMecanographicNumber());
+							message.append("\nMechanographic Number:\t").append(teacher.getMecanographicNumber());
 							message.append("\nInvestigation Area:\t").append(teacher.getInvestigationArea());
 							if (teacher.getProjects()!=null){
 								message.append("\nProject:");

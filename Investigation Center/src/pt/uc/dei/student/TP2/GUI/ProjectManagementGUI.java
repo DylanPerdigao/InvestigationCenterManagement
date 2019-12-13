@@ -114,7 +114,7 @@ public class ProjectManagementGUI{
 		 * LABELS AND TITLE
 		 */
 		JLabel title = new JLabel(project.getName());
-		Font font = new Font("impact", 0, 50);
+		Font font = new Font("impact", Font.PLAIN, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
 		c.weightx = 0.5;
@@ -382,7 +382,7 @@ public class ProjectManagementGUI{
 						else if (p instanceof Teacher) {
 							Teacher teacher = (Teacher) p;
 							message.insert(0, "TEACHER\n");
-							message.append("\nMecanographic Number:\t").append(teacher.getMecanographicNumber());
+							message.append("\nMechanographic Number:\t").append(teacher.getMecanographicNumber());
 							message.append("\nInvestigation Area:\t").append(teacher.getInvestigationArea());
 							//show tasks
 							if (teacher.getTasks()!=null){
