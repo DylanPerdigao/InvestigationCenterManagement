@@ -358,9 +358,8 @@ public class TaskCreatorGUI{
 				}
 			}else if(e.getSource() == buttonCANCEL) {
 				try {
-					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,IC);
 					close();
-					ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame,investigationCenter,project);
+					ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame,IC,project);
 					projectManagementGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();

@@ -347,7 +347,6 @@ public class ProjectCreatorGUI{
 				try {
 					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,IC);
 					close();
-					InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame,investigationCenter);
 					investigationCenterGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();

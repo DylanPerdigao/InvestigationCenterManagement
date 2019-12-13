@@ -326,7 +326,7 @@ public class ProjectManagementGUI{
 				else if(e.getSource()== buttonTaskCREATE){
 					try{
 						close();
-						TaskCreatorGUI taskCreatorGUI = new TaskCreatorGUI(frame,investigationCenter,project);
+						TaskCreatorGUI taskCreatorGUI = new TaskCreatorGUI(frame,IC,project);
 						taskCreatorGUI.initialize();
 					} catch (Exception ex) {
 						ex.printStackTrace();
