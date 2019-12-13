@@ -278,13 +278,12 @@ public class InvestigationCenterGUI {
 		buttonADDPeopleToProject.addActionListener(actionListener);
 		buttonREMOVEPeopleFromProject.addActionListener(actionListener);
 		buttonINFO.addActionListener(actionListener);
-
 		listPeople.addMouseListener(actionListener);
 		listProjects.addMouseListener(actionListener);
-		
-		frame.addWindowListener(actionListener);
-
 		frame.setVisible(true);
+	}
+	public void listenWindow() {
+		frame.addWindowListener(new InvestigationCenterGUI.Listener());
 	}
 
 	private void close(){
@@ -443,6 +442,7 @@ public class InvestigationCenterGUI {
 		@Override
 		public void windowClosing(WindowEvent e) {
 			save();
+			System.out.println("WINDOH IC");
 			frame.dispose();
 		}
 		@Override

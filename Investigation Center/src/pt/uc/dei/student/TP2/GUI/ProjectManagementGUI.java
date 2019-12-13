@@ -43,8 +43,15 @@ public class ProjectManagementGUI{
 	private JButton buttonTaskSTATUS;
 	private JButton buttonRETURN;
 	private JButton buttonProjectEND;
+
 	private JButton buttonPRINCIPALINVESTIGATOR;
 	private JButton buttonPersonASSIGN;
+	private JButton buttonPersonINFO;
+	private JButton buttonTaskINFO;
+	// Label
+	JLabel title;
+	JLabel labelPRINCIPALINVESTIGATOR;
+	JLabel labelCOST;
 
 	// List
 	private DefaultListModel<Task> listValuesTasks;
@@ -84,7 +91,7 @@ public class ProjectManagementGUI{
 		listUnstartedTasksIET = new JList<Task>(listValuesUnstartedTasksIET);
 		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET); 
 		// List COMPLETED TASK
-		DefaultListModel<Task> listValuesCompletedTasks = new DefaultListModel<Task>();
+		listValuesCompletedTasks = new DefaultListModel<Task>();
 		listValuesCompletedTasks.addAll(project.getCompletedTasks());
 		listCompletedTasks = new JList<Task>(listValuesCompletedTasks);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks); 
@@ -94,7 +101,7 @@ public class ProjectManagementGUI{
 		listTasks = new JList<Task>(listValuesTasks);
 		listScrollerTasks = new JScrollPane(listTasks); 
 		// List Members
-		DefaultListModel<Person> listValuesMembers = new DefaultListModel<Person>();
+		listValuesMembers = new DefaultListModel<Person>();
 		listValuesMembers.addAll(project.getMembers());
 		listMembers = new JList<Person>(listValuesMembers);
 		listScrollerMembers = new JScrollPane(listMembers); 
@@ -111,18 +118,21 @@ public class ProjectManagementGUI{
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
 		c.weightx = 0.5;
-		c.weighty = 10;
+		c.weighty = 50;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 7;
 		getFrame().add(title, c);
 
-		placeComponent(new JLabel(""),0,10,1,1,0.5,10, 0, 0);
-		placeComponent(new JLabel(""),7,13,1,1,0.5,10, 0, 0);
-		placeComponent(new JLabel(""),3,12,1,1,0.5,10, 0, 0);
+		placeComponent(new JLabel(""),0,12,1,1,0.5,10, 0, 0);
+		placeComponent(new JLabel(""),7,15,1,1,0.5,50, 0, 0);
+		placeComponent(new JLabel(""),3,14,1,1,0.5,50, 0, 0);
 		
 		buttonRETURN = new JButton("Return");
-		placeComponent(buttonRETURN,2,11,1,1,0.5,0, 0, 10);
+		placeComponent(buttonRETURN,2,13,1,1,0.5,0, 0, 10);
+		
+		buttonProjectEND = new JButton("Archive Project");
+		placeComponent(buttonProjectEND,4,13,2,1,0.5,0, 0, 10);
 		
 		/*
 		 * TASKS
@@ -130,32 +140,52 @@ public class ProjectManagementGUI{
 
 		placeComponent(new JLabel("Unstarted Tasks"),2,1,1,1,0.5,0.5, 0, 0);
 		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks);
-		placeComponent(listScrollerUnstartedTasks,2,2,1,2,0.5,5,100, 10);
+		placeComponent(listScrollerUnstartedTasks,2,2,1,3,0.5,5,100, 10);
 
-		placeComponent(new JLabel("Uncompleted Tasks in Estimated Time"),2,4,1,1,0.5,0.5,0, 0);
+		placeComponent(new JLabel("Uncompleted Tasks in Estimated Time"),2,5,1,1,0.5,0.5,0, 0);
 		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET);
-		placeComponent(listScrollerUnstartedTasksIET,2,5,1,2,0.5,5,100, 10);
+		placeComponent(listScrollerUnstartedTasksIET,2,6,1,3,0.5,5,100, 10);
 
-		placeComponent(new JLabel("Completed Tasks"),2,8,1,1,0.5,0.5,0,0);
+		placeComponent(new JLabel("Completed Tasks"),2,10,1,1,0.5,0.5,0,0);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks);
-		placeComponent(listScrollerCompletedTasks,2,9,1,1,0.5,5,100, 10);
+		placeComponent(listScrollerCompletedTasks,2,11,1,1,0.5,5,100, 10);
 
 		placeComponent(new JLabel("Principal Investigator"),4,1,1,1,0.5,0.5,0, 0);
 		JLabel labelPRINCIPALINVESTIGATOR = new JLabel("NO PRINCIPAL INVESTIGATOR");
 		placeComponent(labelPRINCIPALINVESTIGATOR,5,1,1,1,0.5,0.5,0,0);
 
+		JButton buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
+		placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);
+
 		placeComponent(new JLabel("Members"),4,2,2,1,0.5,0.5,0,0);
 		listScrollerMembers = new JScrollPane(listMembers);
-		placeComponent(listScrollerMembers,4,3,2,1,0.5,10,100,10);
+		placeComponent(listScrollerMembers,4,3,2,2,0.5,10,100,10);
 
-		placeComponent(new JLabel("Tasks"),4,4,2,1,0.5,0.5,0,0);
+		buttonPersonINFO = new JButton("Show Member Information");
+		placeComponent(buttonPersonINFO,6,3,1,1,0.5,0.5,0,0);
+
+		buttonPersonASSIGN = new JButton("Assign Member to Task");
+		placeComponent(buttonPersonASSIGN,6,4,1,1,0.5,0.5,0,0);
+
+		placeComponent(new JLabel("Tasks"),4,5,2,1,0.5,0.5,0,0);
 		listScrollerTasks = new JScrollPane(listTasks);
-		placeComponent(listScrollerTasks,4,5,3,1,0.5,10,100,10);
+		placeComponent(listScrollerTasks,4,6,2,2,0.5,10,100,10);
 
-		placeComponent(new JLabel("Project Cost"),4,10,1,1,0.5,0.5, 0, 0);
-		JLabel labelCOST = new JLabel(getProject().projectCost() + "€");
-		placeComponent(labelCOST,5,10,1,1,0.5,0.5, 0, 0);
+		buttonTaskINFO = new JButton("Show Task Information");
+		placeComponent(buttonTaskINFO,6,6,1,2,0.5,0, 0, 10);
 
+		buttonTaskSTATUS = new JButton("Update Completion");
+		placeComponent(buttonTaskSTATUS,6,8,1,2,0.5,0, 0, 10);
+
+		buttonTaskCREATE = new JButton("Add Task");
+		placeComponent(buttonTaskCREATE,4,8,1,1,0.5,0, 0, 10);
+
+		buttonTaskREMOVE = new JButton("Remove Task");
+		placeComponent(buttonTaskREMOVE,5,8,1,1,0.5,0, 0, 10);
+
+		placeComponent(new JLabel("Project Cost"),4,12,1,1,0.5,0.5, 0, 0);
+		labelCOST = new JLabel(String.valueOf(getProject().projectCost())+"€");
+		placeComponent(labelCOST,5,12,1,1,0.5,0.5, 0, 0);
 
 		//Listeners
 		ProjectManagementGUI.Listener listener = new ProjectManagementGUI.Listener();
@@ -192,8 +222,6 @@ public class ProjectManagementGUI{
 		}
 
 
-		frame.addWindowListener(listener);
-
 		getFrame().setVisible(true);
 	}
 	private void placeComponent(JComponent component,int gx, int gy,int gw,int gh,double wx,double wy, int ix, int iy) {
@@ -213,22 +241,7 @@ public class ProjectManagementGUI{
 		getFrame().repaint();
 	}
 	
-	private void save() {
-		File outputObjFile = new File("ressources/InvestigationsCenter.obj");
-		try {
-			FileOutputStream fos = new FileOutputStream(outputObjFile);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(getInvestigationCenter());
-			oos.close();
-			JOptionPane.showMessageDialog(null, "Work saved successfully","Save", JOptionPane.PLAIN_MESSAGE);
-			} catch (FileNotFoundException ex) {
-			System.out.println("Error creating file");
-		} catch (IOException ex) {
-			System.out.println("Error writing file");
-		}
-	}
-	
-	private class Listener implements ActionListener, WindowListener {
+	private class Listener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == buttonRETURN) {
@@ -312,7 +325,7 @@ public class ProjectManagementGUI{
 					String input = JOptionPane.showInputDialog("Update Conclusion of "+listTasks.getSelectedValue().getName());
 					double status = Double.parseDouble(input);
 					if(status<0 || status>100) {
-						JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%","Error", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Invalid input","Error", JOptionPane.PLAIN_MESSAGE);
 					}else {
 						listTasks.getSelectedValue().setStatus(status);
 					}
@@ -339,23 +352,6 @@ public class ProjectManagementGUI{
 			listValuesMembers.addAll(project.getMembers());
 		}
 
-		@Override
-		public void windowClosing(WindowEvent e) {
-			save();
-			frame.dispose();
-		}
-		@Override
-		public void windowOpened(WindowEvent e) {}
-		@Override
-		public void windowClosed(WindowEvent e) {}
-		@Override
-		public void windowIconified(WindowEvent e) {}
-		@Override
-		public void windowDeiconified(WindowEvent e) {}
-		@Override
-		public void windowActivated(WindowEvent e) {}
-		@Override
-		public void windowDeactivated(WindowEvent e) {}
 	}
 
 	public InvestigationCenter getInvestigationCenter() {
