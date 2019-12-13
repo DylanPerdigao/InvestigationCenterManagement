@@ -157,7 +157,7 @@ public class ProjectManagementGUI{
 		placeComponent(listScrollerTasks,4,6,2,2,0.5,10,100,10);
 		//TASK INFO
 		buttonTaskINFO = new JButton("Show Task Information");
-		placeComponent(buttonTaskINFO,6,6,1,1,0.5,0, 0, 10);
+		placeComponent(buttonTaskINFO,6,6,1,1,0.5,0, 0, 50);
 		/*
 		 * PEOPLE
 		 */
