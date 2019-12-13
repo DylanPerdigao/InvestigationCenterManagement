@@ -1,11 +1,11 @@
-﻿==================================================================
+==================================================================
 INVESTIGATION CENTER:	CISUC
 ==================================================================
-PROJECT:	ROBOT/ROB/01-10-2019/8
+PROJECT:	Robot/ROB/01-10-2019/8
 	TASK:	Programing/DEV/01-10-2019/20
-	TASK:	Conect Cables/DEV/01-10-2019/10
-	TASK:	Conect LEDS/DEV/11-10-2019/10
-	TASK:	Conect Baterry/DEV/21-10-2019/1
+	TASK:	Connect Cables/DEV/01-10-2019/10
+	TASK:	Connect LEDS/DEV/11-10-2019/10
+	TASK:	Connect Batterry/DEV/21-10-2019/1
 	TASK:	Log/DOC/22-10-2019/2
 	TASK:	Text/DOC/22-10-2019/2
 	TASK:	Make Shape/DES/24-10-2019/3
@@ -13,17 +13,47 @@ PROJECT:	ROBOT/ROB/01-10-2019/8
 	TASK:	Javadoc/DES/22-10-2019/2
 	TASK:	Debug/DEV/24-10-2019/3
 	
-PROJECT:	ROBOT2/ROB2/01-12-2019/4
-	TASK:	Programing2/DEV/01-12-2019/20
-	TASK:	Conect Cables2/DEV/01-12-2019/10
-	TASK:	Conect LEDS2/DEV/11-12-2019/10
-	TASK:	Conect Baterry2/DEV/21-12-2019/1
-	TASK:	Log2/DOC/22-12-2019/2
-	TASK:	Text2/DOC/22-12-2019/2
-	TASK:	Make Shape2/DES/24-12-2019/3
-	TASK:	Paint Robot2/DES/26-12-2019/5
-	TASK:	Javadoc2/DES/22-12-2019/2
-	TASK:	Debug2/DEV/24-12-2019/3
+PROJECT:	Exosquelet/EXO/01-12-2019/4
+	TASK:	Programing/DEV/01-12-2019/20
+	TASK:	Connect Cables/DEV/01-12-2019/10
+	TASK:	Make artuculations/DEV/11-12-2019/10
+	TASK:	Connect Batterry/DEV/21-12-2019/1
+	TASK:	Write Log/DOC/22-12-2019/2
+	TASK:	Write documentation/DOC/22-12-2019/2
+	TASK:	Draw Design/DES/24-12-2019/3
+	TASK:	Paint/DES/26-12-2019/5
+	TASK:	Javadoc/DEV/22-12-2019/2
+	TASK:	Debug/DEV/24-12-2019/3
+
+PROJECT:	Investigation Center Manager/ICM/01-12-2019/4
+	TASK:	Programing GUI/DEV/01-12-2019/20
+	TASK:	Programing People Classes/DEV/01-12-2019/10
+	TASK:	Programing Project Classes/DEV/11-12-2019/10
+	TASK:	Programing Task Classes/DEV/21-12-2019/1
+	TASK:	Write debug prints/DOC/22-12-2019/2
+	TASK:	Write dissertation/DOC/22-12-2019/2
+	TASK:	Draw GUI/DES/24-12-2020/3
+	TASK:	Place components GUI/DES/26-05-2020/5
+	TASK:	Javadoc/DEV/22-02-2020/2
+	TASK:	Debug/DEV/24-01-2020/3
+
+PROJECT:	Airport Simulation/AS/01-12-2019/2
+	TASK:	Program. Threads/DEV/01-12-2019/20
+	TASK:	Program. Processes/DEV/01-12-2019/10
+	TASK:	Program. read files/DEV/11-12-2019/10
+	TASK:	Program. write files/DEV/21-12-2019/1
+	TASK:	Write dissertation/DOC/22-12-2019/2
+	TASK:	Program. Control Tower/DEV/22-12-2019/20
+	TASK:	Debug/DEV/24-12-2019/3
+	TASK:	Program. Message Queue/DEV/26-12-2019/5
+	TASK:	Make interface/DES/02-02-2020/3
+
+PROJECT:	Client-Server/CS/01-08-2019/3
+PROJECT:	Client-Proxy-Server/CPS/01-04-2019/12
+PROJECT:	File Compressor/FC/01-05-2019/10
+PROJECT:	Compression Algorithms/CA/01-04-2019/20
+PROJECT:	UC Smartphone App/UCSA/01-03-2019/3
+PROJECT:	UC Website/UCW/01-01-2019/4
 
 PEOPLE:
 	TEACHER:	Abílio dos Santos/abilio@dei.uc.pt/10000000/Computer Science
