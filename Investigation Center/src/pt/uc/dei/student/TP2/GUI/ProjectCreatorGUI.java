@@ -69,8 +69,7 @@ public class ProjectCreatorGUI{
 		for(int y=1970;y<=LocalDate.now().getYear();y++) {
 			years[y-1970]=String.valueOf(y);
 		}
-
-		// Label
+		//TITLE
 		JLabel title = new JLabel("Add a new Project");
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
@@ -81,206 +80,49 @@ public class ProjectCreatorGUI{
 		c.gridy = 0;
 		c.gridwidth = 9;
 		frame.add(title, c);
-
-		JLabel emptyLabel1 = new JLabel("");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 10;
-		c.weighty = 10;
-		c.gridx = 0;
-		c.gridy = 9;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		frame.add(emptyLabel1, c);
-
-		JLabel emptyLabel2 = new JLabel("");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 10;
-		c.weighty = 10;
-		c.gridx = 8;
-		c.gridy = 9;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		frame.add(emptyLabel2, c);
-
-		JLabel emptyLabel3 = new JLabel("");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 10;
-		c.gridx = 8;
-		c.gridy = 7;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		frame.add(emptyLabel3, c);
-
-		JLabel labelName = new JLabel("Name");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 1;
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		frame.add(labelName, c);
-
+		//RESIZE WINDOW
+		placeComponent(new JLabel(""),0,9,1,1,10,10,0,0);
+		placeComponent(new JLabel(""),8,9,1,1,10,10,0,0);
+		placeComponent(new JLabel(""),8,7,1,1,0.5,10,0,0);
+		//NAME
+		placeComponent(new JLabel("Name"),1,1,1,1,0.5,0.5,0,0);
 		textName = new JTextField(10);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 2;
-		c.gridy = 1;
-		c.gridheight = 1;
-		c.gridwidth = 6;
-		frame.add(textName, c);
-
-		JLabel labelAcronym = new JLabel("Acronym");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 1;
-		c.gridy = 2;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		frame.add(labelAcronym, c);
-
+		placeComponent(textName,2,1,6,1,0.5,0.5,0,0);
+		//ACRONYM
+		placeComponent(new JLabel("Acronym"),1,2,1,1,0.5,0.5,0,0);
 		textAcronym = new JTextField(10);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 2;
-		c.gridy = 2;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(textAcronym, c);
-
-		JLabel labelBegin = new JLabel("Begin Date");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 1;
-		c.gridy = 3;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		frame.add(labelBegin, c);
-
+		placeComponent(textAcronym,2,2,1,1,0.5,0.5,0,0);
+		//BEGIN DATE
+		placeComponent(new JLabel("Begin Date"),1,3,1,1,0,0.5,0, 0);
 		beginDayList = new JComboBox<String>(days);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0;
-		c.weighty = 0.5;
-		c.gridx = 2;
-		c.gridy = 3;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(beginDayList, c);
-
+		placeComponent(beginDayList,2,3,1,1,0,0.5,0, 0);
 		beginMonthList = new JComboBox<String>(months);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0;
-		c.weighty = 0.5;
-		c.gridx = 3;
-		c.gridy = 3;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(beginMonthList, c);
-
+		placeComponent(beginMonthList,3,3,1,1,0,0.5,0, 0);
 		beginYearList = new JComboBox<String>(years);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0;
-		c.weighty = 0.5;
-		c.gridx = 4;
-		c.gridy = 3;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(beginYearList, c);
-
-		JLabel labelEnd = new JLabel("End Date");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 1;
-		c.gridy = 4;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		frame.add(labelEnd, c);
-
+		placeComponent(beginYearList,4,3,1,1,0,0.5,0, 0);
+		//END DATE
+		placeComponent(new JLabel("End Date"),1,4,1,1,0.5,0.5,0, 0);
 		endDayList = new JComboBox<String>(days);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 2;
-		c.gridy = 4;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(endDayList, c);
-
+		placeComponent(endDayList,2,4,1,1,0.5,0.5,0, 0);
 		endMonthList = new JComboBox<String>(months);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 3;
-		c.gridy = 4;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(endMonthList, c);
-
+		placeComponent(endMonthList,3,4,1,1,0.5,0.5,0, 0);
 		endYearList = new JComboBox<String>(years);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 4;
-		c.gridy = 4;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(endYearList, c);
-
-		JLabel labelDuration = new JLabel("Duration");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 1;
-		c.gridy = 5;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		frame.add(labelDuration, c);
-
+		placeComponent(endYearList,4,4,1,1,0.5,0.5,0, 0);
+		//DURATION
+		placeComponent(new JLabel("Duration"),1,5,1,1,0.5,0.5,0, 0);
 		textDuration = new JTextField(10);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 2;
-		c.gridy = 5;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		frame.add(textDuration, c);
-		
+		placeComponent(textDuration,2,5,1,1,0.5,0.5,0, 0);
+		//CREATE
 		buttonCREATE = new JButton("Add Project");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5; // percentagem de largura celula em relacao as outras
-		c.weighty = 0; // percentagem de altura celula em relacao as outras
-		c.ipady = 10; // altura celula
-		c.gridx = 4; // posiçao celula x
-		c.gridy = 8; // posiçao celula y
-		c.gridheight = 1; // quantos celulas de altura
-		c.gridwidth = 4; // quantos celulas de largura
-		frame.add(buttonCREATE, c);
-
+		placeComponent(buttonCREATE,4,8,4,1,0.5,0,0, 10);
+		//CANCEL
 		buttonCANCEL = new JButton("Cancel");
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5; // percentagem de largura celula em relacao as outras
-		c.weighty = 0; // percentagem de altura celula em relacao as outras
-		c.ipady = 10; // altura celula
-		c.gridx = 2; // posiçao celula x
-		c.gridy = 8; // posiçao celula y
-		c.gridheight = 1; // quantos celulas de altura
-		c.gridwidth = 1; // quantos celulas de largura
-		frame.add(buttonCANCEL, c);
-
+		placeComponent(buttonCANCEL,2,8,1,1,0.5,0,0, 10);
 		//Listeners
 		ProjectCreatorGUI.ButtonListener buttonActionListener = new ProjectCreatorGUI.ButtonListener();
-
 		buttonCREATE.addActionListener(buttonActionListener);
 		buttonCANCEL.addActionListener(buttonActionListener);
-
-
+		//SET VISIBLE
 		frame.setVisible(true);
 	}
 	/**
