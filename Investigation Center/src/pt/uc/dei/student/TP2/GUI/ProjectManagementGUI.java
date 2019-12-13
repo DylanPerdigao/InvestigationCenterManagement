@@ -44,6 +44,7 @@ public class ProjectManagementGUI{
 	private JButton buttonPersonASSIGN;
 	private JButton buttonPersonINFO;
 	private JButton buttonTaskINFO;
+	private JButton buttonAdvisorSET;
 
 	// List
 	private DefaultListModel<Task> listValuesTasks;
@@ -155,7 +156,7 @@ public class ProjectManagementGUI{
 		placeComponent(listScrollerTasks,4,6,2,2,0.5,10,100,10);
 		//TASK INFO
 		buttonTaskINFO = new JButton("Show Task Information");
-		placeComponent(buttonTaskINFO,6,6,1,2,0.5,0, 0, 10);
+		placeComponent(buttonTaskINFO,6,6,1,1,0.5,0, 0, 10);
 		/*
 		 * PEOPLE
 		 */
@@ -200,9 +201,12 @@ public class ProjectManagementGUI{
 
 			buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
 			placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);
+			
+			buttonAdvisorSET = new JButton("Set Advisor");
+			placeComponent(buttonAdvisorSET,6,4,1,1,0.5,0.5,0,0);
 
 			buttonPersonASSIGN = new JButton("Assign Member to Task");
-			placeComponent(buttonPersonASSIGN,6,4,1,1,0.5,0.5,0,0);
+			placeComponent(buttonPersonASSIGN,6,7,1,1,0.5,0.5,0,0);
 
 			buttonTaskCREATE = new JButton("Add Task");
 			placeComponent(buttonTaskCREATE,4,8,1,1,0.5,0, 0, 10);
