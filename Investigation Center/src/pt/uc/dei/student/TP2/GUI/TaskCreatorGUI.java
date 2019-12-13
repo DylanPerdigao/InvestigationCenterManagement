@@ -6,19 +6,11 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.Objects;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
-import pt.uc.dei.student.TP2.sourceCode.Design;
-import pt.uc.dei.student.TP2.sourceCode.Development;
-import pt.uc.dei.student.TP2.sourceCode.Documentation;
-import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
-import pt.uc.dei.student.TP2.sourceCode.Person;
-import pt.uc.dei.student.TP2.sourceCode.Task;
+import pt.uc.dei.student.TP2.sourceCode.*;
 
 /**
  * This class represent the advised students of a project (Bachelor and Master students)
@@ -33,21 +25,15 @@ public class TaskCreatorGUI{
 
 	// Constraints
 	private GridBagConstraints c = new GridBagConstraints();
+
 	// Buttons
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
-	// Label
-	private JLabel title;
-	private JLabel emptyLabel1;
-	private JLabel emptyLabel2;
-	private JLabel emptyLabel3;
-	private JLabel labelName;
-	private JLabel labelTaskType;
-	private JLabel labelBegin,labelEnd;
-	private JLabel labelDuration;
+
 	// Text
 	private JTextField textName;
 	private JTextField textDuration;
+
 	//Combo Box
 	private JComboBox<String> tasksTypeList;
 	private String[] tasksType = {"Documentation","Design","Development"};
@@ -59,11 +45,13 @@ public class TaskCreatorGUI{
 
 	private JFrame frame;
 	private InvestigationCenter investigationCenter;
+	private Project project;
 
-	public TaskCreatorGUI(JFrame frame, InvestigationCenter investigationCenter) {
+	public TaskCreatorGUI(JFrame frame, InvestigationCenter investigationCenter, Project project) {
 		super();
 		this.frame=frame;
 		this.investigationCenter=investigationCenter;
+		this.project=project;
 
 	}
 	public void initialize(){
@@ -78,7 +66,8 @@ public class TaskCreatorGUI{
 			years[y-1970]=String.valueOf(y);
 		}
 
-		title = new JLabel("Add a new Task");
+		// Label
+		JLabel title = new JLabel("Add a new Task");
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -89,7 +78,7 @@ public class TaskCreatorGUI{
 		c.gridwidth = 9;
 		frame.add(title, c);
 
-		emptyLabel1 = new JLabel("");
+		JLabel emptyLabel1 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 10;
 		c.weighty = 10;
@@ -99,7 +88,7 @@ public class TaskCreatorGUI{
 		c.gridheight = 1;
 		frame.add(emptyLabel1, c);
 
-		emptyLabel2 = new JLabel("");
+		JLabel emptyLabel2 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 10;
 		c.weighty = 10;
@@ -109,7 +98,7 @@ public class TaskCreatorGUI{
 		c.gridheight = 1;
 		frame.add(emptyLabel2, c);
 
-		emptyLabel3 = new JLabel("");
+		JLabel emptyLabel3 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -119,7 +108,7 @@ public class TaskCreatorGUI{
 		c.gridheight = 1;
 		frame.add(emptyLabel3, c);
 
-		labelName = new JLabel("Name");
+		JLabel labelName = new JLabel("Name");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -139,7 +128,7 @@ public class TaskCreatorGUI{
 		c.gridwidth = 6;
 		frame.add(textName, c);
 
-		labelTaskType = new JLabel("Task Type");
+		JLabel labelTaskType = new JLabel("Task Type");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -159,7 +148,7 @@ public class TaskCreatorGUI{
 		c.gridwidth = 1;
 		frame.add(tasksTypeList, c);
 
-		labelBegin = new JLabel("Begin Date");
+		JLabel labelBegin = new JLabel("Begin Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -199,7 +188,7 @@ public class TaskCreatorGUI{
 		c.gridwidth = 1;
 		frame.add(beginYearList, c);
 
-		labelEnd = new JLabel("End Date");
+		JLabel labelEnd = new JLabel("End Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -238,8 +227,8 @@ public class TaskCreatorGUI{
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(endYearList, c);
-		
-		labelDuration = new JLabel("Duration");
+
+		JLabel labelDuration = new JLabel("Duration");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -301,25 +290,38 @@ public class TaskCreatorGUI{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonCREATE){
 				try{
-					String name = textName.getText();
 					int duration = Integer.parseInt(textDuration.getText());
-					String strBegin = beginYearList.getSelectedItem()+"-"+ beginMonthList.getSelectedItem()+"-"+beginDayList.getSelectedItem();
-					LocalDate begin = LocalDate.parse(strBegin);
-					String strEnd = endYearList.getSelectedItem()+"-"+endMonthList.getSelectedItem()+"-"+endDayList.getSelectedItem();
-					LocalDate end = LocalDate.parse(strEnd);
-					Task task = null;
-					switch((String)tasksTypeList.getSelectedItem()) {
-						case "Documentation": 
-							task = new Documentation(name,begin, end, duration,new Person(),0);
-							break;
-						case "Design":
-							task = new Design(name,begin, end, duration,new Person(),0);
-							break;
-						case "Development":
-							task = new Development(name,begin, end, duration,new Person(),0);
-							break;
+					String name = textName.getText();
+					//maybe checkar estas proximas 2 linhas mais tarde
+					LocalDate begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
+					LocalDate end = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(endYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endDayList.getSelectedItem())));
+					if (end.isAfter(begin)) {
+						Task task=null;
+						//checkar o switch
+						switch ((String) Objects.requireNonNull(tasksTypeList.getSelectedItem())) {
+							case "Documentation":
+								task = new Documentation(name, begin, end, duration, new Person(), 0);
+								break;
+							case "Design":
+								task = new Design(name, begin, end, duration, new Person(), 0);
+								break;
+							case "Development":
+								task = new Development(name, begin, end, duration, new Person(), 0);
+								break;
+						}
+
+						project.createTask(task);
+
+						close();
+						InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, investigationCenter);
+						investigationCenterGUI.initialize();
 					}
-					//TODO ADD AND MUDA DE FRAME?
+					else{
+						JOptionPane.showMessageDialog(null, "Insert an end date greater than the starter","", JOptionPane.PLAIN_MESSAGE);
+					}
+
+				} catch (NumberFormatException nfe){
+					JOptionPane.showMessageDialog(null, "Insert only numbers in the duration box","", JOptionPane.PLAIN_MESSAGE);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

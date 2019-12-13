@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -30,9 +31,12 @@ import pt.uc.dei.student.TP2.sourceCode.*;
  */
 
 public class InvestigationCenterGUI {
-	
+
+	//Formatter
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 	//Constraints
-	GridBagConstraints c = new GridBagConstraints();
+	private GridBagConstraints c = new GridBagConstraints();
 	// Buttons
 	private JButton buttonProjectCREATE;
 	private JButton buttonProjectREMOVE;
@@ -40,18 +44,11 @@ public class InvestigationCenterGUI {
 	private JButton buttonREMOVEPeopleFromProject;
 	private JButton buttonENTER;
 	private JButton buttonINFO;
-	// Label
-	JLabel title;
-	JLabel emptyLabel1;
-	JLabel emptyLabel2;
-	JLabel emptyLabel3;
-	JLabel labelPeople;
-	JLabel labelProjects;
-	JLabel labelProjectMembers;
+	private JLabel labelProjectMembers;
 	// List
-	DefaultListModel<Person> listValuesPeople;
+	private DefaultListModel<Person> listValuesPeople;
 	private DefaultListModel<Person> listValuesProjectMembers;
-	DefaultListModel<Project> listValuesProjects;
+	private DefaultListModel<Project> listValuesProjects;
 	private JList<Person> listPeople;
 	private JList<Person> listProjectMembers;
 	private JList<Project> listProjects;
@@ -89,8 +86,9 @@ public class InvestigationCenterGUI {
 		listPeople.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjectMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		title = new JLabel(IC.getName());
+
+		// Label
+		JLabel title = new JLabel(IC.getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -102,7 +100,7 @@ public class InvestigationCenterGUI {
 		frame.add(title, c);
 
 
-		emptyLabel1 = new JLabel("");
+		JLabel emptyLabel1 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -112,7 +110,7 @@ public class InvestigationCenterGUI {
 		c.gridheight= 1;
 		frame.add(emptyLabel1, c);
 
-		emptyLabel2 = new JLabel("");
+		JLabel emptyLabel2 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -125,8 +123,8 @@ public class InvestigationCenterGUI {
 		/*
 		 * PEOPLE
 		 */
-		
-		emptyLabel3 = new JLabel("");
+
+		JLabel emptyLabel3 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -136,8 +134,8 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(emptyLabel3, c);
-		
-		labelPeople = new JLabel("People List");
+
+		JLabel labelPeople = new JLabel("People List");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -216,8 +214,8 @@ public class InvestigationCenterGUI {
 		c.gridheight = 1;
 		c.gridwidth = 1;
 		frame.add(buttonREMOVEPeopleFromProject, c);
-		
-		labelProjects = new JLabel("Project Members");
+
+		JLabel labelProjects = new JLabel("Project Members");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -356,13 +354,18 @@ public class InvestigationCenterGUI {
 			else if(e.getSource() == buttonADDPeopleToProject) {
 				try {
 					if (listPeople.getSelectedValue() != null && listProjects.getSelectedValue() != null) {
-						Project project = listProjects.getSelectedValue();
-						IC.removeProject(project);
-						project.addMember(listPeople.getSelectedValue());
-						IC.addProject(project);
-						listValuesProjectMembers.removeAllElements();
-						listValuesProjectMembers.addAll(project.getMembers());
-						update();
+						if (listProjects.getSelectedValue().getMembers().contains(listPeople.getSelectedValue())) {
+							JOptionPane.showMessageDialog(null, "This person already belongs to this project","", JOptionPane.PLAIN_MESSAGE);
+						}
+						else{
+							Project project = listProjects.getSelectedValue();
+							IC.removeProject(project);
+							project.addMember(listPeople.getSelectedValue());
+							IC.addProject(project);
+							listValuesProjectMembers.removeAllElements();
+							listValuesProjectMembers.addAll(project.getMembers());
+							update();
+						}
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -370,10 +373,11 @@ public class InvestigationCenterGUI {
 			}
 			else if(e.getSource() == buttonREMOVEPeopleFromProject) {
 				try {
-					if (listProjects.getSelectedValue() != null) {
-						ProjectManagementGUI projectManagementGUI = new ProjectManagementGUI(frame, IC, listProjects.getSelectedValue());
-						close();
-						projectManagementGUI.initialize();
+					if (listProjects.getSelectedValue() != null && listProjectMembers.getSelectedValue() != null) {
+						listProjects.getSelectedValue().removeMember(listProjectMembers.getSelectedValue());
+
+						listValuesProjectMembers.removeAllElements();
+						listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -387,22 +391,25 @@ public class InvestigationCenterGUI {
 					if(p instanceof Bachelor) {
 						Bachelor bachelorStudent = (Bachelor) p;
 						message += "\nBACHELOR STUDENT";
-						message += "\nGrant begin:\t"+bachelorStudent.getGrantBegin();
-						message += "\nGrant end:\t"+bachelorStudent.getGrantEnd();
+						message += "\nGrant begin:\t"+bachelorStudent.getGrantBegin().format(formatter);
+						message += "\nGrant end:\t"+bachelorStudent.getGrantEnd().format(formatter);
 						message += "\nCost per month:\t"+bachelorStudent.getCost()+"€";
-					}if(p instanceof Master) {
+					}
+					else if(p instanceof Master) {
 						Master masterStudent = (Master) p;
 						message += "\nMASTER STUDENT";
-						message += "\nGrant begin:\t"+masterStudent.getGrantBegin();
-						message += "\nGrant end:\t"+masterStudent.getGrantEnd();
+						message += "\nGrant begin:\t"+masterStudent.getGrantBegin().format(formatter);
+						message += "\nGrant end:\t"+masterStudent.getGrantEnd().format(formatter);
 						message += "\nCost per month:\t"+masterStudent.getCost()+"€";
-					}if(p instanceof PhD) {
+					}
+					else if(p instanceof PhD) {
 						PhD PhDStudent = (PhD) p;
 						message += "\nPhD STUDENT";
-						message += "\nGrant begin:\t"+PhDStudent.getGrantBegin();
-						message += "\nGrant end:\t"+PhDStudent.getGrantEnd();
+						message += "\nGrant begin:\t"+PhDStudent.getGrantBegin().format(formatter);
+						message += "\nGrant end:\t"+PhDStudent.getGrantEnd().format(formatter);
 						message += "\nCost per month:\t"+PhDStudent.getCost()+"€";
-					}if(p instanceof Teacher) {
+					}
+					else if(p instanceof Teacher) {
 						Teacher teacher = (Teacher) p;
 						message += "\nTEACHER";
 						message += "\nMecanographic Number:\t"+teacher.getMecanographicNumber();
@@ -426,14 +433,6 @@ public class InvestigationCenterGUI {
 			if(e.getSource() == listProjects) {
 				listValuesProjectMembers.removeAllElements();
 				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
-				//era o que eu tinha na minha
-
-				/*listProjectMembers.removeAll();
-				listScrollerProjectMembers.removeAll();
-				listValuesProjectMembers.addAll(listProjects.getSelectedValue().getMembers());
-				//listProjectMembers = new.addAll(listValuesProjectMembers);
-				listScrollerProjectMembers.add(listProjectMembers);*/
-				//TODO TIPO APAGAR E ATUALIZAR ESSA LISTA CADA VEZ QUE SE MUDA DE SELECAO NO PROJETO
 			}
 		}
 

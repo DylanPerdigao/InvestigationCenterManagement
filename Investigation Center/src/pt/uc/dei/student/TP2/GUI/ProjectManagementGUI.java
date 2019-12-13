@@ -39,12 +39,14 @@ import pt.uc.dei.student.TP2.sourceCode.Task;
 public class ProjectManagementGUI{
 	//Constraints
 	private GridBagConstraints c = new GridBagConstraints();
+
 	// Buttons
 	private JButton buttonTaskCREATE;
 	private JButton buttonTaskREMOVE;
 	private JButton buttonTaskSTATUS;
 	private JButton buttonRETURN;
 	private JButton buttonProjectEND;
+
 	private JButton buttonPRINCIPALINVESTIGATOR;
 	private JButton buttonPersonASSIGN;
 	private JButton buttonPersonINFO;
@@ -53,12 +55,8 @@ public class ProjectManagementGUI{
 	JLabel title;
 	JLabel labelPRINCIPALINVESTIGATOR;
 	JLabel labelCOST;
+
 	// List
-	private DefaultListModel<Task> listValuesTasks;
-	private DefaultListModel<Task> listValuesUnstartedTasks;
-	private DefaultListModel<Task> listValuesUnstartedTasksIET;
-	private DefaultListModel<Task> listValuesCompletedTasks;
-	private DefaultListModel<Person> listValuesMembers;
 	private JList<Task> listTasks;
 	private JList<Task> listUnstartedTasks;
 	private JList<Task> listUnstartedTasksIET;
@@ -80,26 +78,26 @@ public class ProjectManagementGUI{
 		setInvestigationCenter(investigationCenter);
 		setProject(project);
 		// List UNSTARTED TASK
-		listValuesUnstartedTasks = new DefaultListModel<Task>();
+		DefaultListModel<Task> listValuesUnstartedTasks = new DefaultListModel<Task>();
 		listUnstartedTasks = new JList<Task>(listValuesUnstartedTasks);
 		listScrollerUnstartedTasks = new JScrollPane(listUnstartedTasks); 
 		// List UNSTARTED TASK IN ESTIMATED TIME
-		listValuesUnstartedTasksIET = new DefaultListModel<Task>();
+		DefaultListModel<Task> listValuesUnstartedTasksIET = new DefaultListModel<Task>();
 		listValuesUnstartedTasksIET.addAll(project.getUncompletedTasksIET());
 		listUnstartedTasksIET = new JList<Task>(listValuesUnstartedTasksIET);
 		listScrollerUnstartedTasksIET = new JScrollPane(listUnstartedTasksIET); 
 		// List COMPLETED TASK
-		listValuesCompletedTasks = new DefaultListModel<Task>();
+		DefaultListModel<Task> listValuesCompletedTasks = new DefaultListModel<Task>();
 		listValuesCompletedTasks.addAll(project.getCompletedTasks());
 		listCompletedTasks = new JList<Task>(listValuesCompletedTasks);
 		listScrollerCompletedTasks = new JScrollPane(listCompletedTasks); 
 		// List TASK
-		listValuesTasks = new DefaultListModel<Task>();
+		DefaultListModel<Task> listValuesTasks = new DefaultListModel<Task>();
 		listValuesTasks.addAll(project.getTasks());
 		listTasks = new JList<Task>(listValuesTasks);
 		listScrollerTasks = new JScrollPane(listTasks); 
 		// List Members
-		listValuesMembers = new DefaultListModel<Person>();
+		DefaultListModel<Person> listValuesMembers = new DefaultListModel<Person>();
 		listValuesMembers.addAll(project.getMembers());
 		listMembers = new JList<Person>(listValuesMembers);
 		listScrollerMembers = new JScrollPane(listMembers); 
@@ -110,7 +108,8 @@ public class ProjectManagementGUI{
 
 		getFrame().setLayout(new GridBagLayout());
 
-		title = new JLabel(getProject().getName());
+		// Label
+		JLabel title = new JLabel(getProject().getName());
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -148,12 +147,12 @@ public class ProjectManagementGUI{
 		placeComponent(listScrollerCompletedTasks,2,11,1,1,0.5,5,100, 10);
 		
 		placeComponent(new JLabel("Principal Investigator"),4,1,1,1,0.5,0.5,0, 0);
-		labelPRINCIPALINVESTIGATOR = new JLabel("NO PRINCIPAL INVESTIGATOR");
+		JLabel labelPRINCIPALINVESTIGATOR = new JLabel("NO PRINCIPAL INVESTIGATOR");
 		placeComponent(labelPRINCIPALINVESTIGATOR,5,1,1,1,0.5,0.5,0,0);
-		
-		buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
+
+		JButton buttonPRINCIPALINVESTIGATOR = new JButton("Set Principal Investigator");
 		placeComponent(buttonPRINCIPALINVESTIGATOR,6,1,1,1,0.5,0.5,0,0);
-		
+
 		placeComponent(new JLabel("Members"),4,2,2,1,0.5,0.5,0,0);
 		listScrollerMembers = new JScrollPane(listMembers);
 		placeComponent(listScrollerMembers,4,3,2,2,0.5,10,100,10);
@@ -217,15 +216,18 @@ public class ProjectManagementGUI{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()== buttonTaskCREATE){
 				try{
-					//não é importante para ja
-					System.out.println("não é importante para ja\n");
+					close();
+					TaskCreatorGUI taskCreatorGUI = new TaskCreatorGUI(frame,investigationCenter,project);
+					taskCreatorGUI.initialize();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}else if(e.getSource() == buttonTaskREMOVE) {
 				try {
-
-					//frame.dispose();
+					if(listTasks.getSelectedValue()!=null){
+						project.deleteTask(listTasks.getSelectedValue());
+						//update();
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

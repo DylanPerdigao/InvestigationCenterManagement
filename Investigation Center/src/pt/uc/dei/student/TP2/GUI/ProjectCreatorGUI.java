@@ -6,16 +6,9 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.Objects;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import pt.uc.dei.student.TP2.sourceCode.InvestigationCenter;
 import pt.uc.dei.student.TP2.sourceCode.Person;
@@ -33,29 +26,21 @@ import pt.uc.dei.student.TP2.sourceCode.Teacher;
 
 public class ProjectCreatorGUI{
 
-	private static final long serialVersionUID = 1L;
 	// Constraints
 	private GridBagConstraints c = new GridBagConstraints();
+
 	// Buttons
 	private JButton buttonCREATE;
 	private JButton buttonCANCEL;
-	// Label
-	JLabel title;
-	JLabel emptyLabel1;
-	JLabel emptyLabel2;
-	JLabel emptyLabel3;
-	JLabel labelName;
-	JLabel labelAcronym;
-	JLabel labelBegin;
-	JLabel labelEnd;
-	JLabel labelDuration;
+
 	// Text
-	JTextField textName;
-	JTextField textAcronym;
-	JTextField textDuration;
+	private JTextField textName;
+	private JTextField textAcronym;
+	private JTextField textDuration;
+
 	//ComboBox
-	JComboBox<String> beginDayList,beginMonthList,beginYearList;
-	JComboBox<String> endDayList,endMonthList,endYearList;
+	private JComboBox<String> beginDayList,beginMonthList,beginYearList;
+	private JComboBox<String> endDayList,endMonthList,endYearList;
 	private String[] days = new String[31];
 	private String[] months = new String[12];
 	private String[] years = new String[LocalDate.now().getYear()-1970+1];
@@ -80,8 +65,9 @@ public class ProjectCreatorGUI{
 		for(int y=1970;y<=LocalDate.now().getYear();y++) {
 			years[y-1970]=String.valueOf(y);
 		}
-		
-		title = new JLabel("Add a new Project");
+
+		// Label
+		JLabel title = new JLabel("Add a new Project");
 		Font font = new Font("impact", 0, 50);
 		title.setFont(font);
 		c.fill = GridBagConstraints.PAGE_START;
@@ -92,7 +78,7 @@ public class ProjectCreatorGUI{
 		c.gridwidth = 9;
 		frame.add(title, c);
 
-		emptyLabel1 = new JLabel("");
+		JLabel emptyLabel1 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 10;
 		c.weighty = 10;
@@ -102,7 +88,7 @@ public class ProjectCreatorGUI{
 		c.gridheight = 1;
 		frame.add(emptyLabel1, c);
 
-		emptyLabel2 = new JLabel("");
+		JLabel emptyLabel2 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 10;
 		c.weighty = 10;
@@ -112,7 +98,7 @@ public class ProjectCreatorGUI{
 		c.gridheight = 1;
 		frame.add(emptyLabel2, c);
 
-		emptyLabel3 = new JLabel("");
+		JLabel emptyLabel3 = new JLabel("");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 10;
@@ -122,7 +108,7 @@ public class ProjectCreatorGUI{
 		c.gridheight = 1;
 		frame.add(emptyLabel3, c);
 
-		labelName = new JLabel("Name");
+		JLabel labelName = new JLabel("Name");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -142,7 +128,7 @@ public class ProjectCreatorGUI{
 		c.gridwidth = 6;
 		frame.add(textName, c);
 
-		labelAcronym = new JLabel("Acronym");
+		JLabel labelAcronym = new JLabel("Acronym");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -162,7 +148,7 @@ public class ProjectCreatorGUI{
 		c.gridwidth = 1;
 		frame.add(textAcronym, c);
 
-		labelBegin = new JLabel("Begin Date");
+		JLabel labelBegin = new JLabel("Begin Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -202,7 +188,7 @@ public class ProjectCreatorGUI{
 		c.gridwidth = 1;
 		frame.add(beginYearList, c);
 
-		labelEnd = new JLabel("End Date");
+		JLabel labelEnd = new JLabel("End Date");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -242,7 +228,7 @@ public class ProjectCreatorGUI{
 		c.gridwidth = 1;
 		frame.add(endYearList, c);
 
-		labelDuration = new JLabel("Duration");
+		JLabel labelDuration = new JLabel("Duration");
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
@@ -305,15 +291,27 @@ public class ProjectCreatorGUI{
 			if(e.getSource()== buttonCREATE){
 				try{
 					if (!textName.getText().equals("") && !textAcronym.getText().equals("") && !textDuration.getText().equals("")) {
-						String strBegin = beginYearList.getSelectedItem() + "-" + beginMonthList.getSelectedItem() + "-" + beginDayList.getSelectedItem();
-						LocalDate begin = LocalDate.parse(strBegin);
-						String strEnd = endYearList.getSelectedItem() + "-" + endMonthList.getSelectedItem() + "-" + endDayList.getSelectedItem();
-						LocalDate end = LocalDate.parse(strEnd);
 						int dur= Integer.parseInt(textDuration.getText());
-						Project project = new Project(textName.getText(), textAcronym.getText(), begin, end, dur,null,null,null,false);
-						investigationCenter.addProject(project);
+						//maybe chekar estas proximas 2 linhas mais tarde
+						LocalDate begin = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(beginYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(beginDayList.getSelectedItem())));
+						LocalDate end = LocalDate.of(Integer.parseInt((String) Objects.requireNonNull(endYearList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endMonthList.getSelectedItem())),Integer.parseInt((String) Objects.requireNonNull(endDayList.getSelectedItem())));
+
+						if (end.isAfter(begin)) {
+							Project project = new Project(textName.getText(), textAcronym.getText(), begin, end, dur, null, null, null, false);
+							investigationCenter.addProject(project);
+
+
+							InvestigationCenterGUI investigationCenterGUI = new InvestigationCenterGUI(frame, investigationCenter);
+							close();
+							investigationCenterGUI.initialize();
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Insert an end date greater than the starter","", JOptionPane.PLAIN_MESSAGE);
+						}
 					}
-				} catch (Exception ex) {
+				} catch (NumberFormatException nfe){
+					JOptionPane.showMessageDialog(null, "Insert only numbers in the duration box","", JOptionPane.PLAIN_MESSAGE);
+				}catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
