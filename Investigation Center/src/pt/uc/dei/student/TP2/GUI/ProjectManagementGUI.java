@@ -502,25 +502,37 @@ public class ProjectManagementGUI{
 				else if(e.getSource() == buttonTaskUPDATE) {
 					try {
 						if (listTasks.getSelectedValue()!=null) {
-							if (listTasks.getSelectedValue().getStatus()==100) {
-								String input = JOptionPane.showInputDialog("Update Conclusion of " + listTasks.getSelectedValue().getName());
-								if (input != null) {
-									double status = Double.parseDouble(input);
-									if (status < 0 || status > 100) {
-										JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%", "Error", JOptionPane.PLAIN_MESSAGE);
-									} else {
-										if (status == 100) {
-											listTasks.getSelectedValue().setEndDate(LocalDate.now());
-											listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
+							//is selected
+							if(listTasks.getSelectedValue().getResponsible()!=null){
+								//has responsible
+								if (listTasks.getSelectedValue().getStatus() < 100) {
+									//isn't completed
+									String input = JOptionPane.showInputDialog("Update Conclusion of " + listTasks.getSelectedValue().getName());
+									if (input != null) {
+										//has input
+										double status = Double.parseDouble(input);
+										if (status < 0 || status > 100) {
+											JOptionPane.showMessageDialog(null, "Invalid input!\nStatus should be from 0% to 100%", "Error", JOptionPane.PLAIN_MESSAGE);
 										}
-										listTasks.getSelectedValue().setStatus(status);
-										update();
+										else {
+											if (status == 100) {
+												listTasks.getSelectedValue().setEndDate(LocalDate.now());
+												listTasks.getSelectedValue().getResponsible().removeTask(listTasks.getSelectedValue());
+											}
+											listTasks.getSelectedValue().setStatus(status);
+											update();
+										}
 									}
-								} else {
-									JOptionPane.showMessageDialog(null, "Nothing detected on input.", "Error", JOptionPane.PLAIN_MESSAGE);
+									else {
+										JOptionPane.showMessageDialog(null, "Nothing detected on input.", "Error", JOptionPane.PLAIN_MESSAGE);
+									}
 								}
-							} else {
-								JOptionPane.showMessageDialog(null, "Task is already completed!", "Error", JOptionPane.PLAIN_MESSAGE);
+								else {
+									JOptionPane.showMessageDialog(null, "Task is already completed!", "Error", JOptionPane.PLAIN_MESSAGE);
+								}
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Task has no responsible!", "Error", JOptionPane.PLAIN_MESSAGE);
 							}
 						}
 						else{
