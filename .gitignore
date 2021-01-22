@@ -1,8 +1,12 @@
 
-Icon
 *.bak_000f
-Icon
+*.obj
+*.DS_Store
+*.settings
+*.project
+*.idea
+*.classpath
 Icon?
-Esquema UML/.Projeto CISUC.vpp.lck
-Investigation Center/.DS_Store
-Investigation Center/ressources/.DS_Store
+Documentos Projecto/*
+
+
