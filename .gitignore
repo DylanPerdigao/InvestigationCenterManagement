@@ -6,4 +6,6 @@
 *.project
 *.idea
 *.classpath
+*.iml
+*.eml
 Icon?
